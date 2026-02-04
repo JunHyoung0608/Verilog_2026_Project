@@ -7,6 +7,9 @@ set script_path [info script]
 
 # 3. Change the extension from .tcl to .wcfg
 set wcfg_file [string map {.tcl .wcfg} $script_path]
+if {[current_wave_config] != ""} {
+    close_sim_wave_config
+}
 
 # 4. Check if the matching .wcfg exists
 if { [file exists $wcfg_file] } {
