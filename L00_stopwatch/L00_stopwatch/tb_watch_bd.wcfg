@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1999990fs"></ZoomStartTime>
-      <ZoomEndTime time="2000003fs"></ZoomEndTime>
-      <Cursor1Time time="1999994fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="17869fs"></ZoomEndTime>
+      <Cursor1Time time="127fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="260"></NameColumnWidth>
-      <ValueColumnWidth column_width="126"></ValueColumnWidth>
+      <ValueColumnWidth column_width="110"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="11" />
+   <WVObjectSize size="7" />
    <wvobject fp_name="/tb_watch/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -44,25 +44,10 @@
       <obj_property name="ElementShortName">btn_l</obj_property>
       <obj_property name="ObjectShortName">btn_l</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_watch/sw" type="array">
-      <obj_property name="ElementShortName">sw[15:0]</obj_property>
-      <obj_property name="ObjectShortName">sw[15:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_watch/fnd_digit" type="array">
-      <obj_property name="ElementShortName">fnd_digit[3:0]</obj_property>
-      <obj_property name="ObjectShortName">fnd_digit[3:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_watch/fnd_data" type="array">
-      <obj_property name="ElementShortName">fnd_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">fnd_data[7:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_watch/led" type="array">
-      <obj_property name="ElementShortName">led[2:0]</obj_property>
-      <obj_property name="ObjectShortName">led[2:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="group23" type="group">
-      <obj_property name="label">BD</obj_property>
+   <wvobject fp_name="group285" type="group">
+      <obj_property name="label">bd</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_watch/u_DUT/U_BD_RUNSTOP/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>

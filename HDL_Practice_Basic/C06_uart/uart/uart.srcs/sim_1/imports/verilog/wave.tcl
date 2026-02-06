@@ -2,7 +2,7 @@
 # 1. USER CONFIGURATION SECTION
 # ==========================================================
 # EDIT THIS: Change to "tb_watch_bd.wcfg" or "tb_watch_data.wcfg"
-set TARGET_WCFG "tb_watch_data.wcfg" 
+set TARGET_WCFG "tb_uart_tx_behav.wcfg" 
 set RUN_TIME "1000ns"
 
 # ==========================================================

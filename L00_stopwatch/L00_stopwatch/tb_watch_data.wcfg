@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_watch_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_watch" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="5fs"></ZoomEndTime>
+      <Cursor1Time time="1fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="260"></NameColumnWidth>
+      <ValueColumnWidth column_width="122"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="7" />
+   <wvobject fp_name="/tb_watch/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_watch/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_watch/btn_r" type="logic">
+      <obj_property name="ElementShortName">btn_r</obj_property>
+      <obj_property name="ObjectShortName">btn_r</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_watch/btn_d" type="logic">
+      <obj_property name="ElementShortName">btn_d</obj_property>
+      <obj_property name="ObjectShortName">btn_d</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_watch/btn_c" type="logic">
+      <obj_property name="ElementShortName">btn_c</obj_property>
+      <obj_property name="ObjectShortName">btn_c</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_watch/btn_l" type="logic">
+      <obj_property name="ElementShortName">btn_l</obj_property>
+      <obj_property name="ObjectShortName">btn_l</obj_property>
+   </wvobject>
+   <wvobject fp_name="group308" type="group">
+      <obj_property name="label">DATA_PATH</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_down_up" type="logic">
+         <obj_property name="ElementShortName">i_down_up</obj_property>
+         <obj_property name="ObjectShortName">i_down_up</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_btn_select" type="logic">
+         <obj_property name="ElementShortName">i_btn_select</obj_property>
+         <obj_property name="ObjectShortName">i_btn_select</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_write_digit" type="array">
+         <obj_property name="ElementShortName">i_write_digit[1:0]</obj_property>
+         <obj_property name="ObjectShortName">i_write_digit[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_read" type="logic">
+         <obj_property name="ElementShortName">i_read</obj_property>
+         <obj_property name="ObjectShortName">i_read</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_clear" type="logic">
+         <obj_property name="ElementShortName">i_clear</obj_property>
+         <obj_property name="ObjectShortName">i_clear</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_sw" type="array">
+         <obj_property name="ElementShortName">i_sw[15:0]</obj_property>
+         <obj_property name="ObjectShortName">i_sw[15:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_run_stop" type="logic">
+         <obj_property name="ElementShortName">i_run_stop</obj_property>
+         <obj_property name="ObjectShortName">i_run_stop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i_display_sel" type="array">
+         <obj_property name="ElementShortName">i_display_sel[1:0]</obj_property>
+         <obj_property name="ObjectShortName">i_display_sel[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/o_msec" type="array">
+         <obj_property name="ElementShortName">o_msec[6:0]</obj_property>
+         <obj_property name="ObjectShortName">o_msec[6:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/o_sec" type="array">
+         <obj_property name="ElementShortName">o_sec[5:0]</obj_property>
+         <obj_property name="ObjectShortName">o_sec[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/o_min" type="array">
+         <obj_property name="ElementShortName">o_min[5:0]</obj_property>
+         <obj_property name="ObjectShortName">o_min[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/o_hour" type="array">
+         <obj_property name="ElementShortName">o_hour[4:0]</obj_property>
+         <obj_property name="ObjectShortName">o_hour[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/w_tick_100hz" type="logic">
+         <obj_property name="ElementShortName">w_tick_100hz</obj_property>
+         <obj_property name="ObjectShortName">w_tick_100hz</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/w_sec_tick" type="logic">
+         <obj_property name="ElementShortName">w_sec_tick</obj_property>
+         <obj_property name="ObjectShortName">w_sec_tick</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/w_min_tick" type="logic">
+         <obj_property name="ElementShortName">w_min_tick</obj_property>
+         <obj_property name="ObjectShortName">w_min_tick</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/w_hour_tick" type="logic">
+         <obj_property name="ElementShortName">w_hour_tick</obj_property>
+         <obj_property name="ObjectShortName">w_hour_tick</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/c_msec" type="array">
+         <obj_property name="ElementShortName">c_msec[6:0]</obj_property>
+         <obj_property name="ObjectShortName">c_msec[6:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/c_sec" type="array">
+         <obj_property name="ElementShortName">c_sec[5:0]</obj_property>
+         <obj_property name="ObjectShortName">c_sec[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/c_min" type="array">
+         <obj_property name="ElementShortName">c_min[5:0]</obj_property>
+         <obj_property name="ObjectShortName">c_min[5:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/c_hour" type="array">
+         <obj_property name="ElementShortName">c_hour[4:0]</obj_property>
+         <obj_property name="ObjectShortName">c_hour[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/r_setting_data" type="array">
+         <obj_property name="ElementShortName">r_setting_data[23:0]</obj_property>
+         <obj_property name="ObjectShortName">r_setting_data[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/mem_rdata" type="array">
+         <obj_property name="ElementShortName">mem_rdata[23:0]</obj_property>
+         <obj_property name="ObjectShortName">mem_rdata[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/mux_out" type="array">
+         <obj_property name="ElementShortName">mux_out[23:0]</obj_property>
+         <obj_property name="ObjectShortName">mux_out[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/sw_bottum_data" type="array">
+         <obj_property name="ElementShortName">sw_bottum_data[6:0]</obj_property>
+         <obj_property name="ObjectShortName">sw_bottum_data[6:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/sw_top_data" type="array">
+         <obj_property name="ElementShortName">sw_top_data[6:0]</obj_property>
+         <obj_property name="ObjectShortName">sw_top_data[6:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/sum_time_data" type="array">
+         <obj_property name="ElementShortName">sum_time_data[23:0]</obj_property>
+         <obj_property name="ObjectShortName">sum_time_data[23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/mem" type="array">
+         <obj_property name="ElementShortName">mem[0:7][23:0]</obj_property>
+         <obj_property name="ObjectShortName">mem[0:7][23:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/count" type="array">
+         <obj_property name="ElementShortName">count[2:0]</obj_property>
+         <obj_property name="ObjectShortName">count[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/next_count" type="array">
+         <obj_property name="ElementShortName">next_count[2:0]</obj_property>
+         <obj_property name="ObjectShortName">next_count[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/i" type="array">
+         <obj_property name="ElementShortName">i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/mux_sel" type="array">
+         <obj_property name="ElementShortName">mux_sel[1:0]</obj_property>
+         <obj_property name="ObjectShortName">mux_sel[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_watch/u_DUT/U_DATAPATH/w_set_time_mode" type="logic">
+         <obj_property name="ElementShortName">w_set_time_mode</obj_property>
+         <obj_property name="ObjectShortName">w_set_time_mode</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
