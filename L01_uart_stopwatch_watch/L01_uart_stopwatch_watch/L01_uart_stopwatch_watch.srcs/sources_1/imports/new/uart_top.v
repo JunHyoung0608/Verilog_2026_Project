@@ -75,16 +75,6 @@ module uart_rx (
         end
     end
 
-    // //move state
-    // always @(*) begin
-    //     n_state = c_state;
-    //     case (c_state)
-    //         // IDLE:  if (b_tick && (rx == 1'b0)) n_state = START;
-    //         // START: if (b_tick && (b_tick_cnt_reg == 7)) n_state = DATA;
-    //         // DATA:  if (b_tick && (bit_cnt_reg == 4'd9)) n_state = STOP;
-    //         // STOP:  if (b_tick && (b_tick_cnt_reg == 5'd16)) n_state = IDLE;
-    //     endcase
-    // end
 
     //next, ouput
     always @(*) begin
@@ -106,9 +96,9 @@ module uart_rx (
             START: begin
                 if (b_tick) begin
                     if (b_tick_cnt_reg == 5'd7) begin
-                        bit_cnt_next = bit_cnt_reg + 3'b1;
                         buf_next = {rx, buf_reg[7:1]};
                         n_state = DATA;
+                        b_tick_cnt_next = 5'b0;
                     end else begin
                         b_tick_cnt_next = b_tick_cnt_reg + 1;
                     end
@@ -119,7 +109,7 @@ module uart_rx (
                     if (b_tick_cnt_reg == 5'd15) begin
                         b_tick_cnt_next = 5'b0;
                         buf_next = {rx, buf_reg[7:1]};
-                        if (bit_cnt_reg == 4'd8)begin
+                        if (bit_cnt_reg == 4'd7)begin
                             n_state = STOP;
                         end else begin
                             bit_cnt_next = bit_cnt_reg + 3'b1;

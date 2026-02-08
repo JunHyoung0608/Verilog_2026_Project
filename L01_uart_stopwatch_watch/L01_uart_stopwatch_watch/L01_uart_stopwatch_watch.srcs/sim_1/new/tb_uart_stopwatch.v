@@ -80,7 +80,7 @@ module tb_uart_stopwatch ();
         btn_u = 0;
         btn_d = 0;
         sw = 3'b0;
-        test_data = 8'h31;  //ascii = 0
+        test_data = 8'h52;
 
         #10;
         rst = 0;
@@ -92,12 +92,27 @@ module tb_uart_stopwatch ();
 
         #(BAUD_REPIOD);
         uart_rx = 0;
+        uart_sender();      //ascii = R
+        #(BAUD_REPIOD);
+        
+        #(100_000_000);
+        test_data = 8'h44;  //ascii = D
+        uart_rx = 0;
         uart_sender();
         #(BAUD_REPIOD);
-        // btn_r = 1;
-        // #(BAUD_REPIOD);
-        // btn_r = 0;
-        // stop
+
+        #(100_000_000);
+        test_data = 8'h55; //ascii = U
+        uart_rx = 0;
+        uart_sender();
+        #(BAUD_REPIOD);
+
+        #(100_000_000);
+        test_data = 8'h4c; //ascii = L
+        uart_rx = 0;
+        uart_sender();
+        #(BAUD_REPIOD);
+
         #(BAUD_REPIOD);
         $stop;
     end
