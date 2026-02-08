@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_uart_stopwatch_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_uart_stopwatch" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="1,458.300001 us"></ZoomEndTime>
+      <Cursor1Time time="1,458.300000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="276"></NameColumnWidth>
+      <ValueColumnWidth column_width="100"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="5" />
+   <wvobject fp_name="group47" type="group">
+      <obj_property name="label">DUT</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_uart_stopwatch/i" type="array">
+         <obj_property name="ElementShortName">i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/j" type="array">
+         <obj_property name="ElementShortName">j[31:0]</obj_property>
+         <obj_property name="ObjectShortName">j[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/test_data" type="array">
+         <obj_property name="ElementShortName">test_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">test_data[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/btn_r" type="logic">
+         <obj_property name="ElementShortName">btn_r</obj_property>
+         <obj_property name="ObjectShortName">btn_r</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/btn_l" type="logic">
+         <obj_property name="ElementShortName">btn_l</obj_property>
+         <obj_property name="ObjectShortName">btn_l</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/btn_u" type="logic">
+         <obj_property name="ElementShortName">btn_u</obj_property>
+         <obj_property name="ObjectShortName">btn_u</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/btn_d" type="logic">
+         <obj_property name="ElementShortName">btn_d</obj_property>
+         <obj_property name="ObjectShortName">btn_d</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/sw" type="array">
+         <obj_property name="ElementShortName">sw[2:0]</obj_property>
+         <obj_property name="ObjectShortName">sw[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/uart_rx" type="logic">
+         <obj_property name="ElementShortName">uart_rx</obj_property>
+         <obj_property name="ObjectShortName">uart_rx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/fnd_digit" type="array">
+         <obj_property name="ElementShortName">fnd_digit[3:0]</obj_property>
+         <obj_property name="ObjectShortName">fnd_digit[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/fnd_data" type="array">
+         <obj_property name="ElementShortName">fnd_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">fnd_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/led" type="array">
+         <obj_property name="ElementShortName">led[2:0]</obj_property>
+         <obj_property name="ObjectShortName">led[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/uart_tx" type="logic">
+         <obj_property name="ElementShortName">uart_tx</obj_property>
+         <obj_property name="ObjectShortName">uart_tx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/BAUD" type="array">
+         <obj_property name="ElementShortName">BAUD[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BAUD[31:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/BAUD_REPIOD" type="array">
+         <obj_property name="ElementShortName">BAUD_REPIOD[31:0]</obj_property>
+         <obj_property name="ObjectShortName">BAUD_REPIOD[31:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group55" type="group">
+      <obj_property name="label">DECODER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/i_rx_data" type="array">
+         <obj_property name="ElementShortName">i_rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">i_rx_data[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/i_rx_done" type="logic">
+         <obj_property name="ElementShortName">i_rx_done</obj_property>
+         <obj_property name="ObjectShortName">i_rx_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_clear" type="logic">
+         <obj_property name="ElementShortName">o_clear</obj_property>
+         <obj_property name="ObjectShortName">o_clear</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_run_stop" type="logic">
+         <obj_property name="ElementShortName">o_run_stop</obj_property>
+         <obj_property name="ObjectShortName">o_run_stop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_up" type="logic">
+         <obj_property name="ElementShortName">o_up</obj_property>
+         <obj_property name="ObjectShortName">o_up</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_down" type="logic">
+         <obj_property name="ElementShortName">o_down</obj_property>
+         <obj_property name="ObjectShortName">o_down</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group215" type="group">
+      <obj_property name="label">CTRL</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/i_clear" type="logic">
+         <obj_property name="ElementShortName">i_clear</obj_property>
+         <obj_property name="ObjectShortName">i_clear</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/i_run_stop" type="logic">
+         <obj_property name="ElementShortName">i_run_stop</obj_property>
+         <obj_property name="ObjectShortName">i_run_stop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/i_up" type="logic">
+         <obj_property name="ElementShortName">i_up</obj_property>
+         <obj_property name="ObjectShortName">i_up</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/i_down" type="logic">
+         <obj_property name="ElementShortName">i_down</obj_property>
+         <obj_property name="ObjectShortName">i_down</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/i_mode_done" type="logic">
+         <obj_property name="ElementShortName">i_mode_done</obj_property>
+         <obj_property name="ObjectShortName">i_mode_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/i_mode" type="logic">
+         <obj_property name="ElementShortName">i_mode</obj_property>
+         <obj_property name="ObjectShortName">i_mode</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/o_clear" type="array">
+         <obj_property name="ElementShortName">o_clear[1:0]</obj_property>
+         <obj_property name="ObjectShortName">o_clear[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/o_run_stop" type="logic">
+         <obj_property name="ElementShortName">o_run_stop</obj_property>
+         <obj_property name="ObjectShortName">o_run_stop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/o_down_up" type="logic">
+         <obj_property name="ElementShortName">o_down_up</obj_property>
+         <obj_property name="ObjectShortName">o_down_up</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/o_time_modify" type="array">
+         <obj_property name="ElementShortName">o_time_modify[1:0]</obj_property>
+         <obj_property name="ObjectShortName">o_time_modify[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/o_mode" type="logic">
+         <obj_property name="ElementShortName">o_mode</obj_property>
+         <obj_property name="ObjectShortName">o_mode</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/test_mode" type="array">
+         <obj_property name="ElementShortName">test_mode[2:0]</obj_property>
+         <obj_property name="ObjectShortName">test_mode[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/c_state" type="array">
+         <obj_property name="ElementShortName">c_state[2:0]</obj_property>
+         <obj_property name="ObjectShortName">c_state[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/n_state" type="array">
+         <obj_property name="ElementShortName">n_state[2:0]</obj_property>
+         <obj_property name="ObjectShortName">n_state[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/clear_reg" type="array">
+         <obj_property name="ElementShortName">clear_reg[1:0]</obj_property>
+         <obj_property name="ObjectShortName">clear_reg[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/clear_next" type="array">
+         <obj_property name="ElementShortName">clear_next[1:0]</obj_property>
+         <obj_property name="ObjectShortName">clear_next[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/run_stop_reg" type="logic">
+         <obj_property name="ElementShortName">run_stop_reg</obj_property>
+         <obj_property name="ObjectShortName">run_stop_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/run_stop_next" type="logic">
+         <obj_property name="ElementShortName">run_stop_next</obj_property>
+         <obj_property name="ObjectShortName">run_stop_next</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/down_up_reg" type="logic">
+         <obj_property name="ElementShortName">down_up_reg</obj_property>
+         <obj_property name="ObjectShortName">down_up_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/down_up_next" type="logic">
+         <obj_property name="ElementShortName">down_up_next</obj_property>
+         <obj_property name="ObjectShortName">down_up_next</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/time_modify_reg" type="array">
+         <obj_property name="ElementShortName">time_modify_reg[1:0]</obj_property>
+         <obj_property name="ObjectShortName">time_modify_reg[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/time_modify_next" type="array">
+         <obj_property name="ElementShortName">time_modify_next[1:0]</obj_property>
+         <obj_property name="ObjectShortName">time_modify_next[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/mode_next" type="logic">
+         <obj_property name="ElementShortName">mode_next</obj_property>
+         <obj_property name="ObjectShortName">mode_next</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_CTLR_UNIT/mode_reg" type="logic">
+         <obj_property name="ElementShortName">mode_reg</obj_property>
+         <obj_property name="ObjectShortName">mode_reg</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group137" type="group">
+      <obj_property name="label">TX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_start" type="logic">
+         <obj_property name="ElementShortName">tx_start</obj_property>
+         <obj_property name="ObjectShortName">tx_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/b_tick" type="logic">
+         <obj_property name="ElementShortName">b_tick</obj_property>
+         <obj_property name="ObjectShortName">b_tick</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_data" type="array">
+         <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_busy" type="logic">
+         <obj_property name="ElementShortName">tx_busy</obj_property>
+         <obj_property name="ObjectShortName">tx_busy</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_done" type="logic">
+         <obj_property name="ElementShortName">tx_done</obj_property>
+         <obj_property name="ObjectShortName">tx_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/uart_tx" type="logic">
+         <obj_property name="ElementShortName">uart_tx</obj_property>
+         <obj_property name="ObjectShortName">uart_tx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/c_state" type="array">
+         <obj_property name="ElementShortName">c_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">c_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/next_state" type="array">
+         <obj_property name="ElementShortName">next_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">next_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_reg" type="logic">
+         <obj_property name="ElementShortName">tx_reg</obj_property>
+         <obj_property name="ObjectShortName">tx_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_next" type="logic">
+         <obj_property name="ElementShortName">tx_next</obj_property>
+         <obj_property name="ObjectShortName">tx_next</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/bit_cnt_reg" type="array">
+         <obj_property name="ElementShortName">bit_cnt_reg[3:0]</obj_property>
+         <obj_property name="ObjectShortName">bit_cnt_reg[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/bit_cnt_next" type="array">
+         <obj_property name="ElementShortName">bit_cnt_next[3:0]</obj_property>
+         <obj_property name="ObjectShortName">bit_cnt_next[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_busy_reg" type="logic">
+         <obj_property name="ElementShortName">tx_busy_reg</obj_property>
+         <obj_property name="ObjectShortName">tx_busy_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_busy_next" type="logic">
+         <obj_property name="ElementShortName">tx_busy_next</obj_property>
+         <obj_property name="ObjectShortName">tx_busy_next</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_done_reg" type="logic">
+         <obj_property name="ElementShortName">tx_done_reg</obj_property>
+         <obj_property name="ObjectShortName">tx_done_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/tx_done_next" type="logic">
+         <obj_property name="ElementShortName">tx_done_next</obj_property>
+         <obj_property name="ObjectShortName">tx_done_next</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/data_in_buf_reg" type="array">
+         <obj_property name="ElementShortName">data_in_buf_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in_buf_reg[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/data_in_buf_next" type="array">
+         <obj_property name="ElementShortName">data_in_buf_next[7:0]</obj_property>
+         <obj_property name="ObjectShortName">data_in_buf_next[7:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/bt_cnt16_reg" type="array">
+         <obj_property name="ElementShortName">bt_cnt16_reg[3:0]</obj_property>
+         <obj_property name="ObjectShortName">bt_cnt16_reg[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_TX/bt_cnt16_next" type="array">
+         <obj_property name="ElementShortName">bt_cnt16_next[3:0]</obj_property>
+         <obj_property name="ObjectShortName">bt_cnt16_next[3:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group158" type="group">
+      <obj_property name="label">RX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/rx" type="logic">
+         <obj_property name="ElementShortName">rx</obj_property>
+         <obj_property name="ObjectShortName">rx</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/b_tick" type="logic">
+         <obj_property name="ElementShortName">b_tick</obj_property>
+         <obj_property name="ObjectShortName">b_tick</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/rx_data" type="array">
+         <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/rx_done" type="logic">
+         <obj_property name="ElementShortName">rx_done</obj_property>
+         <obj_property name="ObjectShortName">rx_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/c_state" type="array">
+         <obj_property name="ElementShortName">c_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">c_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/n_state" type="array">
+         <obj_property name="ElementShortName">n_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">n_state[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/b_tick_cnt_reg" type="array">
+         <obj_property name="ElementShortName">b_tick_cnt_reg[4:0]</obj_property>
+         <obj_property name="ObjectShortName">b_tick_cnt_reg[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/b_tick_cnt_next" type="array">
+         <obj_property name="ElementShortName">b_tick_cnt_next[4:0]</obj_property>
+         <obj_property name="ObjectShortName">b_tick_cnt_next[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/bit_cnt_reg" type="array">
+         <obj_property name="ElementShortName">bit_cnt_reg[3:0]</obj_property>
+         <obj_property name="ObjectShortName">bit_cnt_reg[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/bit_cnt_next" type="array">
+         <obj_property name="ElementShortName">bit_cnt_next[3:0]</obj_property>
+         <obj_property name="ObjectShortName">bit_cnt_next[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/done_reg" type="logic">
+         <obj_property name="ElementShortName">done_reg</obj_property>
+         <obj_property name="ObjectShortName">done_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/done_next" type="logic">
+         <obj_property name="ElementShortName">done_next</obj_property>
+         <obj_property name="ObjectShortName">done_next</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/buf_reg" type="array">
+         <obj_property name="ElementShortName">buf_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">buf_reg[7:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/buf_next" type="array">
+         <obj_property name="ElementShortName">buf_next[7:0]</obj_property>
+         <obj_property name="ObjectShortName">buf_next[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
