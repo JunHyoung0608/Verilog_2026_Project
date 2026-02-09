@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2026/02/06 22:05:56
-// Design Name: 
-// Module Name: top_uart_stopwatch_watch
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module top_uart_stopwatch_watch (
     input        clk,
@@ -27,15 +7,14 @@ module top_uart_stopwatch_watch (
     input        btn_l,
     input        btn_u,
     input        btn_d,
-    input  [2:0] sw,
+    input  [1:0] sw,
     input        uart_rx,
     output [3:0] fnd_digit,
     output [7:0] fnd_data,
     output [2:0] led,
     output       uart_tx
-
 );
-    wire w_b_tick, w_rx_done, w_rx_clear, w_rx_run_stop, w_rx_up, w_rx_down;
+    wire w_b_tick, w_rx_done, w_rx_clear, w_rx_run_stop, w_rx_up, w_rx_down, w_push_mode,w_rx_fnd_sel,w_rx_mode, w_sel_display;
     wire [7:0] w_rx_data;
     //----------------Uart-------------------------
     baud_tick U_BAUD_TICK (
@@ -65,31 +44,34 @@ module top_uart_stopwatch_watch (
     );
 
     rx_decoder U_RX_DEACODER (
+        .clk       (clk),
+        .rst       (rst),
         .i_rx_data (w_rx_data),
         .i_rx_done (w_rx_done),
         .o_clear   (w_rx_clear),
         .o_run_stop(w_rx_run_stop),
         .o_up      (w_rx_up),
-        .o_down    (w_rx_down)
+        .o_down    (w_rx_down),
+        .o_mode     (w_rx_mode),
+        .o_fnd_sel (w_rx_fnd_sel)
+    );
+    //------------------------sw_changer---------------------
+
+    push_change U_PUSH_MODE (
+        .clk  (clk),
+        .rst  (rst),
+        .d_in (sw[0]),
+        .push (w_rx_mode),
+        .d_out(w_push_mode)
     );
 
-
-    //----------------Uart-------------------------
-
-
-    // top_stopwatch_watch U_STOP_WATCH (
-    //     .clk(clk),
-    //     .rst(rst),
-    //     .btn_l(btn_l || w_rx_clear),  
-    //     .btn_r(btn_r || w_rx_run_stop),  
-    //     .btn_u(btn_u || w_rx_down), 
-    //     .btn_d(btn_d || w_rx_down),  
-    //     .sw(sw),
-    //     .fnd_digit(fnd_digit),
-    //     .fnd_data(fnd_data),
-    //     .led(led) 
-    // );
-
+    push_change U_PUSH_FND (
+        .clk  (clk),
+        .rst  (rst),
+        .d_in (sw[1]),
+        .push (w_rx_fnd_sel),
+        .d_out(w_sel_display)
+    );
 
 
     wire w_bd_clear, w_bd_run_stop, w_bd_down, w_bd_up;
@@ -97,9 +79,6 @@ module top_uart_stopwatch_watch (
     wire [1:0] w_c_clear, w_c_time_modify;
     wire [23:0] w_dp_stopwatch_time, w_dp_watch_time, w_dp_select_time;
 
-    //-----------------output------------------------
-    // assign led[2]   = w_c_run_stop;
-    // assign led[1:0] = (w_c_mode) ? 2'b10 : 2'b01;
     //-----------------btn_debounce------------------------
     btn_debounce U_BD_CLEAR (
         .clk  (clk),
@@ -133,8 +112,7 @@ module top_uart_stopwatch_watch (
         .i_run_stop   (w_bd_run_stop || w_rx_run_stop),
         .i_up         (w_bd_up || w_rx_up),
         .i_down       (w_bd_down || w_rx_down),
-        .i_mode_done  (sw[0]),
-        .i_mode       (sw[1]),
+        .i_mode       (w_push_mode),
         .o_clear      (w_c_clear),
         .o_run_stop   (w_c_run_stop),
         .o_down_up    (w_c_down_up),
@@ -176,7 +154,7 @@ module top_uart_stopwatch_watch (
     fnd_controller U_FND_CNTL (
         .clk        (clk),
         .reset      (rst),
-        .sel_display(sw[2]),
+        .sel_display(w_sel_display),
         .fnd_in_data(w_dp_select_time),
         .fnd_digit  (fnd_digit),
         .fnd_data   (fnd_data)
