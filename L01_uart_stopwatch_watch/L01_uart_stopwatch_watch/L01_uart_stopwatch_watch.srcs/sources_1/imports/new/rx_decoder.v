@@ -1,4 +1,4 @@
-`timescale 1ns / 1ps
+    `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer: 
@@ -21,6 +21,7 @@
 
 
 module rx_decoder (
+<<<<<<< HEAD
     input            clk,
     input            rst,
     input      [7:0] i_rx_data,
@@ -31,9 +32,21 @@ module rx_decoder (
     output reg       o_down,
     output reg       o_mode,
     output reg       o_fnd_sel
+=======
+    input        clk,
+    input        rst,
+    input  [7:0] i_rx_data,
+    input        i_rx_done,
+    output       o_clear,
+    output       o_run_stop,
+    output       o_up,
+    output       o_down,
+    output       o_sw1
+>>>>>>> cc80950e3a5adc7b2e0a8044a772210a9e73d1f9
 );
 
     localparam [7:0] ASCII_R = 8'h52,
+<<<<<<< HEAD
                      ASCII_L = 8'h4c,
                      ASCII_U = 8'h55, 
                      ASCII_D = 8'h44,
@@ -70,8 +83,58 @@ module rx_decoder (
                 o_down     <= 1'b0;
                 o_mode     <= 1'b0;
                 o_fnd_sel  <= 1'b0;
+=======
+                    ASCII_L = 8'h4c,
+                    ASCII_U = 8'h55,
+                    ASCII_D = 8'h44,
+                    ASCII_S = 8'h53;
+
+    reg clear_reg, run_reg, up_reg, down_reg, sw1_reg;
+
+    assign o_clear = clear_reg;
+    assign o_run = run_reg;
+    assign o_up = up_reg;
+    assign o_down = down_reg;
+    assign o_sw1 = sw1_reg;
+
+
+
+
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            run_reg   <= 1'b0;
+            clear_reg <= 1'b0;
+            up_reg    <= 1'b0;
+            down_reg  <= 1'b0;
+            sw1_reg <= 1'b0;
+        end else begin
+            if (i_rx_done) begin
+                if ((i_rx_data == ASCII_R) || (i_rx_data == (ASCII_R + 8'h20))) begin
+                    run_reg <= 1'b1;
+                end else if((i_rx_data == ASCII_L) || (i_rx_data == (ASCII_L + 8'h20))) begin
+                    clear_reg <= 1'b1;
+                end else if((i_rx_data == ASCII_U) || (i_rx_data == (ASCII_U + 8'h20))) begin
+                    up_reg <= 1'b1;
+                end else if ((i_rx_data == ASCII_D) || (i_rx_data == (ASCII_D + 8'h20))) begin
+                    down_reg <= 1'b1;
+                end else if ((i_rx_data == ASCII_S) || (i_rx_data == (ASCII_S + 8'h20))) begin
+                    sw1_reg <= 1'b1;
+                end
+            end else begin
+                run_reg   <= 1'b0;
+                clear_reg <= 1'b0;
+                up_reg    <= 1'b0;
+                down_reg  <= 1'b0;
+                sw1_reg <= 1'b0;
+>>>>>>> cc80950e3a5adc7b2e0a8044a772210a9e73d1f9
             end
         end
     end
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> cc80950e3a5adc7b2e0a8044a772210a9e73d1f9
 endmodule
