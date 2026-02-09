@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="186.071877232 ms"></ZoomStartTime>
-      <ZoomEndTime time="338.171877233 ms"></ZoomEndTime>
-      <Cursor1Time time="325.158370000 ms"></Cursor1Time>
+      <ZoomStartTime time="988591fs"></ZoomStartTime>
+      <ZoomEndTime time="1002282fs"></ZoomEndTime>
+      <Cursor1Time time="1000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="190"></NameColumnWidth>
-      <ValueColumnWidth column_width="113"></ValueColumnWidth>
+      <ValueColumnWidth column_width="109"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="13" />
    <wvobject fp_name="/tb_uart_stopwatch/uart_rx" type="logic">
@@ -83,6 +83,7 @@
    <wvobject fp_name="group158" type="group">
       <obj_property name="label">RX</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_UART_RX/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
@@ -200,14 +201,17 @@
          <obj_property name="ElementShortName">uart_tx</obj_property>
          <obj_property name="ObjectShortName">uart_tx</obj_property>
       </wvobject>
-   </wvobject>
-   <wvobject fp_name="group55" type="group">
-      <obj_property name="label">DECODER</obj_property>
-      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
       <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/i_rx_data" type="array">
          <obj_property name="ElementShortName">i_rx_data[7:0]</obj_property>
          <obj_property name="ObjectShortName">i_rx_data[7:0]</obj_property>
-         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/i_rx_done" type="logic">
          <obj_property name="ElementShortName">i_rx_done</obj_property>
@@ -228,6 +232,22 @@
       <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_down" type="logic">
          <obj_property name="ElementShortName">o_down</obj_property>
          <obj_property name="ObjectShortName">o_down</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_R" type="array">
+         <obj_property name="ElementShortName">ASCII_R[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_R[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_L" type="array">
+         <obj_property name="ElementShortName">ASCII_L[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_L[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_U" type="array">
+         <obj_property name="ElementShortName">ASCII_U[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_U[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_D" type="array">
+         <obj_property name="ElementShortName">ASCII_D[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_D[7:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group215" type="group">
@@ -602,6 +622,59 @@
          <obj_property name="ElementShortName">r_count[9:0]</obj_property>
          <obj_property name="ObjectShortName">r_count[9:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group166" type="group">
+      <obj_property name="label">DECODER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/rst" type="logic">
+         <obj_property name="ElementShortName">rst</obj_property>
+         <obj_property name="ObjectShortName">rst</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/i_rx_data" type="array">
+         <obj_property name="ElementShortName">i_rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">i_rx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/i_rx_done" type="logic">
+         <obj_property name="ElementShortName">i_rx_done</obj_property>
+         <obj_property name="ObjectShortName">i_rx_done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_clear" type="logic">
+         <obj_property name="ElementShortName">o_clear</obj_property>
+         <obj_property name="ObjectShortName">o_clear</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_run_stop" type="logic">
+         <obj_property name="ElementShortName">o_run_stop</obj_property>
+         <obj_property name="ObjectShortName">o_run_stop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_up" type="logic">
+         <obj_property name="ElementShortName">o_up</obj_property>
+         <obj_property name="ObjectShortName">o_up</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/o_down" type="logic">
+         <obj_property name="ElementShortName">o_down</obj_property>
+         <obj_property name="ObjectShortName">o_down</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_R" type="array">
+         <obj_property name="ElementShortName">ASCII_R[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_R[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_L" type="array">
+         <obj_property name="ElementShortName">ASCII_L[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_L[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_U" type="array">
+         <obj_property name="ElementShortName">ASCII_U[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_U[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_uart_stopwatch/U_DUT/U_RX_DEACODER/ASCII_D" type="array">
+         <obj_property name="ElementShortName">ASCII_D[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ASCII_D[7:0]</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

@@ -26,7 +26,7 @@ module control_unit (
     //down_up=> 0: up 1:down
     //----------------------watch--------------------
     //time_modify=> [0]:minus [1] plus
-    localparam [2:0] IDLE = 3'd0, STOPWATCH_CLEAR =3'd1, STOPWATCH_STOP=3'd2, STOPWATCH_RUN=3'd3, WATCH = 3'd4;
+    localparam [2:0] IDLE = 3'd0, STOPWATCH_STOP=3'd1, STOPWATCH_RUN=3'd2, WATCH = 3'd3;
     reg [2:0] c_state, n_state;
     reg [1:0] clear_reg, clear_next;
     reg run_stop_reg, run_stop_next;
@@ -66,42 +66,25 @@ module control_unit (
         n_state = c_state;
         case (c_state)
             IDLE: begin
-                if (i_mode_done) begin
-                    if (i_mode) begin
-                        n_state = WATCH;
-                    end else begin
-                        n_state = STOPWATCH_CLEAR;
-                    end
-                end
+                n_state = STOPWATCH_STOP;
             end
-            STOPWATCH_CLEAR: n_state = STOPWATCH_STOP;
             STOPWATCH_STOP: begin
-                if (i_mode_done) begin
-                    if (i_mode) begin
+                if (i_mode) begin
                         n_state = WATCH;
-                    end
-                end else if (i_clear) begin
-                    n_state = STOPWATCH_CLEAR;
                 end else if (i_run_stop) begin
                     n_state = STOPWATCH_RUN;
                 end
             end
             STOPWATCH_RUN: begin
-                if (i_mode_done) begin
-                    if (i_mode) begin
+                if (i_mode) begin
                         n_state = WATCH;
-                    end
-                end else if (i_clear) begin
-                    n_state = STOPWATCH_CLEAR;
                 end else if (i_run_stop) begin
                     n_state = STOPWATCH_STOP;
                 end
             end
             WATCH: begin
-                if (i_mode_done) begin
-                    if (i_mode == 1'b0) begin
-                        n_state = STOPWATCH_CLEAR;
-                    end
+                if (i_mode == 1'b0) begin
+                    n_state = STOPWATCH_STOP;
                 end
             end
         endcase
@@ -127,17 +110,14 @@ module control_unit (
             mode_next = 1'b1;
         end else begin
             mode_next = 1'b0;
+            if (i_clear) begin
+                clear_next = 2'b1;
+            end
         end
         //other
         case (c_state)
             IDLE: begin
-                clear_next    = 2'b0;
-                run_stop_next = 1'b0;
-                down_up_next  = 1'b0;
-                time_modify_next = 2'b0;
-            end
-            STOPWATCH_CLEAR: begin
-                clear_next    = 2'b01;
+                clear_next    = 2'b11;
                 run_stop_next = 1'b0;
                 down_up_next  = 1'b0;
                 time_modify_next = 2'b0;
@@ -162,9 +142,9 @@ module control_unit (
             end
             WATCH: begin
                 if (i_clear) begin
-                    clear_next = 2'b10;
+                    clear_next = 2'b11;
                 end else begin
-                    clear_next = 2'b0;
+                    clear_next = 2'b01;
                 end
                 run_stop_next = 1'b0;
                 down_up_next  = 1'b0;
