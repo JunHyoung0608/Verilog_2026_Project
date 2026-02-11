@@ -25,11 +25,9 @@ module control_unit (
     //down_up=> 0: up 1:down
     //----------------------watch--------------------
     //time_modify=> [0]:minus [1] plus
-<<<<<<< HEAD
+
     localparam [2:0] IDLE = 3'd0, STOPWATCH_CLEAR = 3'd1,STOPWATCH_STOP=3'd2, STOPWATCH_RUN=3'd3, WATCH = 3'd4;
-=======
-    localparam [2:0] IDLE = 3'd0, STOPWATCH_STOP=3'd1, STOPWATCH_RUN=3'd2, WATCH = 3'd3;
->>>>>>> cc80950e3a5adc7b2e0a8044a772210a9e73d1f9
+
     reg [2:0] c_state, n_state;
     reg [1:0] clear_reg, clear_next;
     reg run_stop_reg, run_stop_next;
@@ -69,7 +67,6 @@ module control_unit (
         n_state = c_state;
         case (c_state)
             IDLE: begin
-<<<<<<< HEAD
                 if (i_mode) begin
                     n_state = WATCH;
                 end else begin
@@ -84,37 +81,22 @@ module control_unit (
                     n_state = WATCH;
                 end else if (i_clear) begin
                     n_state = STOPWATCH_CLEAR;
-=======
-                n_state = STOPWATCH_STOP;
-            end
-            STOPWATCH_STOP: begin
-                if (i_mode) begin
-                        n_state = WATCH;
->>>>>>> cc80950e3a5adc7b2e0a8044a772210a9e73d1f9
                 end else if (i_run_stop) begin
                     n_state = STOPWATCH_RUN;
                 end 
             end
             STOPWATCH_RUN: begin
                 if (i_mode) begin
-<<<<<<< HEAD
                     n_state = WATCH;
                 end else if (i_clear) begin
                     n_state = STOPWATCH_CLEAR;
-=======
-                        n_state = WATCH;
->>>>>>> cc80950e3a5adc7b2e0a8044a772210a9e73d1f9
                 end else if (i_run_stop) begin
                     n_state = STOPWATCH_STOP;
                 end
             end
             WATCH: begin
                 if (i_mode == 1'b0) begin
-<<<<<<< HEAD
                     n_state = STOPWATCH_CLEAR;
-=======
-                    n_state = STOPWATCH_STOP;
->>>>>>> cc80950e3a5adc7b2e0a8044a772210a9e73d1f9
                 end
             end
         endcase
