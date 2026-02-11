@@ -13,14 +13,17 @@ module top_uart_stopwatch_watch (
     output [7:0] fnd_data,
     output [2:0] led,
     output       uart_tx
-);  
-    wire w_b_tick, w_rx_done, w_rx_clear, w_rx_run_stop, w_rx_up, w_rx_down, w_push_mode,w_rx_fnd_sel,w_rx_mode, w_sel_display;
-    wire [7:0] w_rx_data;
+);
+    wire w_b_tick, w_rx_done, w_rx_clear, w_rx_run_stop, w_rx_up, w_rx_down, w_rx_send_start,w_push_mode,w_rx_fnd_sel,w_rx_mode, w_sel_display;
+    wire tx_busy, tx_done,w_send_done;
+    wire [7:0] w_rx_data, w_send_data;
     wire w_bd_clear, w_bd_run_stop, w_bd_down, w_bd_up;
     wire w_c_run_stop, w_c_down_up, w_c_mode;
     wire [1:0] w_c_clear, w_c_time_modify;
     wire [23:0] w_dp_stopwatch_time, w_dp_watch_time, w_dp_select_time;
+    wire [31:0] w_fnd_data;
     //----------------Uart-------------------------
+    //-----------------tx------------------------------------
     baud_tick U_BAUD_TICK (
         .clk(clk),
         .rst(rst),
@@ -30,14 +33,29 @@ module top_uart_stopwatch_watch (
     uart_tx U_UART_TX (
         .clk(clk),
         .rst(rst),
-        .tx_start(w_rx_done),
+        .tx_start(w_send_done),
         .b_tick(w_b_tick),
-        .tx_data(w_rx_data),
-        .tx_busy(),
-        .tx_done(),
+        .tx_data(w_send_data),
+        .tx_busy(w_tx_busy),
+        .tx_done(tx_done),
         .uart_tx(uart_tx)
     );
 
+    tx_sender#(
+        .SEND_DATA_WITCH(8)
+    ) U_SENDER(
+        .clk(clk),
+        .rst(rst),
+        .send_start(w_rx_send_start),
+        .i_sender_data(w_fnd_data),
+        .i_tx_busy(w_tx_busy),
+        .i_tx_done(tx_done),
+        .o_send_data(w_send_data),
+        .o_send_done(w_send_done)
+    );
+
+
+    //-----------------rx------------------------------------
     uart_rx U_UART_RX (
         .clk(clk),
         .rst(rst),
@@ -46,18 +64,18 @@ module top_uart_stopwatch_watch (
         .rx_data(w_rx_data),
         .rx_done(w_rx_done)
     );
-
     rx_decoder U_RX_DEACODER (
-        .clk       (clk),
-        .rst       (rst),
-        .i_rx_data (w_rx_data),
-        .i_rx_done (w_rx_done),
-        .o_clear   (w_rx_clear),
-        .o_run_stop(w_rx_run_stop),
-        .o_up      (w_rx_up),
-        .o_down    (w_rx_down),
-        .o_mode     (w_rx_mode),
-        .o_fnd_sel (w_rx_fnd_sel)
+        .clk         (clk),
+        .rst         (rst),
+        .i_rx_data   (w_rx_data),
+        .i_rx_done   (w_rx_done),
+        .o_clear     (w_rx_clear),
+        .o_run_stop  (w_rx_run_stop),
+        .o_up        (w_rx_up),
+        .o_down      (w_rx_down),
+        .o_send_start(w_rx_send_start),
+        .o_mode      (w_rx_mode),
+        .o_fnd_sel   (w_rx_fnd_sel)
     );
     //------------------------sw_changer---------------------
     push_change U_PUSH_MODE (
@@ -107,7 +125,7 @@ module top_uart_stopwatch_watch (
         .i_clear      (w_bd_clear || w_rx_clear),
         .i_run_stop   (w_bd_run_stop || w_rx_run_stop),
         .i_up         (w_bd_up || w_rx_up),
-        .i_down        (w_bd_down || w_rx_down),
+        .i_down       (w_bd_down || w_rx_down),
         .i_mode       (w_push_mode),
         .o_clear      (w_c_clear),
         .o_run_stop   (w_c_run_stop),
@@ -152,6 +170,7 @@ module top_uart_stopwatch_watch (
         .reset      (rst),
         .sel_display(w_sel_display),
         .fnd_in_data(w_dp_select_time),
+        .send_data  (w_fnd_data),
         .fnd_digit  (fnd_digit),
         .fnd_data   (fnd_data)
     );
