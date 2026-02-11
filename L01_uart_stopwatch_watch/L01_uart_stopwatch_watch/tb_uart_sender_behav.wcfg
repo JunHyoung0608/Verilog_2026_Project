@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="62689175000fs"></ZoomStartTime>
-      <ZoomEndTime time="201089175001fs"></ZoomEndTime>
-      <Cursor1Time time="108489175000fs"></Cursor1Time>
+      <ZoomStartTime time="64288775000fs"></ZoomStartTime>
+      <ZoomEndTime time="128088775001fs"></ZoomEndTime>
+      <Cursor1Time time="114738775000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+      <ValueColumnWidth column_width="116"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="4" />
    <wvobject fp_name="group63" type="group">
@@ -180,21 +180,21 @@
          <obj_property name="ElementShortName">o_send_done</obj_property>
          <obj_property name="ObjectShortName">o_send_done</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/c_state" type="logic">
-         <obj_property name="ElementShortName">c_state</obj_property>
-         <obj_property name="ObjectShortName">c_state</obj_property>
+      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/c_state" type="array">
+         <obj_property name="ElementShortName">c_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">c_state[1:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/n_state" type="logic">
-         <obj_property name="ElementShortName">n_state</obj_property>
-         <obj_property name="ObjectShortName">n_state</obj_property>
+      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/n_state" type="array">
+         <obj_property name="ElementShortName">n_state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">n_state[1:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/send_cnt_reg" type="array">
-         <obj_property name="ElementShortName">send_cnt_reg[2:0]</obj_property>
-         <obj_property name="ObjectShortName">send_cnt_reg[2:0]</obj_property>
+         <obj_property name="ElementShortName">send_cnt_reg[3:0]</obj_property>
+         <obj_property name="ObjectShortName">send_cnt_reg[3:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/send_cnt_next" type="array">
-         <obj_property name="ElementShortName">send_cnt_next[2:0]</obj_property>
-         <obj_property name="ObjectShortName">send_cnt_next[2:0]</obj_property>
+         <obj_property name="ElementShortName">send_cnt_next[3:0]</obj_property>
+         <obj_property name="ObjectShortName">send_cnt_next[3:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/save_data_reg" type="array">
          <obj_property name="ElementShortName">save_data_reg[31:0]</obj_property>
@@ -223,22 +223,6 @@
       <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/done_next" type="logic">
          <obj_property name="ElementShortName">done_next</obj_property>
          <obj_property name="ObjectShortName">done_next</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/SEND_DATA_WITCH" type="array">
-         <obj_property name="ElementShortName">SEND_DATA_WITCH[31:0]</obj_property>
-         <obj_property name="ObjectShortName">SEND_DATA_WITCH[31:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/READY" type="logic">
-         <obj_property name="ElementShortName">READY</obj_property>
-         <obj_property name="ObjectShortName">READY</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/ENCODER" type="logic">
-         <obj_property name="ElementShortName">ENCODER</obj_property>
-         <obj_property name="ObjectShortName">ENCODER</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_uart_sender/U_DUT/U_SENDER/ASCII_0" type="array">
-         <obj_property name="ElementShortName">ASCII_0[7:0]</obj_property>
-         <obj_property name="ObjectShortName">ASCII_0[7:0]</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group64" type="group">
