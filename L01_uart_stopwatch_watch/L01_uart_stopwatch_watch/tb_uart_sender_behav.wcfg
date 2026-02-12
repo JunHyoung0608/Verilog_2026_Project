@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="1000001fs"></ZoomEndTime>
-      <Cursor1Time time="1000000fs"></Cursor1Time>
+      <ZoomStartTime time="39657350000fs"></ZoomStartTime>
+      <ZoomEndTime time="168057350001fs"></ZoomEndTime>
+      <Cursor1Time time="146657350000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="276"></NameColumnWidth>
-      <ValueColumnWidth column_width="112"></ValueColumnWidth>
+      <ValueColumnWidth column_width="108"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="13" />
+   <WVObjectSize size="9" />
    <wvobject fp_name="/tb_rx_decoder/clk" type="logic">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -28,51 +28,89 @@
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/rx_done" type="logic">
-      <obj_property name="ElementShortName">rx_done</obj_property>
-      <obj_property name="ObjectShortName">rx_done</obj_property>
+   <wvobject fp_name="/tb_rx_decoder/uart_rx" type="logic">
+      <obj_property name="ElementShortName">uart_rx</obj_property>
+      <obj_property name="ObjectShortName">uart_rx</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/rx_data" type="array">
-      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
-      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   <wvobject fp_name="/tb_rx_decoder/test_data" type="array">
+      <obj_property name="ElementShortName">test_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">test_data[7:0]</obj_property>
+      <obj_property name="Radix">ASCIIRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/dcd_run_stop" type="logic">
-      <obj_property name="ElementShortName">dcd_run_stop</obj_property>
-      <obj_property name="ObjectShortName">dcd_run_stop</obj_property>
+   <wvobject fp_name="group30" type="group">
+      <obj_property name="label">bouad_tick</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_rx_decoder/w_b_tick" type="logic">
+         <obj_property name="ElementShortName">w_b_tick</obj_property>
+         <obj_property name="ObjectShortName">w_b_tick</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/U_BAUD_TICK/r_count" type="array">
+         <obj_property name="ElementShortName">r_count[9:0]</obj_property>
+         <obj_property name="ObjectShortName">r_count[9:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/dcd_clear" type="logic">
-      <obj_property name="ElementShortName">dcd_clear</obj_property>
-      <obj_property name="ObjectShortName">dcd_clear</obj_property>
+   <wvobject fp_name="group31" type="group">
+      <obj_property name="label">RX</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_rx_decoder/U_UART_RX/b_tick_cnt_reg" type="array">
+         <obj_property name="ElementShortName">b_tick_cnt_reg[4:0]</obj_property>
+         <obj_property name="ObjectShortName">b_tick_cnt_reg[4:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/w_rx_data" type="array">
+         <obj_property name="ElementShortName">w_rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">w_rx_data[7:0]</obj_property>
+         <obj_property name="Radix">ASCIIRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/w_rx_done" type="logic">
+         <obj_property name="ElementShortName">w_rx_done</obj_property>
+         <obj_property name="ObjectShortName">w_rx_done</obj_property>
+      </wvobject>
    </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/dcd_up" type="logic">
-      <obj_property name="ElementShortName">dcd_up</obj_property>
-      <obj_property name="ObjectShortName">dcd_up</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/dcd_down" type="logic">
-      <obj_property name="ElementShortName">dcd_down</obj_property>
-      <obj_property name="ObjectShortName">dcd_down</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/dcd_send_start" type="logic">
-      <obj_property name="ElementShortName">dcd_send_start</obj_property>
-      <obj_property name="ObjectShortName">dcd_send_start</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/dcd_mode" type="logic">
-      <obj_property name="ElementShortName">dcd_mode</obj_property>
-      <obj_property name="ObjectShortName">dcd_mode</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/dcd_fnd_sel" type="logic">
-      <obj_property name="ElementShortName">dcd_fnd_sel</obj_property>
-      <obj_property name="ObjectShortName">dcd_fnd_sel</obj_property>
+   <wvobject fp_name="group32" type="group">
+      <obj_property name="label">DECODER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/tb_rx_decoder/dcd_clear" type="logic">
+         <obj_property name="ElementShortName">dcd_clear</obj_property>
+         <obj_property name="ObjectShortName">dcd_clear</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/dcd_run_stop" type="logic">
+         <obj_property name="ElementShortName">dcd_run_stop</obj_property>
+         <obj_property name="ObjectShortName">dcd_run_stop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/dcd_up" type="logic">
+         <obj_property name="ElementShortName">dcd_up</obj_property>
+         <obj_property name="ObjectShortName">dcd_up</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/dcd_down" type="logic">
+         <obj_property name="ElementShortName">dcd_down</obj_property>
+         <obj_property name="ObjectShortName">dcd_down</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/dcd_send_start" type="logic">
+         <obj_property name="ElementShortName">dcd_send_start</obj_property>
+         <obj_property name="ObjectShortName">dcd_send_start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/dcd_mode" type="logic">
+         <obj_property name="ElementShortName">dcd_mode</obj_property>
+         <obj_property name="ObjectShortName">dcd_mode</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_rx_decoder/dcd_fnd_sel" type="logic">
+         <obj_property name="ElementShortName">dcd_fnd_sel</obj_property>
+         <obj_property name="ObjectShortName">dcd_fnd_sel</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject fp_name="/tb_rx_decoder/i" type="array">
       <obj_property name="ElementShortName">i[31:0]</obj_property>
       <obj_property name="ObjectShortName">i[31:0]</obj_property>
       <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_rx_decoder/put_data" type="array">
-      <obj_property name="ElementShortName">put_data[55:0]</obj_property>
-      <obj_property name="ObjectShortName">put_data[55:0]</obj_property>
-      <obj_property name="Radix">ASCIIRADIX</obj_property>
+   <wvobject fp_name="/tb_rx_decoder/j" type="array">
+      <obj_property name="ElementShortName">j[31:0]</obj_property>
+      <obj_property name="ObjectShortName">j[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
 </wave_config>

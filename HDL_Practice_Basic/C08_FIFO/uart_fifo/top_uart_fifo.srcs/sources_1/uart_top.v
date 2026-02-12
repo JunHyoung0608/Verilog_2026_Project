@@ -8,28 +8,58 @@ module uart_top (
     output uart_tx
 );
     wire w_b_tick, w_rx_done;
-    wire [7:0] w_rx_data;
+    wire [7:0] w_rx_data, w_rx_fifo_pop_data, w_tx_fifo_pop_data;
+    wire w_tx_fifo_full, w_rx_fifo_empty, w_tx_busy,w_tx_fifo_empty;
 
-
+    //----------------------UART_TX-----------------
     uart_tx U_UART_TX (
-        .clk(clk),
-        .rst(rst),
-        .tx_start(w_rx_done),
-        .b_tick(w_b_tick),
-        .tx_data(w_rx_data),
-        .tx_busy(),
-        .tx_done(),
-        .uart_tx(uart_tx)
+        .clk     (clk),
+        .rst     (rst),
+        .tx_start(~w_tx_fifo_empty),
+        .b_tick  (w_b_tick),
+        .tx_data (w_tx_fifo_pop_data),
+        .tx_busy (w_tx_busy),
+        .tx_done (),
+        .uart_tx (uart_tx)
     );
+
+    //------------------fifo-------------------
+    fifo #(
+        .DEPTH(4),
+        .BIT_WIDTH(8)
+    ) U_FIFO_TX (
+        .clk      (clk),
+        .rst      (rst),
+        .push     (~w_rx_fifo_empty),
+        .pop      (~w_tx_busy),
+        .push_data(w_rx_fifo_pop_data),
+        .pop_data (w_tx_fifo_pop_data),
+        .full     (w_tx_fifo_full),
+        .empty    (w_tx_fifo_empty)
+    );
+    fifo #(
+        .DEPTH(4),
+        .BIT_WIDTH(8)
+    ) U_FIFO_RX (
+        .clk      (clk),
+        .rst      (rst),
+        .push     (w_rx_done),
+        .pop      (~w_tx_fifo_full),
+        .push_data(w_rx_data),
+        .pop_data (w_rx_fifo_pop_data),
+        .full     (),
+        .empty    (w_rx_fifo_empty)
+    );
+    //-------------------UART_RX----------------
     uart_rx U_UART_RX (
-        .clk(clk),
-        .rst(rst),
-        .rx(uart_rx),
-        .b_tick(w_b_tick),
+        .clk    (clk),
+        .rst    (rst),
+        .rx     (uart_rx),
+        .b_tick (w_b_tick),
         .rx_data(w_rx_data),
         .rx_done(w_rx_done)
     );
-
+    //-------------------baud_tick----------------
 
     baud_tick U_BAUD_TICK (
         .clk(clk),
@@ -75,16 +105,6 @@ module uart_rx (
         end
     end
 
-    // //move state
-    // always @(*) begin
-    //     n_state = c_state;
-    //     case (c_state)
-    //         // IDLE:  if (b_tick && (rx == 1'b0)) n_state = START;
-    //         // START: if (b_tick && (b_tick_cnt_reg == 7)) n_state = DATA;
-    //         // DATA:  if (b_tick && (bit_cnt_reg == 4'd9)) n_state = STOP;
-    //         // STOP:  if (b_tick && (b_tick_cnt_reg == 5'd16)) n_state = IDLE;
-    //     endcase
-    // end
 
     //next, ouput
     always @(*) begin
@@ -105,9 +125,10 @@ module uart_rx (
             end
             START: begin
                 if (b_tick) begin
-                    if (b_tick_cnt_reg == 7) begin
-                        bit_cnt_next = bit_cnt_reg + 3'b1;
+                    if (b_tick_cnt_reg == 5'd7) begin
+                        buf_next = {rx, buf_reg[7:1]};
                         n_state = DATA;
+                        b_tick_cnt_next = 5'b0;
                     end else begin
                         b_tick_cnt_next = b_tick_cnt_reg + 1;
                     end
@@ -118,10 +139,10 @@ module uart_rx (
                     if (b_tick_cnt_reg == 5'd15) begin
                         b_tick_cnt_next = 5'b0;
                         buf_next = {rx, buf_reg[7:1]};
-                        if (bit_cnt_reg != 4'd8)begin
-                            bit_cnt_next = bit_cnt_reg + 3'b1;
-                        end else begin
+                        if (bit_cnt_reg == 4'd7) begin
                             n_state = STOP;
+                        end else begin
+                            bit_cnt_next = bit_cnt_reg + 3'b1;
                         end
                     end else begin
                         b_tick_cnt_next = b_tick_cnt_reg + 1;
@@ -132,7 +153,7 @@ module uart_rx (
                 if (b_tick) begin
                     if (b_tick_cnt_reg == 5'd15) begin
                         done_next = 1'b1;
-                        n_state = IDLE;
+                        n_state   = IDLE;
                     end else begin
                         b_tick_cnt_next = b_tick_cnt_reg + 1;
                     end
@@ -211,20 +232,9 @@ module uart_tx (
         end
     end
 
-    // next_state CL
-    always @(*) begin
-        next_state = c_state;
-        case (c_state)
-            IDLE: if (tx_start) next_state = START;
-            START: if ((b_tick) && (bt_cnt16_reg == 4'd15)) next_state = DATA;
-            DATA: if ((b_tick) && (bt_cnt16_reg == 4'd15) && (bit_cnt_reg == 3'd7)) next_state = STOP;
-            STOP: if (bt_cnt16_reg == 4'd15) next_state = IDLE;
-            default: next_state = c_state;
-        endcase
-    end
-
     // next_reg CL
     always @(*) begin
+        next_state = c_state;
         tx_next = tx_reg;
         bit_cnt_next = bit_cnt_reg;
         tx_busy_next = tx_busy_reg;
@@ -238,16 +248,24 @@ module uart_tx (
                 tx_busy_next     = 1'b0;
                 tx_done_next     = 1'b0;
                 data_in_buf_next = tx_data;
+                if (tx_start) begin
+                    next_state = START;
+                    tx_busy_next = 1'b1;
+                end
             end
             START: begin
                 tx_next = 1'b0;
-                tx_busy_next = 1'b1;
+                if ((b_tick) && (bt_cnt16_reg == 4'd15)) next_state = DATA;
             end
             DATA: begin
                 tx_next = data_in_buf_reg[0];
-                if (((b_tick) &&(bt_cnt16_reg == 4'd15)) && (bit_cnt_reg < 3'd7)) begin
-                    bit_cnt_next = bit_cnt_reg + 1;
-                    data_in_buf_next = {1'b0, data_in_buf_reg[7:1]};
+                if ((b_tick) && (bt_cnt16_reg == 4'd15)) begin
+                    if (bit_cnt_reg < 3'd7) begin
+                        bit_cnt_next = bit_cnt_reg + 1;
+                        data_in_buf_next = {1'b0, data_in_buf_reg[7:1]};
+                    end else begin
+                        next_state = STOP;
+                    end
                 end
             end
             STOP: begin
@@ -255,6 +273,7 @@ module uart_tx (
                 bit_cnt_next = 1'b0;
                 if ((b_tick) && (bt_cnt16_reg == 4'd15)) begin
                     tx_done_next = 1'b1;
+                    next_state   = IDLE;
                 end
             end
         endcase

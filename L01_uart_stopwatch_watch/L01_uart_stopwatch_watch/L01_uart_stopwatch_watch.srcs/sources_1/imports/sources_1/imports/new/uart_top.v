@@ -109,7 +109,7 @@ module uart_rx (
                     if (b_tick_cnt_reg == 5'd15) begin
                         b_tick_cnt_next = 5'b0;
                         buf_next = {rx, buf_reg[7:1]};
-                        if (bit_cnt_reg == 4'd7)begin
+                        if (bit_cnt_reg == 4'd7) begin
                             n_state = STOP;
                         end else begin
                             bit_cnt_next = bit_cnt_reg + 3'b1;
@@ -123,7 +123,7 @@ module uart_rx (
                 if (b_tick) begin
                     if (b_tick_cnt_reg == 5'd15) begin
                         done_next = 1'b1;
-                        n_state = IDLE;
+                        n_state   = IDLE;
                     end else begin
                         b_tick_cnt_next = b_tick_cnt_reg + 1;
                     end
@@ -219,17 +219,17 @@ module uart_tx (
                 tx_done_next     = 1'b0;
                 data_in_buf_next = tx_data;
                 if (tx_start) begin
-                    next_state = START;
+                    next_state   = START;
+                    tx_busy_next = 1'b1;
                 end
             end
             START: begin
                 tx_next = 1'b0;
-                tx_busy_next = 1'b1;
                 if ((b_tick) && (bt_cnt16_reg == 4'd15)) next_state = DATA;
             end
             DATA: begin
                 tx_next = data_in_buf_reg[0];
-                if ((b_tick) &&(bt_cnt16_reg == 4'd15)) begin
+                if ((b_tick) && (bt_cnt16_reg == 4'd15)) begin
                     if (bit_cnt_reg < 3'd7) begin
                         bit_cnt_next = bit_cnt_reg + 1;
                         data_in_buf_next = {1'b0, data_in_buf_reg[7:1]};
@@ -243,7 +243,7 @@ module uart_tx (
                 bit_cnt_next = 1'b0;
                 if ((b_tick) && (bt_cnt16_reg == 4'd15)) begin
                     tx_done_next = 1'b1;
-                    next_state = IDLE;
+                    next_state   = IDLE;
                 end
             end
         endcase
