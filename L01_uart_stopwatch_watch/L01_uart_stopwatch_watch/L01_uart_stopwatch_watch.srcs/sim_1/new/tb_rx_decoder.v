@@ -91,13 +91,13 @@ module tb_rx_decoder ();
             #(BAUD_REPIOD);  //stop_bit
         end
 
-        $monitor($time," dcd_clear = %d",dcd_clear);
-        // $monitor("$t dcd_run_stop = %b",$time,dcd_run_stop);
-        // $monitor("$t dcd_up = %b",$time,dcd_up);
-        // $monitor("$t dcd_down = %b",$time,dcd_down);
-        // $monitor("$t dcd_send_start = %b",$time,dcd_send_start);
-        // $monitor("$t dcd_mode = %b",$time,dcd_mode);
-        // $monitor("$t dcd_fnd_sel = %b",$time,dcd_fnd_sel);
+        $monitor($time," dcd_clear = %b",dcd_clear);
+        $monitor("$t dcd_run_stop = %b",$time,dcd_run_stop);
+        $monitor("$t dcd_up = %b",$time,dcd_up);
+        $monitor("$t dcd_down = %b",$time,dcd_down);
+        $monitor("$t dcd_send_start = %b",$time,dcd_send_start);
+        $monitor("$t dcd_mode = %b",$time,dcd_mode);
+        $monitor("$t dcd_fnd_sel = %b",$time,dcd_fnd_sel);
         repeat (5) @(negedge clk);
         $stop;
     end
