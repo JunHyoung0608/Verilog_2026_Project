@@ -7,10 +7,10 @@ module tb_rx_decoder ();
     reg  [7:0] test_data;
 
     wire [7:0] w_rx_data;
-    wire w_rx_done,w_b_tick;
+    wire w_rx_done, w_b_tick;
     wire dcd_clear,dcd_run_stop,dcd_up,dcd_down,dcd_send_start,dcd_mode,dcd_fnd_sel;
 
-    integer i = 0, j;
+    integer i = 0, j = 0;
 
     localparam [7:0] ASCII_R = 8'h52,
                      ASCII_L = 8'h4c,
@@ -89,15 +89,38 @@ module tb_rx_decoder ();
             uart_rx   = 0;  //start_bit
             uart_sender();  //data_bit
             #(BAUD_REPIOD);  //stop_bit
+
+            if ((i == ASCII_R) || (i == ASCII_R + 20)) begin
+                if (dcd_run_stop) begin
+                    $display("%t, check run_stop", $time);
+                end
+            end else if ((i == ASCII_L) || (i == ASCII_L + 20)) begin
+                if (dcd_clear) begin
+                    $display("%t, check clear", $time);
+                end
+            end else if ((i == ASCII_U) || (i == ASCII_U + 20)) begin
+                if (dcd_up) begin
+                    $display("%t, check up", $time);
+                end
+            end else if ((i == ASCII_D) || (i == ASCII_D + 20)) begin
+                if (dcd_down) begin
+                    $display("%t, check down", $time);
+                end
+            end else if ((i == ASCII_S) || (i == ASCII_S + 20)) begin
+                if (dcd_send_start) begin
+                    $display("%t, check send", $time);
+                end
+            end else if (i == ASCII_0) begin
+                if (dcd_mode) begin
+                    $display("%t, check mode", $time);
+                end
+            end else if (i == ASCII_1) begin
+                if (dcd_fnd_sel) begin
+                    $display("%t, check fnd_sel", $time);
+                end
+            end
         end
 
-        $monitor($time," dcd_clear = %b",dcd_clear);
-        $monitor("$t dcd_run_stop = %b",$time,dcd_run_stop);
-        $monitor("$t dcd_up = %b",$time,dcd_up);
-        $monitor("$t dcd_down = %b",$time,dcd_down);
-        $monitor("$t dcd_send_start = %b",$time,dcd_send_start);
-        $monitor("$t dcd_mode = %b",$time,dcd_mode);
-        $monitor("$t dcd_fnd_sel = %b",$time,dcd_fnd_sel);
         repeat (5) @(negedge clk);
         $stop;
     end
