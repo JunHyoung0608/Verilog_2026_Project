@@ -5,6 +5,8 @@ module tb_sr04_ctrl ();
 
     reg clk, rst, start, echo;
     wire trigger;
+    wire [7:0]fnd_data;
+    wire [3:0] fnd_digit;
     // wire [23:0] dist_sr04;
     integer SR04_Operation = 80_000;  //80us
     reg [8:0] set_Distance = 0;  //cm
@@ -38,7 +40,7 @@ module tb_sr04_ctrl ();
             //start
             @(posedge clk);
             start = 1;
-            @(posedge clk);
+            repeat (2000) @(posedge clk);
             start = 0;
 
             //trigger check

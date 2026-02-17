@@ -1,16 +1,16 @@
 `timescale 1ns / 1ps
 module top_sr04 (
-    input         clk,
-    input         rst,
-    input         start,
-    input         echo,
-    output        trigger,
+    input        clk,
+    input        rst,
+    input        start,
+    input        echo,
+    output       trigger,
     output [9:0] o_dist_sr04
 );
     wire o_tick_us, tick_gen_start;
-    wire [9:0] w_dist_sr04;
-    assign o_dist_sr04[9:8] = w_dist_sr04 / 100;
-    assign o_dist_sr04[7:0] = w_dist_sr04 % 100;
+    wire [8:0] w_dist_sr04;
+    assign o_dist_sr04[9:7] = w_dist_sr04 / 100;
+    assign o_dist_sr04[6:0] = w_dist_sr04 % 100;
 
     tick_gen #(
         .CLK      (100_000_000),

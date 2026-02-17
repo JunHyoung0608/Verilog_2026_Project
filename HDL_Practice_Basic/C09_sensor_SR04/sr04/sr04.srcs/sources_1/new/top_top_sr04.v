@@ -14,17 +14,17 @@ module top_top_sr04 (
     wire w_bd_btn;
     wire [9:0] w_sr_dist_sr04;
 
-    // btn_debounce U_BD (
-    //     .clk  (clk),
-    //     .reset(rst),
-    //     .i_btn(btn),
-    //     .o_btn(w_bd_btn)
-    // );
+    btn_debounce U_BD (
+        .clk  (clk),
+        .reset(rst),
+        .i_btn(btn),
+        .o_btn(w_bd_btn)
+    );
 
     top_sr04 U_SR04 (
         .clk      (clk),
         .rst      (rst),
-        .start    (btn),
+        .start    (w_bd_btn),
         .echo     (echo),
         .trigger  (trigger),
         .o_dist_sr04(w_sr_dist_sr04)
