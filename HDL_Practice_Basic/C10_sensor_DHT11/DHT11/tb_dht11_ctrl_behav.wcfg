@@ -11,8 +11,8 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="24422686666fs"></ZoomStartTime>
-      <ZoomEndTime time="50802686667fs"></ZoomEndTime>
+      <ZoomStartTime time="46405800166fs"></ZoomStartTime>
+      <ZoomEndTime time="46406063967fs"></ZoomEndTime>
       <Cursor1Time time="46406020000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
@@ -110,6 +110,10 @@
          <obj_property name="ElementShortName">dhtio</obj_property>
          <obj_property name="ObjectShortName">dhtio</obj_property>
       </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/d1_dhtio" type="logic">
+         <obj_property name="ElementShortName">d1_dhtio</obj_property>
+         <obj_property name="ObjectShortName">d1_dhtio</obj_property>
+      </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/tick_1us" type="logic">
          <obj_property name="ElementShortName">tick_1us</obj_property>
          <obj_property name="ObjectShortName">tick_1us</obj_property>
@@ -118,51 +122,26 @@
          <obj_property name="ElementShortName">c_state[2:0]</obj_property>
          <obj_property name="ObjectShortName">c_state[2:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/n_state" type="array">
-         <obj_property name="ElementShortName">n_state[2:0]</obj_property>
-         <obj_property name="ObjectShortName">n_state[2:0]</obj_property>
-      </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/dhtio_reg" type="logic">
          <obj_property name="ElementShortName">dhtio_reg</obj_property>
          <obj_property name="ObjectShortName">dhtio_reg</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/dhtio_next" type="logic">
-         <obj_property name="ElementShortName">dhtio_next</obj_property>
-         <obj_property name="ObjectShortName">dhtio_next</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/done_reg" type="logic">
          <obj_property name="ElementShortName">done_reg</obj_property>
          <obj_property name="ObjectShortName">done_reg</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/done_next" type="logic">
-         <obj_property name="ElementShortName">done_next</obj_property>
-         <obj_property name="ObjectShortName">done_next</obj_property>
-      </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/valid_reg" type="logic">
          <obj_property name="ElementShortName">valid_reg</obj_property>
          <obj_property name="ObjectShortName">valid_reg</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/valid_next" type="logic">
-         <obj_property name="ElementShortName">valid_next</obj_property>
-         <obj_property name="ObjectShortName">valid_next</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/tick_cnt_reg" type="array">
          <obj_property name="ElementShortName">tick_cnt_reg[14:0]</obj_property>
          <obj_property name="ObjectShortName">tick_cnt_reg[14:0]</obj_property>
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/tick_cnt_next" type="array">
-         <obj_property name="ElementShortName">tick_cnt_next[14:0]</obj_property>
-         <obj_property name="ObjectShortName">tick_cnt_next[14:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/io_sel_reg" type="logic">
          <obj_property name="ElementShortName">io_sel_reg</obj_property>
          <obj_property name="ObjectShortName">io_sel_reg</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/io_sel_next" type="logic">
-         <obj_property name="ElementShortName">io_sel_next</obj_property>
-         <obj_property name="ObjectShortName">io_sel_next</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/dht11_data_reg" type="array">
          <obj_property name="ElementShortName">dht11_data_reg[39:0]</obj_property>
@@ -175,14 +154,6 @@
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/bit_cnt_reg" type="array">
          <obj_property name="ElementShortName">bit_cnt_reg[5:0]</obj_property>
          <obj_property name="ObjectShortName">bit_cnt_reg[5:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/bit_cnt_next" type="array">
-         <obj_property name="ElementShortName">bit_cnt_next[5:0]</obj_property>
-         <obj_property name="ObjectShortName">bit_cnt_next[5:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/d1_dhtio" type="logic">
-         <obj_property name="ElementShortName">d1_dhtio</obj_property>
-         <obj_property name="ObjectShortName">d1_dhtio</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group452" type="group">
@@ -217,9 +188,9 @@
          <obj_property name="ElementShortName">fnd_digit[3:0]</obj_property>
          <obj_property name="ObjectShortName">fnd_digit[3:0]</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/led" type="logic">
-         <obj_property name="ElementShortName">led</obj_property>
-         <obj_property name="ObjectShortName">led</obj_property>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/led" type="array">
+         <obj_property name="ElementShortName">led[3:0]</obj_property>
+         <obj_property name="ObjectShortName">led[3:0]</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/w_db_btn" type="logic">
          <obj_property name="ElementShortName">w_db_btn</obj_property>

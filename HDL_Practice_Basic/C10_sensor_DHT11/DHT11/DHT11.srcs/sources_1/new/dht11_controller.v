@@ -47,9 +47,7 @@ module dht11_controller (
     reg d1_dhtio;
     always @(posedge clk) begin
         if (io_sel_reg == 0) begin
-            if (tick_1us) begin
-                d1_dhtio <= dhtio;
-            end
+            d1_dhtio <= dhtio;
         end else begin
             d1_dhtio <= 0;
         end
@@ -119,7 +117,6 @@ module dht11_controller (
             end
             SYNC_L: begin
                 if (tick_1us) begin
-                    // tick_cnt_next = tick_cnt_reg + 1;
                     if (dhtio == 1) begin
                         n_state = SYNC_H;
                         tick_cnt_next = 0;
@@ -128,43 +125,30 @@ module dht11_controller (
             end
             SYNC_H: begin
                 if (tick_1us) begin
-                    // tick_cnt_next = tick_cnt_reg + 1;
                     if (dhtio == 0) begin
                         n_state = DATA_C;
                         tick_cnt_next = 0;
                     end
                 end
             end
-            // DATA_SYNC: begin
-            //     if (tick_1us) begin
-            //         tick_cnt_next = tick_cnt_reg + 1;
-            //         if ((dhtio == 1) && (tick_cnt_reg == 9)) begin
-            //             n_state = DATA_C;
-            //             tick_cnt_next = 0;
-            //             dht11_data_next = 0;
-            //         end
-            //     end
-            // end
             DATA_C: begin
-                if (tick_1us) begin
-                    if (dhtio == 1'b1) begin
+                if (dhtio) begin
+                    if (tick_1us) begin
                         tick_cnt_next = tick_cnt_reg + 1;
-                        if (d1_dhtio == 0) begin
-                            bit_cnt_next = bit_cnt_reg + 1;
+                    end
+                end else begin
+                    tick_cnt_next = 0;
+                    if (d1_dhtio == 1) begin
+                        bit_cnt_next = bit_cnt_reg + 1;
+                        if (tick_cnt_reg >= 50) begin
+                            dht11_data_next = {dht11_data_reg[39:0], 1'b1};
+                        end else begin
+                            dht11_data_next = {dht11_data_reg[39:0], 1'b0};
                         end
                     end else begin
-                        tick_cnt_next = 0;
-                        if (d1_dhtio == 1'b1) begin
-                            if (tick_cnt_reg >= 50) begin
-                                dht11_data_next = {dht11_data_reg[39:0], 1'b1};
-                            end else begin
-                                dht11_data_next = {dht11_data_reg[39:0], 1'b0};
-                            end
-                        end else begin
-                            if (bit_cnt_reg >= 40) begin
-                                n_state = STOP;
-                                tick_cnt_next = 0;
-                            end
+                        if (bit_cnt_reg == 40) begin
+                            n_state = STOP;
+                            tick_cnt_next = 0;
                         end
                     end
                 end
