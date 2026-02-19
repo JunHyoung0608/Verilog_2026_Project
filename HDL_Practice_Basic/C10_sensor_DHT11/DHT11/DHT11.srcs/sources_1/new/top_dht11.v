@@ -16,7 +16,9 @@ module top_dht11 (
     wire [15:0] temperature, humidity;
     wire [27:0] fnd_in_data;
 
-    assign led = {dht11_valid,debug[2:0]};
+    assign led = debug;
+
+
 
     btn_debounce bd (
         .clk  (clk),

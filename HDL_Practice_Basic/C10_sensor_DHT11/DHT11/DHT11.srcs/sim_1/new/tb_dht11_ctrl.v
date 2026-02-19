@@ -6,20 +6,6 @@ module tb_dht11_ctrl ();
     reg clk, rst, start, sw;
     reg dht11_sensor_io, sensor_io_sel;
     wire dhtio;
-    // wire dht11_done, dht11_valid;
-    // wire [15:0] humidity, temperature;
-
-    // dht11_controller DUT (
-    //     .clk        (clk),
-    //     .rst        (rst),
-    //     .start      (start),
-    //     .humidity   (humidity),
-    //     .temperature(temperature),
-    //     .dht11_done (dht11_done),
-    //     .dht11_valid(dht11_valid),
-    //     .debug      (),
-    //     .dhtio      (dhtio)
-    // );
 
     reg [39:0] dht11_test_data;
     integer i = 0;

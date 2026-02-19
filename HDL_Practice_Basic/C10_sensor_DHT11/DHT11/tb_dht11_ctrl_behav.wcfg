@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="46405800166fs"></ZoomStartTime>
-      <ZoomEndTime time="46406063967fs"></ZoomEndTime>
-      <Cursor1Time time="46406020000fs"></Cursor1Time>
+      <ZoomStartTime time="23154818334fs"></ZoomStartTime>
+      <ZoomEndTime time="23222118335fs"></ZoomEndTime>
+      <Cursor1Time time="23166035000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="225"></NameColumnWidth>
       <ValueColumnWidth column_width="124"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="5" />
+   <WVObjectSize size="13" />
    <wvobject fp_name="group451" type="group">
       <obj_property name="label">TESTBENCH</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -55,6 +55,7 @@
       <wvobject fp_name="/tb_dht11_ctrl/dht11_test_data" type="array">
          <obj_property name="ElementShortName">dht11_test_data[39:0]</obj_property>
          <obj_property name="ObjectShortName">dht11_test_data[39:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/i" type="array">
          <obj_property name="ElementShortName">i[31:0]</obj_property>
@@ -114,6 +115,10 @@
          <obj_property name="ElementShortName">d1_dhtio</obj_property>
          <obj_property name="ObjectShortName">d1_dhtio</obj_property>
       </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/d2_dhtio" type="logic">
+         <obj_property name="ElementShortName">d2_dhtio</obj_property>
+         <obj_property name="ObjectShortName">d2_dhtio</obj_property>
+      </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/tick_1us" type="logic">
          <obj_property name="ElementShortName">tick_1us</obj_property>
          <obj_property name="ObjectShortName">tick_1us</obj_property>
@@ -121,6 +126,10 @@
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/c_state" type="array">
          <obj_property name="ElementShortName">c_state[2:0]</obj_property>
          <obj_property name="ObjectShortName">c_state[2:0]</obj_property>
+         <obj_property name="WaveformStyle">STYLE_DIGITAL</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/dhtio_reg" type="logic">
          <obj_property name="ElementShortName">dhtio_reg</obj_property>
@@ -146,20 +155,17 @@
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/dht11_data_reg" type="array">
          <obj_property name="ElementShortName">dht11_data_reg[39:0]</obj_property>
          <obj_property name="ObjectShortName">dht11_data_reg[39:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/dht11_data_next" type="array">
-         <obj_property name="ElementShortName">dht11_data_next[39:0]</obj_property>
-         <obj_property name="ObjectShortName">dht11_data_next[39:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/bit_cnt_reg" type="array">
          <obj_property name="ElementShortName">bit_cnt_reg[5:0]</obj_property>
          <obj_property name="ObjectShortName">bit_cnt_reg[5:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
    <wvobject fp_name="group452" type="group">
       <obj_property name="label">DUT</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
@@ -309,7 +315,6 @@
    <wvobject fp_name="group90" type="group">
       <obj_property name="label">DB</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/U_FND/w_1khz" type="logic">
          <obj_property name="ElementShortName">w_1khz</obj_property>
          <obj_property name="ObjectShortName">w_1khz</obj_property>
@@ -359,5 +364,37 @@
          <obj_property name="ElementShortName">edge_reg</obj_property>
          <obj_property name="ObjectShortName">edge_reg</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/clk" type="logic">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/reset" type="logic">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/i_run_stop" type="logic">
+      <obj_property name="ElementShortName">i_run_stop</obj_property>
+      <obj_property name="ObjectShortName">i_run_stop</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/o_tick" type="logic">
+      <obj_property name="ElementShortName">o_tick</obj_property>
+      <obj_property name="ObjectShortName">o_tick</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/counter_r" type="array">
+      <obj_property name="ElementShortName">counter_r[6:0]</obj_property>
+      <obj_property name="ObjectShortName">counter_r[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/CLK" type="array">
+      <obj_property name="ElementShortName">CLK[31:0]</obj_property>
+      <obj_property name="ObjectShortName">CLK[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/FREQUENCY" type="array">
+      <obj_property name="ElementShortName">FREQUENCY[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FREQUENCY[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/U_TICK_1US/F_COUNT" type="array">
+      <obj_property name="ElementShortName">F_COUNT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">F_COUNT[31:0]</obj_property>
    </wvobject>
 </wave_config>

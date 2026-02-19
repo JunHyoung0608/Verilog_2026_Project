@@ -23,8 +23,7 @@ module dht11_controller (
         .o_tick    (tick_1us)
     );
 
-    parameter [2:0] IDLE = 0, START = 1, WAIT = 2, SYNC_L = 3, SYNC_H = 4, 
-                    DATA_SYNC = 5, DATA_C = 6, STOP = 7;
+    parameter [2:0] IDLE = 0, START = 1, WAIT = 2, SYNC_L = 3, SYNC_H = 4, DATA_C = 5, STOP = 6;
     reg [2:0] c_state, n_state;
     reg dhtio_reg, dhtio_next;
     reg done_reg, done_next;
@@ -41,15 +40,23 @@ module dht11_controller (
     assign temperature = dht11_data_reg[23:8];
     assign dht11_done = done_reg;
     assign dht11_valid = valid_reg;
-    assign debug = {1'b0, c_state};
+    assign debug = {dht11_valid, c_state};
+
+    ila_0 u_ILA0 (
+        .clk   (clk),
+        .probe0(dhtio),   //1bit
+        .probe1(debug)  //3bit
+    );
 
     //check dhtio edge
-    reg d1_dhtio;
-    always @(posedge clk) begin
-        if (io_sel_reg == 0) begin
-            d1_dhtio <= dhtio;
+    reg d1_dhtio, d2_dhtio;
+    always @(posedge clk or posedge rst) begin
+        if (rst) begin
+            d1_dhtio <= 1'b0;
+            d2_dhtio <= 1'b0;
         end else begin
-            d1_dhtio <= 0;
+            d1_dhtio <= dhtio;
+            d2_dhtio <= d1_dhtio;
         end
     end
 
@@ -58,7 +65,7 @@ module dht11_controller (
             c_state        <= 3'b0;
             dhtio_reg      <= 1'b1;
             done_reg       <= 1'b0;
-            valid_reg      <= 1'b0;
+            valid_reg      <= 1'b1;
             tick_cnt_reg   <= 0;
             io_sel_reg     <= 1'b1;
             dht11_data_reg <= 40'b0;
@@ -117,7 +124,7 @@ module dht11_controller (
             end
             SYNC_L: begin
                 if (tick_1us) begin
-                    if (dhtio == 1) begin
+                    if (d2_dhtio == 1) begin
                         n_state = SYNC_H;
                         tick_cnt_next = 0;
                     end
@@ -125,31 +132,30 @@ module dht11_controller (
             end
             SYNC_H: begin
                 if (tick_1us) begin
-                    if (dhtio == 0) begin
+                    if (d2_dhtio == 0) begin
                         n_state = DATA_C;
                         tick_cnt_next = 0;
                     end
                 end
             end
             DATA_C: begin
-                if (dhtio) begin
+                if (d2_dhtio) begin
                     if (tick_1us) begin
                         tick_cnt_next = tick_cnt_reg + 1;
                     end
-                end else begin
-                    tick_cnt_next = 0;
-                    if (d1_dhtio == 1) begin
-                        bit_cnt_next = bit_cnt_reg + 1;
-                        if (tick_cnt_reg >= 50) begin
+                    if (d1_dhtio == 1'b0) begin
+                        if (tick_cnt_reg >= 45) begin
                             dht11_data_next = {dht11_data_reg[39:0], 1'b1};
                         end else begin
                             dht11_data_next = {dht11_data_reg[39:0], 1'b0};
                         end
-                    end else begin
-                        if (bit_cnt_reg == 40) begin
-                            n_state = STOP;
-                            tick_cnt_next = 0;
-                        end
+                        bit_cnt_next = bit_cnt_reg + 1;
+                    end 
+                end else begin
+                    tick_cnt_next = 0;
+                    if (bit_cnt_reg == 40) begin
+                        n_state = STOP;
+                        tick_cnt_next = 0;
                     end
                 end
             end
@@ -161,7 +167,7 @@ module dht11_controller (
                         dhtio_next  = 1'b1;
                         n_state     = IDLE;
                         done_next   = 1'b1;
-                        if (dht11_data_reg[7:0] != (dht11_data_reg[15:8]+dht11_data_reg[23:16]+dht11_data_reg[31:24] + dht11_data_reg[39:32])) begin
+                        if (dht11_data_reg[7:0] == (dht11_data_reg[15:8]+dht11_data_reg[23:16]+dht11_data_reg[31:24] + dht11_data_reg[39:32])) begin
                             valid_next = 1'b1;
                         end else begin
                             valid_next = 1'b0;
