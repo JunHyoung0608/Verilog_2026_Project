@@ -9,13 +9,14 @@ module top_dht11 (
     inout        dhtio,
     output [7:0] fnd_data,
     output [3:0] fnd_digit,
-    output       led
+    output [3:0] led
 );
     wire w_db_btn;
+    wire [3:0] debug;
     wire [15:0] temperature, humidity;
     wire [27:0] fnd_in_data;
 
-    assign led = dht11_valid;
+    assign led = {dht11_valid,debug[2:0]};
 
     btn_debounce bd (
         .clk  (clk),
@@ -33,7 +34,7 @@ module top_dht11 (
         .temperature(temperature),
         .dht11_done (dht11_done),
         .dht11_valid(dht11_valid),
-        .debug      (),
+        .debug      (debug),
         .dhtio      (dhtio)
     );
 

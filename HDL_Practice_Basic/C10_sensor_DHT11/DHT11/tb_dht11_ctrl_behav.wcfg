@@ -11,18 +11,19 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="12335030000fs"></ZoomStartTime>
-      <ZoomEndTime time="25175030001fs"></ZoomEndTime>
-      <Cursor1Time time="23035030000fs"></Cursor1Time>
+      <ZoomStartTime time="24422686666fs"></ZoomStartTime>
+      <ZoomEndTime time="50802686667fs"></ZoomEndTime>
+      <Cursor1Time time="46406020000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="264"></NameColumnWidth>
-      <ValueColumnWidth column_width="120"></ValueColumnWidth>
+      <NameColumnWidth column_width="225"></NameColumnWidth>
+      <ValueColumnWidth column_width="124"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="4" />
+   <WVObjectSize size="5" />
    <wvobject fp_name="group451" type="group">
       <obj_property name="label">TESTBENCH</obj_property>
       <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_dht11_ctrl/clk" type="logic">
          <obj_property name="ElementShortName">clk</obj_property>
          <obj_property name="ObjectShortName">clk</obj_property>
@@ -58,6 +59,7 @@
       <wvobject fp_name="/tb_dht11_ctrl/i" type="array">
          <obj_property name="ElementShortName">i[31:0]</obj_property>
          <obj_property name="ObjectShortName">i[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/fnd_data" type="array">
          <obj_property name="ElementShortName">fnd_data[7:0]</obj_property>
@@ -147,10 +149,12 @@
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/tick_cnt_reg" type="array">
          <obj_property name="ElementShortName">tick_cnt_reg[14:0]</obj_property>
          <obj_property name="ObjectShortName">tick_cnt_reg[14:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/tick_cnt_next" type="array">
          <obj_property name="ElementShortName">tick_cnt_next[14:0]</obj_property>
          <obj_property name="ObjectShortName">tick_cnt_next[14:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/u_dht11/io_sel_reg" type="logic">
          <obj_property name="ElementShortName">io_sel_reg</obj_property>
@@ -330,6 +334,11 @@
          <obj_property name="ElementShortName">w_digit_sel[2:0]</obj_property>
          <obj_property name="ObjectShortName">w_digit_sel[2:0]</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject fp_name="group90" type="group">
+      <obj_property name="label">DB</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
       <wvobject fp_name="/tb_dht11_ctrl/DUT/U_FND/w_1khz" type="logic">
          <obj_property name="ElementShortName">w_1khz</obj_property>
          <obj_property name="ObjectShortName">w_1khz</obj_property>
@@ -337,6 +346,47 @@
       <wvobject fp_name="/tb_dht11_ctrl/DUT/U_FND/w_dot_onoff" type="logic">
          <obj_property name="ElementShortName">w_dot_onoff</obj_property>
          <obj_property name="ObjectShortName">w_dot_onoff</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/reset" type="logic">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/i_btn" type="logic">
+         <obj_property name="ElementShortName">i_btn</obj_property>
+         <obj_property name="ObjectShortName">i_btn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/o_btn" type="logic">
+         <obj_property name="ElementShortName">o_btn</obj_property>
+         <obj_property name="ObjectShortName">o_btn</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/counter_reg" type="array">
+         <obj_property name="ElementShortName">counter_reg[9:0]</obj_property>
+         <obj_property name="ObjectShortName">counter_reg[9:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/clk_100khz_reg" type="logic">
+         <obj_property name="ElementShortName">clk_100khz_reg</obj_property>
+         <obj_property name="ObjectShortName">clk_100khz_reg</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/q_reg" type="array">
+         <obj_property name="ElementShortName">q_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">q_reg[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/q_next" type="array">
+         <obj_property name="ElementShortName">q_next[7:0]</obj_property>
+         <obj_property name="ObjectShortName">q_next[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/debounce" type="logic">
+         <obj_property name="ElementShortName">debounce</obj_property>
+         <obj_property name="ObjectShortName">debounce</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_dht11_ctrl/DUT/bd/edge_reg" type="logic">
+         <obj_property name="ElementShortName">edge_reg</obj_property>
+         <obj_property name="ObjectShortName">edge_reg</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>

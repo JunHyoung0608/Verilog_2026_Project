@@ -41,6 +41,7 @@ module dht11_controller (
     assign temperature = dht11_data_reg[23:8];
     assign dht11_done = done_reg;
     assign dht11_valid = valid_reg;
+    assign debug = {1'b0, c_state};
 
     //check dhtio edge
     reg d1_dhtio;
@@ -90,6 +91,9 @@ module dht11_controller (
                 done_next = 1'b0;
                 if (start) begin
                     n_state = START;
+                    dht11_data_next = 0;
+                    bit_cnt_next = 0;
+                    tick_cnt_next = 0;
                 end
             end
             START: begin
@@ -115,8 +119,8 @@ module dht11_controller (
             end
             SYNC_L: begin
                 if (tick_1us) begin
-                    tick_cnt_next = tick_cnt_reg + 1;
-                    if ((dhtio == 1) && (tick_cnt_reg == 9)) begin
+                    // tick_cnt_next = tick_cnt_reg + 1;
+                    if (dhtio == 1) begin
                         n_state = SYNC_H;
                         tick_cnt_next = 0;
                     end
@@ -124,8 +128,8 @@ module dht11_controller (
             end
             SYNC_H: begin
                 if (tick_1us) begin
-                    tick_cnt_next = tick_cnt_reg + 1;
-                    if ((dhtio == 0) && (tick_cnt_reg == 9)) begin
+                    // tick_cnt_next = tick_cnt_reg + 1;
+                    if (dhtio == 0) begin
                         n_state = DATA_C;
                         tick_cnt_next = 0;
                     end
@@ -154,10 +158,10 @@ module dht11_controller (
                             if (tick_cnt_reg >= 50) begin
                                 dht11_data_next = {dht11_data_reg[39:0], 1'b1};
                             end else begin
-                                dht11_data_next = {dht11_data_reg[39:0],1'b0};
+                                dht11_data_next = {dht11_data_reg[39:0], 1'b0};
                             end
                         end else begin
-                            if (bit_cnt_reg == 40) begin
+                            if (bit_cnt_reg >= 40) begin
                                 n_state = STOP;
                                 tick_cnt_next = 0;
                             end

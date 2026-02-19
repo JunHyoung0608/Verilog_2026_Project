@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="54" Path="D:/project_2026/Verilog_2026_Project/HDL_Practice_Basic/C10_sensor_DHT11/DHT11/DHT11.xpr">
+<Project Version="7" Minor="54" Path="D:/class_verilog/Verilog_2026_Project/HDL_Practice_Basic/C10_sensor_DHT11/DHT11/DHT11.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="40ef7ae1995444aeb282b64ef8492c47"/>
@@ -45,7 +45,7 @@
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
     <Option Name="DSABoardId" Val="basys3"/>
-    <Option Name="WTXSimLaunchSim" Val="185"/>
+    <Option Name="WTXSimLaunchSim" Val="214"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
