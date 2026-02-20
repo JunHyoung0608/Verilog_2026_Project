@@ -62,10 +62,6 @@ module tb_sr04_ctrl ();
             echo = 0;
             TIME_REG = $time - TIME_START;
             #1;
-            // $display(
-            //     "%t, \tset_Distance = %dcm, \tdist_sr04 = %d%d, \techo_time = %dus,\tus/58[echo_time] = %d",
-            //     $time, set_Distance, dist_sr04[23:8], dist_sr04[7:0],
-            //     TIME_REG / 1000, TIME_REG / 58000);
         end
     endtask
 
