@@ -8,15 +8,27 @@ module tb_sender ();
     wire [7:0] send_data;
     wire send_valid;
 
-    sender DUT (
-        .clk           (clk),
-        .rst           (rst),
+    // sender DUT (
+    //     .clk           (clk),
+    //     .rst           (rst),
+    //     .i_c_mode      (i_c_mode),
+    //     .i_start       (i_start),
+    //     .i_dec_data    (i_dec_data),
+    //     .i_sender_ready(i_sender_ready),
+    //     .send_data     (send_data),
+    //     .send_valid    (send_valid)
+    // );
+
+    AsciiSenderFsm DUT (
+        .iClk          (clk),
+        .iRstn         (rst),
         .i_c_mode      (i_c_mode),
         .i_start       (i_start),
         .i_dec_data    (i_dec_data),
         .i_sender_ready(i_sender_ready),
-        .send_data     (send_data),
-        .send_valid    (send_valid)
+
+        .send_data (send_data),
+        .send_valid(send_valid)
     );
 
     initial clk = 0;
@@ -37,10 +49,21 @@ module tb_sender ();
         #10;
         i_start = 0;
 
+        #(500);
+        i_dec_data = {4'd0, 4'd0, 4'd0, 4'd0, 4'd0, 4'd2, 4'd3, 4'd5};
+        i_start = 1;
+        #10;
+        i_start = 0;
+
         //SR04
         #(500);
         i_c_mode = 2;
         i_dec_data = {4'd0, 4'd0, 4'd0, 4'd0, 4'd0, 4'd3, 4'd6, 4'd9};
+        i_start = 1;
+        #10;
+        i_start = 0;
+        #(500);
+        i_dec_data = {4'd0, 4'd0, 4'd0, 4'd0, 4'd0, 4'd0, 4'd6, 4'd9};
         i_start = 1;
         #10;
         i_start = 0;
@@ -52,8 +75,14 @@ module tb_sender ();
         i_start = 1;
         #10;
         i_start = 0;
+        #(500);
+        i_c_mode = 3;
+        i_dec_data = {4'd0, 4'd0, 4'd3, 4'd4, 4'd0, 4'd6, 4'd0, 4'd5};
+        i_start = 1;
+        #10;
+        i_start = 0;
 
-        //DHT11
+        //DHT11 + i_sender_ready issue
         #(500);
         i_c_mode = 3;
         i_dec_data = {4'd6, 4'd3, 4'd0, 4'd0, 4'd3, 4'd6, 4'd0, 4'd5};
