@@ -1,0 +1,60 @@
+`timescale 1ns / 1ps
+
+module control_unit (
+    input      clk,
+    input      reset,
+    input      i_mode,
+    input      i_run_stop,
+    input      i_clear,
+    output     o_mode,
+    output reg o_run_stop,
+    output reg o_clear
+);
+
+    localparam [1:0] STOP = 2'b00, RUN = 2'b01, CLEAR = 2'b10;
+
+
+    //reg variable
+    reg [1:0] current_st, next_st;
+
+    assign o_mode = i_mode;
+
+    //satate register SL
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            current_st <= STOP;
+        end else begin
+            current_st <= next_st;
+        end
+    end
+
+    always @(*) begin
+        next_st = current_st;
+        o_run_stop = 1'b0;
+        o_clear = 1'b0;
+        case (current_st)
+            STOP: begin
+                // moor output
+                o_run_stop = 1'b0;
+                o_clear = 1'b0;
+                if (i_run_stop) begin
+                    next_st = RUN;
+                end else if (i_clear) begin
+                    next_st = CLEAR;
+                end
+            end
+            RUN: begin
+                o_run_stop = 1'b1;
+                o_clear = 1'b0;
+                if (i_run_stop) begin
+                    next_st = STOP;
+                end
+            end
+            CLEAR: begin
+                o_run_stop = 1'b0;
+                o_clear = 1'b1;
+                next_st = STOP;
+            end
+        endcase
+    end
+endmodule
