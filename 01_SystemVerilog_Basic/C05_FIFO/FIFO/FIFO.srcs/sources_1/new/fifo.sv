@@ -12,8 +12,8 @@ module fiforegister #(
     input        [BIT_WIDTH-1:0] wdata,
     input                        re,
     output logic [BIT_WIDTH-1:0] rdata,
-    output logic [BIT_WIDTH-1:0] full,
-    output logic [BIT_WIDTH-1:0] empty
+    output logic                 full,
+    output logic                 empty
 );
     fifo_controller #(
         .ADDR     (ADDR),
@@ -58,8 +58,8 @@ module fifo_controller #(
     input                           re,
     output logic [$clog2(ADDR)-1:0] wptr,
     output logic [$clog2(ADDR)-1:0] rptr,
-    output logic [   BIT_WIDTH-1:0] full,
-    output logic [   BIT_WIDTH-1:0] empty
+    output logic                    full,
+    output logic                    empty
 );
 
 
