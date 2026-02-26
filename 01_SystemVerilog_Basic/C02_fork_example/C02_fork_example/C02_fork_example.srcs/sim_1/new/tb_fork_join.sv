@@ -1,4 +1,5 @@
 `timescale 1ns / 1ps
+`define MODE_0_1_2
 
 
 
@@ -97,35 +98,40 @@ module tb_fork_join ();
             $stop;
         end
     end
+
+
     //--------------case1,2,3----------------
-        // task A_thread();
-        //     $display("%t : A thread", $realtime);
-        // endtask  //A_thread
+`ifdef MODE_0_1_2
+    task A_thread();
+        $display("%t : A thread", $realtime);
+    endtask  //A_thread
 
-        // task B_thread();
-        //     $display("%t : B thread", $realtime);
-        // endtask  //B_thread
+    task B_thread();
+        $display("%t : B thread", $realtime);
+    endtask  //B_thread
 
-        // task C_thread();
-        //     $display("%t : C thread", $realtime);
-        // endtask  //C_thread
+    task C_thread();
+        $display("%t : C thread", $realtime);
+    endtask  //C_thread
+`else
     //-----------case4,5---------------------
-        task A_thread();
-            repeat (5) $display("%t : A thread", $realtime);
-        endtask  //A_thread
-        task B_thread();
-            forever begin
-                $display("%t : B thread", $realtime);
-                #5;
-            end
-        endtask  //B_thread
+    task A_thread();
+        repeat (5) $display("%t : A thread", $realtime);
+    endtask  //A_thread
+    task B_thread();
+        forever begin
+            $display("%t : B thread", $realtime);
+            #5;
+        end
+    endtask  //B_thread
 
-        task C_thread();
-            forever begin
-                $display("%t : C thread", $realtime);
-                #10;
-            end
-        endtask  //C_thread
+    task C_thread();
+        forever begin
+            $display("%t : C thread", $realtime);
+            #10;
+        end
+    endtask  //C_thread
+`endif
 
 
 
