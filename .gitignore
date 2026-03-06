@@ -19,3 +19,6 @@
 # Waveform data
 *.vcd
 *.wdb
+
+# vscode c compiler
+.vscode/
