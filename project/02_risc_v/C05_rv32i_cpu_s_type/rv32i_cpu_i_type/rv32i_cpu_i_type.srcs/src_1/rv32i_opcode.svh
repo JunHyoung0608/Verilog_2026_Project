@@ -14,13 +14,19 @@
 //opcode
 `define R_TYPE 7'b011_0011
 // `define B_TYPE 7'b110_0011
-// `define S_TYPE 7'b010_0011
-// `define I_TYPE 7'b001_0011
+`define S_TYPE 7'b010_0011
+`define I_TYPE 7'b001_0011
+`define IL_TYPE 7'b000_011
 // `define U_TYPE 7'b001_0111 
 // `define U_TYPE 7'b011_0111
 // `define 
 
-typedef enum logic [6:0] {R_type = `R_TYPE} opcode_t;
+typedef enum logic [6:0] {
+    R_type = 7'b011_0011,
+    S_type = 7'b010_0011,
+    I_type = 7'b001_0011,
+    IL_type = 7'b000_011
+} opcode_t;
 //--------------------R_type----------------------------
 //funct3
 `define FNC3_ADD_SUB 3'h0 

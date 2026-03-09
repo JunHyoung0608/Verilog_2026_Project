@@ -1,0 +1,33 @@
+`timescale 1ns / 1ps
+
+module data_mem #(
+    parameter ADDR = 32,
+    BIT_WIDTH = 32
+) (
+    input                           clk,
+    input                           rst,
+    input                           dwe,
+    //write
+    input        [$clog2(ADDR)-1:0] dwaddr,
+    input        [   BIT_WIDTH-1:0] dwdata,
+    //read
+    output logic [   BIT_WIDTH-1:0] drdata
+);
+    logic [7:0] dmem[0:31];
+
+    always_ff @(posedge clk or posedge rst) begin : data_mem_ff
+        if (rst) begin
+        end else begin
+            if (dwe) begin
+                dmem[dwaddr+0] <= dwdata[7:0];
+                dmem[dwaddr+1] <= dwdata[15:8];
+                dmem[dwaddr+2] <= dwdata[23:16];
+                dmem[dwaddr+3] <= dwdata[31:24];
+            end
+        end
+    end
+
+    assign drdata = {
+        dmem[dwaddr], dmem[dwaddr+1], dmem[dwaddr+2], dmem[dwaddr+3]
+    };
+endmodule
