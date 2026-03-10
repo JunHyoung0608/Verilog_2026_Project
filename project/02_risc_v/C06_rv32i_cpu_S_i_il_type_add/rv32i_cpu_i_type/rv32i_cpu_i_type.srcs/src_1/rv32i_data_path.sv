@@ -5,26 +5,36 @@ module data_path #(
     parameter ADDR = 32,
     BIT_WIDTH = 32
 ) (
-    input                       clk,
-    input                       rst,
+    input                                  clk,
+    input                                  rst,
     //control
-    input                       rf_we,
-    input                       alu_src_sel,
-    input  alu_control_t        alu_control,
+    input                                  rf_we,
+    input                                  alu_src_sel,
+    input                                  rf_wd_sel,
+    input  alu_control_t                   alu_control,
     //instr
-    input                [31:0] instr_data,
-    output logic         [31:0] instr_addr,
+    input                [           31:0] instr_data,
+    output logic         [           31:0] instr_addr,
     //data_mem
-    output logic  [$clog2(ADDR)-1:0] dwaddr,
-    output logic [BIT_WIDTH - 1:0] dwdata
+    input  logic         [BIT_WIDTH - 1:0] drdata,
+    output logic         [BIT_WIDTH - 1:0] daddr,
+    output logic         [BIT_WIDTH - 1:0] dwdata
 );
+    logic [BIT_WIDTH-1:0] rf_wd_mux_data;
     logic [BIT_WIDTH-1:0] rd1, rd2;
     logic [BIT_WIDTH-1:0] imm_data;
-    logic [BIT_WIDTH-1:0] alurs2_data;
+    logic [BIT_WIDTH-1:0] alu_src2_mux_data;
     logic [BIT_WIDTH-1:0] alu_result;
 
-    assign dwaddr = alu_result;
+    assign daddr  = alu_result;
     assign dwdata = rd2;
+
+    mux_2x1 U_RF_WDATA_MUX (
+        .in0    (alu_result),
+        .in1    (drdata),
+        .mux_sel(rf_wd_sel),
+        .mux_out(rf_wd_mux_data)
+    );
 
 
     register_file #(
@@ -36,7 +46,7 @@ module data_path #(
         .rf_we(rf_we),
         //write
         .wa   (instr_data[11:7]),
-        .wd   (alu_result),
+        .wd   (rf_wd_mux_data),
         //read
         .ra1  (instr_data[19:15]),
         .ra2  (instr_data[24:20]),
@@ -49,16 +59,16 @@ module data_path #(
         .imm_data  (imm_data)
     );
 
-    mux_2x1 U_MUX (
+    mux_2x1 U_ALU_SRC2_MUX (
         .in0    (rd2),
         .in1    (imm_data),
         .mux_sel(alu_src_sel),
-        .mux_out(alurs2_data)
+        .mux_out(alu_src2_mux_data)
     );
 
     alu U_ALU (
         .a          (rd1),
-        .b          (alurs2_data),
+        .b          (alu_src2_mux_data),
         .alu_control(alu_control),
         .alu_result (alu_result)
     );
@@ -165,6 +175,9 @@ module imm_extender (
                 imm_data = {
                     {20{instr_data[31]}}, instr_data[31:25], instr_data[11:7]
                 };
+            end
+            IL_type, I_type: begin
+                imm_data = {{20{instr_data[31]}}, instr_data[31:20]};
             end
         endcase
     end

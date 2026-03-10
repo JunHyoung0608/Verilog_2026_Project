@@ -6,7 +6,8 @@ module rv32I_top (
 );
     logic [31:0] instr_addr, instr_data;
     logic dwe;
-    logic [31:0] dwaddr, dwdata, drdata;
+    logic [31:0] daddr, dwdata, drdata;
+    logic [2:0] o_funct3;
 
     instruction_mem U_INSTR_MEM (
         .instr_addr(instr_addr[31:2]),
@@ -15,18 +16,9 @@ module rv32I_top (
 
     rv32i_cpu U_CPU (.*);
 
-    data_mem #(
-        .ADDR(32),
-        .BIT_WIDTH(32)
-    ) U_DATA_MEM (
-        .clk(clk),
-        .rst(rst),
-        .dwe(dwe),
-        //write
-        .dwaddr(dwaddr),
-        .dwdata(dwdata),
-        //read
-        .drdata(drdata)
+    data_mem U_DATA_MEM (
+        .*,
+        .i_funct3(o_funct3)
     );
 
 

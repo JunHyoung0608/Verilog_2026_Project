@@ -8,11 +8,13 @@ module rv32i_cpu (
     input        [31:0] instr_data,
     output logic [31:0] instr_addr,
     //data_mem
+    input  logic [31:0] drdata,
     output logic        dwe,
-    output logic [31:0] dwaddr,
-    output logic [31:0] dwdata
+    output logic [31:0] daddr,
+    output logic [31:0] dwdata,
+    output logic [ 2:0] o_funct3
 );
-    logic rf_we, alu_src_sel;
+    logic rf_we, alu_src_sel, rf_wd_sel;
     alu_control_t alu_control;
 
 
@@ -24,8 +26,10 @@ module rv32i_cpu (
         //datapath
         .rf_we      (rf_we),
         .alu_src_sel(alu_src_sel),
+        .rf_wd_sel  (rf_wd_sel),
         .alu_control(alu_control),
         //data_mem
+        .o_funct3   (o_funct3),
         .dwe        (dwe)
     );
 
@@ -33,18 +37,7 @@ module rv32i_cpu (
         .ADDR(32),
         .BIT_WIDTH(32)
     ) U_DATA_PATH (
-        .clk        (clk),
-        .rst        (rst),
-        //control
-        .rf_we      (rf_we),
-        .alu_src_sel(alu_src_sel),
-        .alu_control(alu_control),
-        //instr
-        .instr_data (instr_data),
-        .instr_addr (instr_addr),
-        //data_mem
-        .dwaddr(dwaddr),
-        .dwdata(dwdata)
+        .*
     );
 
 endmodule
