@@ -2,7 +2,7 @@
 `include "../../src_1/rv32i_opcode.svh"
 
 
-module tb_rv32i_t_type ();
+module tb_rv32i_r_type ();
 
     logic clk, rst;
 
