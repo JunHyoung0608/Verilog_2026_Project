@@ -27,9 +27,7 @@ module data_path #(
     logic [BIT_WIDTH-1:0] imm_data;
     logic [BIT_WIDTH-1:0] alu_src2_mux_out;
     logic [BIT_WIDTH-1:0] alu_result;
-    logic [BIT_WIDTH-1:0] b_src_mux_out;
     logic                 b_taken;
-    logic [BIT_WIDTH-1:0] pc_src_mux_out;
 
     assign daddr  = alu_result;
     assign dwdata = rd2;
@@ -84,25 +82,18 @@ module data_path #(
     );
 
     //PC-----------------------------------------
-    mux_2x1 U_PC_B_SRC_MUX (
-        .in0    (instr_addr + imm_data),
-        .in1    (alu_result),
-        .mux_sel(b_src_sel),
-        .mux_out(b_src_mux_out)
-    );
-
-    mux_2x1 U_PC_B_MUX (
-        .in0    (instr_addr + 4),     //PC+4
-        .in1    (b_src_mux_out),      //PC+imm
-        .mux_sel(b_taken && branch),  //sel
-        .mux_out(pc_src_mux_out)      //mux_out
-    );
-
     pc U_PC (
-        .clk (clk),
-        .rst (rst),
-        .i_pc(pc_src_mux_out),
-        .o_pc(instr_addr)
+        .clk         (clk),
+        .rst         (rst),
+        //control_unit
+        .b_taken     (b_taken),
+        .branch      (branch),
+        .b_src_sel   (b_src_sel),
+        //data
+        .rs1_plus_imm(alu_result),
+        .pc_plus_imm (instr_addr + imm_data),
+        .pc_plus_4   (instr_addr + 4),
+        .o_pc        (instr_addr)
     );
 endmodule
 
@@ -186,18 +177,40 @@ endmodule
 module pc (
     input               clk,
     input               rst,
-    input        [31:0] i_pc,
+    //control_unit
+    input               b_taken,
+    input               branch,
+    input               b_src_sel,
+    //data
+    input        [31:0] rs1_plus_imm,
+    input        [31:0] pc_plus_imm,
+    input        [31:0] pc_plus_4,
     output logic [31:0] o_pc
 );
 
-
+    logic [31:0] pc_reg, pc_next;
+    //output
+    assign o_pc    = pc_reg;
+    //branch_event
+    assign b_event = b_taken && branch;
 
     always_ff @(posedge clk or posedge rst) begin : pc_ff
         if (rst) begin
-            o_pc <= 0;
+            pc_reg <= 0;
         end else begin
-            o_pc <= i_pc;
+            pc_reg <= pc_next;
         end
+    end
+    //mux
+    always_comb begin : pc_comb
+        pc_next = pc_reg;
+        case ({
+            b_event, b_src_sel
+        })
+            2'b00, 2'b01: pc_next = pc_plus_4;
+            2'b10: pc_next = pc_plus_imm;
+            2'b11: pc_next = rs1_plus_imm;
+        endcase
     end
 
 endmodule
