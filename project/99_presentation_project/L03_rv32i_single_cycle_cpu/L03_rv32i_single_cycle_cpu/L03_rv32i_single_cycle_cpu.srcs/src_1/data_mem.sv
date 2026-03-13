@@ -13,12 +13,11 @@ module data_mem (
     output logic [31:0] drdata
 );
 
-    logic [31:0] dmem[0:1023];
+    logic [31:0] dmem[0:255];
 
 
-    always_ff @(posedge clk) begin : data_mem_ff
-        drdata = 0;
-        //S_type
+    //S_type
+    always_ff @(posedge clk) begin : write_mem_ff
         if (dwe) begin
             case (i_funct3)
                 `FNC3_SB: begin
@@ -37,41 +36,45 @@ module data_mem (
                 end
                 `FNC3_SW: dmem[daddr[31:2]] <= dwdata;
             endcase
-            //IL_type
-        end else begin
-            case (i_funct3)
-                `FNC3_LB: begin
-                    case(daddr[1:0])
-                        2'b00: drdata <= 32'($signed(dmem[daddr[31:2]][7:0]));
-                        2'b01: drdata <= 32'($signed(dmem[daddr[31:2]][15:8]));
-                        2'b10: drdata <= 32'($signed(dmem[daddr[31:2]][23:16]));
-                        2'b11: drdata <= 32'($signed(dmem[daddr[31:2]][31:24]));
-                    endcase
-                end
-                `FNC3_LH:  begin
-                    case(daddr[1])
-                        1'b0: drdata <= 32'($signed(dmem[daddr[31:2]][15:0]));
-                        2'b1: drdata <= 32'($signed(dmem[daddr[31:2]][31:16]));
-                    endcase
-                end
-                `FNC3_LW:  drdata <= dmem[daddr[31:2]];
-                `FNC3_LBU: begin
-                    case(daddr[1:0]) 
-                        2'b00: drdata <= 32'(dmem[daddr[31:2]][7:0]);
-                        2'b01: drdata <= 32'(dmem[daddr[31:2]][15:8]);
-                        2'b10: drdata <= 32'(dmem[daddr[31:2]][23:16]);
-                        2'b11: drdata <= 32'(dmem[daddr[31:2]][31:24]);
-                    endcase
-                end
-                `FNC3_LHU: begin
-                    case(daddr[1])
-                        1'b0: drdata <= 32'(dmem[daddr[31:2]][15:0]);
-                        1'b1: drdata <= 32'(dmem[daddr[31:2]][31:16]);
-                    endcase
-                end
-            endcase
-
         end
+    end
+
+
+    //IL_type
+    always_comb begin : read_mem_comb
+        drdata = 0;
+        case (i_funct3)
+            `FNC3_LB: begin
+                case (daddr[1:0])
+                    2'b00: drdata = 32'($signed(dmem[daddr[31:2]][7:0]));
+                    2'b01: drdata = 32'($signed(dmem[daddr[31:2]][15:8]));
+                    2'b10: drdata = 32'($signed(dmem[daddr[31:2]][23:16]));
+                    2'b11: drdata = 32'($signed(dmem[daddr[31:2]][31:24]));
+                endcase
+            end
+            `FNC3_LH: begin
+                case (daddr[1])
+                    1'b0: drdata = 32'($signed(dmem[daddr[31:2]][15:0]));
+                    2'b1: drdata = 32'($signed(dmem[daddr[31:2]][31:16]));
+                endcase
+            end
+            `FNC3_LW: drdata = dmem[daddr[31:2]];
+            `FNC3_LBU: begin
+                case (daddr[1:0])
+                    2'b00: drdata = 32'(dmem[daddr[31:2]][7:0]);
+                    2'b01: drdata = 32'(dmem[daddr[31:2]][15:8]);
+                    2'b10: drdata = 32'(dmem[daddr[31:2]][23:16]);
+                    2'b11: drdata = 32'(dmem[daddr[31:2]][31:24]);
+                endcase
+            end
+            `FNC3_LHU: begin
+                case (daddr[1])
+                    1'b0: drdata = 32'(dmem[daddr[31:2]][15:0]);
+                    1'b1: drdata = 32'(dmem[daddr[31:2]][31:16]);
+                endcase
+            end
+        endcase
+
     end
 endmodule
 

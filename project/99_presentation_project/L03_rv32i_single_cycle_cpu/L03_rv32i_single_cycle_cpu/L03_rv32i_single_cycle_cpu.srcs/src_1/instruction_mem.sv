@@ -6,7 +6,7 @@ module instruction_mem (
     output logic [31:0] instr_data
 );
 
-    logic [31:0] rom[0:31];
+    logic [31:0] rom[0:127];
 
     initial begin
         // rom[0] = 32'h005201b3;

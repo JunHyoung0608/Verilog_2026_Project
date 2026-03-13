@@ -160,9 +160,9 @@ module alu (
             BEQ:  b_taken = ($signed(a) == $signed(b)) ? 1'b1 : 1'b0;
             BNE:  b_taken = ($signed(a) != $signed(b)) ? 1'b1 : 1'b0;
             BLT:  b_taken = ($signed(a) < $signed(b)) ? 1'b1 : 1'b0;
-            BGE:  b_taken = ($signed(a) <= $signed(b)) ? 1'b1 : 1'b0;
+            BGE:  b_taken = ($signed(a) >= $signed(b)) ? 1'b1 : 1'b0;
             BLTU: b_taken = (a < b) ? 1'b1 : 1'b0;
-            BGEU: b_taken = (a <= b) ? 1'b1 : 1'b0;
+            BGEU: b_taken = (a >= b) ? 1'b1 : 1'b0;
             //LUI
             JUMP: begin
                 alu_result = a + b;
@@ -247,6 +247,7 @@ module imm_extender (
             JAL_type: begin
                 imm_data = {
                     {12{instr_data[31]}},
+                    instr_data[31],
                     instr_data[19:12],
                     instr_data[20],
                     instr_data[30:21],

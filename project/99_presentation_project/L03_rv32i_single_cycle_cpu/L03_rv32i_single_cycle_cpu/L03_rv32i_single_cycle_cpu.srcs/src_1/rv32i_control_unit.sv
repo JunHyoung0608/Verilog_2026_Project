@@ -74,7 +74,7 @@ module control_unit (
             IL_type: begin
                 //datapath
                 rf_we       = 1;
-                alu_src_sel = 0;
+                alu_src_sel = 1;
                 rf_wd_sel   = 1;
                 alu_control = ADD;
                 //pc
