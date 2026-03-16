@@ -1,11 +1,11 @@
 `timescale 1ns / 1ps
 `include "../../src_1/rv32i_opcode.svh"
 
-`define HEX_CODE 0
+`define HEX_CODE 1
 `define R 0
 `define I 0
 `define S 0
-`define IL 1
+`define IL 0
 `define B 0
 `define U 0
 `define J 0
@@ -111,7 +111,7 @@ module tb_rv32i_all_type ();
             $display("[Test HEX_CODE]");
             $readmemh("riscv_rv32i_rom.mem",`INSTR_MEM.rom);
 
-            run(290);    
+            run(520);    
         end
         //sim1----------------r-type------------------------
         // - ADD, SUB, SLL, SLT, SLTU, XOR, OR, AND, SRL, SRA
@@ -224,7 +224,7 @@ module tb_rv32i_all_type ();
             
             //REG
             rs1 = 0; imm = 0;
-            rd = 5;
+            rd = 1;
             `DMEM.dmem[0] = 32'h04_f3_f2_01;
             //PC
             //rd <= rs+imm : {imm[11:0],    rs1[4:0],  funct3[2:0],   rd[4:0],   `IL_TYPE}
@@ -244,7 +244,7 @@ module tb_rv32i_all_type ();
                 `INSTR_MEM.rom[16+i]  = {imm+i,  rs1,    `FNC3_LHU,  rd, `IL_TYPE};    //LB  x5 = dmem[rs1+imm+i]
             end
 
-            run(22);
+            run(21);
         end
         //sim5----------------b-type-----------------------
         // - BEQ, BNE, BLT, BGE, BLTU, BGEU
@@ -254,37 +254,8 @@ module tb_rv32i_all_type ();
             
             rs1 = 1;
             rd = 2;
-            `REG_FILE.reg_file[rs1] = -1;
+            `REG_FILE.reg_file[rs1] = -1    ;
            
-            /*
-            -----all true case-----
-            //signed
-            [0]  BEQ  if(x1 == x1)  PC += 2 * 4
-            [2]  BNE  if(x1 != x0)  PC += 2 * 4
-            [4]  BLT  if(x1 <  x0)  PC += 2 * 4
-            [6]  BGE  if(x0 >= x1)  PC += 2 * 4
-            [8]  BGE  if(x1 >= x1)  PC += 6 * 4
-            //unsigned
-            [14] BLTU if(x0 <  x1)  PC += -2 * 4
-            [12] BGEU if(x1 >=  x0) PC += -2 * 4
-            [10] BGEU if(x1 >=  x1) PC += 8 * 4
-            //ADD
-            [18] ADD  x2 = x1 + x1
-
-            -----all false case-----
-            //signed
-            [19] BEQ  if(x0 == x1)  PC += 2 * 4
-            [20] BNE  if(x0 != x0)  PC += 2 * 4
-            [21] BLT  if(x0 <  x1)  PC += 2 * 4
-            [22] BLT  if(x0 <  x1)  PC += 2 * 4
-            [23] BGE  if(x0 >= x1)  PC += 2 * 4
-            //unsigned
-            [24] BLTU if(x1 <  x0)  PC += 2 * 4
-            [25] BLTU if(x1 <  x0)  PC += 2 * 4
-            [26] BGEU if(x1 >= x0)  PC += 2 * 4
-            //SUB
-            [27] SUB  x2 = x1 - x2
-            */
             //PC  
             //if(rs1 == rs2) PC += imm : {imm[12,10:5], rs2[4:0], rs1[4:0], funct3[2:0], imm[4:1,11],`B_TYPE}
             //-----all true case-----
@@ -295,25 +266,23 @@ module tb_rv32i_all_type ();
                             `INSTR_MEM.rom[4]  = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BLT,  imm[4:1], imm[11], `B_TYPE};
             imm = 6 * 4;    `INSTR_MEM.rom[8]  = {imm[12], imm[10:5], rs1, rs1, `FNC3_BGE,  imm[4:1], imm[11], `B_TYPE};
             //unsigned
-            imm = -2 * 4;   `INSTR_MEM.rom[14] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BLTU, imm[4:1], imm[11], `B_TYPE};
-                            `INSTR_MEM.rom[12] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BGEU, imm[4:1], imm[11], `B_TYPE}; 
-            imm = 8 * 4;    `INSTR_MEM.rom[10] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BGEU, imm[4:1], imm[11], `B_TYPE};
-            //ADD
-                            `INSTR_MEM.rom[18] = {`FNC7_0, 5'd1, 5'd1, `FNC3_ADD_SUB, rd, `R_TYPE};
+            imm = -2 * 4;   `INSTR_MEM.rom[14] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BLTU, imm[4:1], imm[11], `B_TYPE};
+                            `INSTR_MEM.rom[12] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BGEU, imm[4:1], imm[11], `B_TYPE}; 
+            imm = 8 * 4;    `INSTR_MEM.rom[10] = {imm[12], imm[10:5], rs1, rs1, `FNC3_BGEU, imm[4:1], imm[11], `B_TYPE};
             //-----all false case-----
             //signed
-            imm = 2 * 4;    `INSTR_MEM.rom[19] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BEQ,  imm[4:1], imm[11], `B_TYPE};
-                            `INSTR_MEM.rom[20] = {imm[12], imm[10:5], 5'd0, 5'd0, `FNC3_BNE,  imm[4:1], imm[11], `B_TYPE}; 
-                            `INSTR_MEM.rom[21] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BLT,  imm[4:1], imm[11], `B_TYPE};
-                            `INSTR_MEM.rom[22] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BLT,  imm[4:1], imm[11], `B_TYPE};
-                            `INSTR_MEM.rom[23] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BGE,  imm[4:1], imm[11], `B_TYPE};
+            imm = 30 * 4;    `INSTR_MEM.rom[18] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BEQ,  imm[4:1], imm[11], `B_TYPE};
+                            `INSTR_MEM.rom[19] = {imm[12], imm[10:5], 5'd0, 5'd0, `FNC3_BNE,  imm[4:1], imm[11], `B_TYPE}; 
+                            `INSTR_MEM.rom[20] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BLT,  imm[4:1], imm[11], `B_TYPE};
+                            `INSTR_MEM.rom[21] = {imm[12], imm[10:5], rs1, rs1, `FNC3_BLT,  imm[4:1], imm[11], `B_TYPE};
+                            `INSTR_MEM.rom[22] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BGE,  imm[4:1], imm[11], `B_TYPE};
             //unsigned 
-                            `INSTR_MEM.rom[24] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BLTU, imm[4:1], imm[11], `B_TYPE}; 
-                            `INSTR_MEM.rom[25] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BLTU, imm[4:1], imm[11], `B_TYPE}; 
-                            `INSTR_MEM.rom[26] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BGEU, imm[4:1], imm[11], `B_TYPE};  
+                            `INSTR_MEM.rom[23] = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BLTU, imm[4:1], imm[11], `B_TYPE}; 
+                            `INSTR_MEM.rom[24] = {imm[12], imm[10:5], 5'd0, 5'd0, `FNC3_BLTU, imm[4:1], imm[11], `B_TYPE}; 
+                            `INSTR_MEM.rom[25] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BGEU, imm[4:1], imm[11], `B_TYPE};  
             //SUB
-                            `INSTR_MEM.rom[27] = {`FNC7_SUB, 5'd1, 5'd1, `FNC3_ADD_SUB, rd, `R_TYPE};
-            run(10);
+                            `INSTR_MEM.rom[26] = {`FNC7_SUB, 5'd1, 5'd1, `FNC3_ADD_SUB, rd, `R_TYPE};
+            run(17);
         end
         //sim6----------------u-type------------------------
         // - LUI, AUIPC
@@ -329,16 +298,20 @@ module tb_rv32i_all_type ();
             */
 
             //PC
+            //BEQ       if(0 == 0) 
             //LUI       rd = imm : {imm[31:12], rd, `LUI_TYPE}
             //AUIPC     rd = PC + imm : {imm[31:12], rd, `LUI_TYPE}
-
+            
+            //BEQ
+            imm = 2 * 4;    
+            `INSTR_MEM.rom[0]  = {imm[12], imm[10:5], 5'd0, 5'd0, `FNC3_BEQ,  imm[4:1], imm[11], `B_TYPE};
             //LUI
-            `INSTR_MEM.rom[0] = {-10,   rd, `LUI_TYPE};
+            `INSTR_MEM.rom[2] = {-10,   rd, `LUI_TYPE};
             //AUIPC
-            `INSTR_MEM.rom[1] = {10,    rd, `AUIPC_TYPE};
+            `INSTR_MEM.rom[3] = {10,    rd, `AUIPC_TYPE};
 
 
-            run(10);
+            run(3);
         end
         //sim7----------------j-type------------------------
         // - JAL
@@ -347,9 +320,9 @@ module tb_rv32i_all_type ();
             reset(0);
             $display("%t : [Test J_type Instr]",$realtime);
             
-            rs1 = 1; rs2 = 2;
             imm = 3 * 4;
-
+            rs1 = 5;
+            `REG_FILE.reg_file[rs1] = 4*4;
             /*
             [0] JAL     rd = PC+4; PC += imm        x1 = 0 + 4; PC = 0 + 3*4
             [3] JALR    rd = PC+4; PC = rs1 + imm   X2 = 3*4 + 4; PC = x1(4*4) + 3*4
@@ -361,12 +334,15 @@ module tb_rv32i_all_type ();
             //JALR  rd = PC + 4; PC = rs1 + imm : {imm[11:0],   rs1,    3'd0,   rd, `JALR_TYPE}
 
             //JAL
-            rd = 1; `INSTR_MEM.rom[0] = {imm[20],imm[10:1],imm[11],imm[19:12],rd,`JAL_TYPE};
+            rd = 1;
+            `INSTR_MEM.rom[0] = {imm[20],imm[10:1],imm[11],imm[19:12],rd,`JAL_TYPE};
             //JALR
-            rd = 2; `INSTR_MEM.rom[2] = {imm[11:0], rs1,    3'b0,   rd, `JALR_TYPE};
+            rd = 2; rs1 = 5;
+            `INSTR_MEM.rom[3] = {imm[11:0], rs1,    3'b0,   rd, `JALR_TYPE};
             //ADD
-            rd = 3; `INSTR_MEM.rom[7] = {`FNC7_SUB, rs2,   rs1,   `FNC3_ADD_SUB,  rd,   `R_TYPE};
-            run(10);
+            rd = 3; rs1 = 2; rs2 = 1;
+            `INSTR_MEM.rom[7] = {`FNC7_SUB, rs2,   rs1,   `FNC3_ADD_SUB,  rd,   `R_TYPE};
+            run(3);
         end
 
         $stop;
