@@ -25,7 +25,7 @@ module data_path #(
 );
     logic [31:0] o_dec_rs1, o_dec_rs2, o_dec_imm;
     logic o_if_b_taken;
-    logic [31:0] o_ex_pc_plus_4, o_ex_pc_plus_imm;
+    logic [31:0] o_ex_alu_result, o_ex_pc_plus_4, o_ex_pc_plus_imm;
     logic [31:0] o_mem_rdata;
     logic [31:0] o_wb_mux_out;
 
@@ -34,25 +34,25 @@ module data_path #(
 
 
     dec_path U_DEC_PATH (
-        .i_clk           (clk),
-        .i_rst           (rst),
+        .i_clk          (clk),
+        .i_rst          (rst),
         //ctrl_unit
-        .i_cu_rf_we      (rf_we),
-        .i_cu_alu_src_sel(alu_src_sel),
+        .i_cu_rf_we     (rf_we),
         //IF
-        .i_if_instr_data (instr_data),
+        .i_if_instr_data(instr_data),
         //ID
-        .o_dec_rs1       (o_dec_rs1),
-        .o_dec_rs2       (o_dec_rs2),
-        .o_dec_imm       (o_dec_imm),
+        .o_dec_rs1      (o_dec_rs1),
+        .o_dec_rs2      (o_dec_rs2),
+        .o_dec_imm      (o_dec_imm),
         //WB
-        .i_wb_mux_data   (o_wb_mux_out)
+        .i_wb_mux_data  (o_wb_mux_out)
     );
 
     ex_path U_EX_PATH (
         .i_clk           (clk),
         .i_rst           (rst),
         //ctrl_unit
+        .i_cu_alu_src_sel(alu_src_sel),
         .i_cu_alu_control(alu_control),
         //ID
         .i_id_rs1        (o_dec_rs1),
@@ -60,7 +60,6 @@ module data_path #(
         .i_id_imm_data   (o_dec_imm),
         //MEM
         .o_ex_alu_result (o_ex_alu_result),
-        .o_ex_rs2        (o_ex_rs2),
         //IF
         .i_if_pc         (instr_addr),
         .o_if_b_taken    (o_if_b_taken),
@@ -81,7 +80,7 @@ module data_path #(
         //ctrl_unit
         .i_cu_rf_wd_sel  (rf_wd_sel),
         //ID
-        .i_id_imm   (o_dec_imm),
+        .i_id_imm        (o_dec_imm),
         .o_wb_mux_out    (o_wb_mux_out),
         //EX
         .i_ex_alu_result (o_ex_alu_result),
@@ -97,7 +96,7 @@ module data_path #(
         .rst         (rst),
         //control_unit
         .pc_en       (pc_en),
-        .b_taken     (b_taken),
+        .b_taken     (o_if_b_taken),
         .branch      (branch),
         .b_src_sel   (b_src_sel),
         //data
@@ -126,8 +125,6 @@ module pc (
 );
 
     logic [31:0] pc_reg, pc_next;
-    //output
-    assign o_pc    = pc_reg;
     //branch_event
     assign j_event = b_taken && branch;
 
@@ -135,13 +132,13 @@ module pc (
         if (rst) begin
             pc_reg <= 0;
         end else begin
-            if (pc_en) begin
-                pc_reg <= pc_next;
-            end
+            pc_reg <= pc_next;
         end
     end
-    //mux
     always_comb begin : pc_comb
+        //output
+        if (pc_en) o_pc = pc_reg;
+        //mux   
         pc_next = pc_reg;
         case ({
             j_event, b_src_sel

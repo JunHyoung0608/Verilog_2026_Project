@@ -1,13 +1,13 @@
 `timescale 1ns / 1ps
 `include "../../src_1/rv32i_opcode.svh"
 
-`define HEX_CODE 1
-`define R 0
-`define I 0
+`define HEX_CODE 0
+`define R 1
+`define I 1
 `define S 0
-`define IL 0
+`define IL 1
 `define B 0
-`define U 0
+`define U 1
 `define J 0
 
 
@@ -19,11 +19,11 @@ module tb_rv32i_all_type ();
     logic [4:0] rs1, rs2, shift_addr, rd, shamt;
     logic [31:0] rd1, rd2, shift;
     logic [31:0] imm;
-    logic done, all_tests_passed;
-    logic [31:0] cycle, timeout_cycle, current_result, current_output;
-    logic [255:0] current_test_type;
+    logic done, all_tests_passed = 0;
+    logic [31:0] cycle = 0, timeout_cycle = 31, current_result = 0, current_output = 0;
+    logic [255:0] current_test_type = 0;
 
-    logic [31:0] sim_result;
+    logic [31:0] sim_tast;
 
 
     integer i,j;
@@ -35,26 +35,7 @@ module tb_rv32i_all_type ();
 
     always #5 clk = ~clk;
 
-    always @(posedge clk) begin
-        if (done === 0)
-        cycle <= cycle + 1;
-        else
-        cycle <= 0;
-    end
-
-    initial begin
-        timeout_cycle = 31;
-        while (all_tests_passed === 0) begin
-            @(posedge clk);
-            if (cycle === timeout_cycle) begin
-                $display("[Failed] Timeout at PC[%d] test %s, expected_result = %h, got = %h",
-                    (U_DUT.instr_add/4), current_test_type, current_result, current_output);
-                $stop();
-            end
-        end
-    end
-
-
+    
     task reset(input reg_option);
         rst = 1;
 
@@ -86,6 +67,26 @@ module tb_rv32i_all_type ();
         repeat(cycle) @(posedge clk);
     endtask
 
+    initial begin
+        while (all_tests_passed === 0) begin
+            @(posedge clk);
+            if (cycle === timeout_cycle) begin
+                $display("[Failed] Timeout at PC[%d] test %s, expected_result = %h, got = %h",
+                    (`INSTR_MEM.instr_addr), current_test_type, current_result, current_output);
+                $stop();
+            end
+        end
+    end
+
+    always @(posedge clk) begin
+        if (done === 0)
+        cycle <= cycle + 1;
+        else
+        cycle <= 0;
+    end
+
+
+
 
     task check_result_rf(input [31:0]  rf_wa, input [31:0]  result, input [255:0] test_type);
     begin
@@ -98,13 +99,14 @@ module tb_rv32i_all_type ();
         end
         cycle = 0;
         done = 1;
-        $display("PC[%d] Test %s passed!", U_DUT.instr_addr[31:2], test_type);
+        $display("PC[%3d] cycle = %d, Test %s passed!", U_DUT.instr_addr[31:2], cycle, test_type);
     end
   endtask
 
 
     //sim
     initial begin
+        cycle = 0;
         clk =0;
         //sim0----------------HEX_CODE-----------------------
         if(`HEX_CODE) begin
@@ -119,7 +121,7 @@ module tb_rv32i_all_type ();
         // - SLLI, SRLI, SRAI
         if(`R)begin
             reset(0);
-            $display("%t : [Test R_type Instr]",$realtime);
+            $display("%t :  [Test R_type Instr]",$realtime);
             //REG
             rs1 = 1; rs2 = 2; shift_addr = 5'd3;
             rd = 4;
@@ -139,7 +141,7 @@ module tb_rv32i_all_type ();
             `INSTR_MEM.rom[8] = {`FNC7_0,   rs2,            rs1,    `FNC3_OR,       rd, `R_TYPE};
             `INSTR_MEM.rom[9] = {`FNC7_0,   rs2,            rs1,    `FNC3_AND,      rd, `R_TYPE};
 
-
+            run(1);
             check_result_rf(rd, 100,    "R-ADD");
             check_result_rf(rd, -300,   "R-SUB");
             check_result_rf(rd, -400,   "R-SLL");
@@ -151,7 +153,6 @@ module tb_rv32i_all_type ();
             check_result_rf(rd, -36,    "R-OR");
             check_result_rf(rd, 136,    "R-AND");
 
-            run(10); 
         end
         //sim2----------------i-type------------------------
         // - ADDI, SLTI, SLTUI, XORI, ORI, ANDI
@@ -178,18 +179,16 @@ module tb_rv32i_all_type ();
             `INSTR_MEM.rom[7] = {`FNC7_0,   shamt,  rs1,   `FNC3_SRL_SRA,  rd,   `I_TYPE};    //SRLI x2 = x1 + imm
             `INSTR_MEM.rom[8] = {`FNC7_SRA, shamt,  rs1,   `FNC3_SRL_SRA,  rd,   `I_TYPE};    //SRAI x2 = x1 + imm
             
+            run(1);
             check_result_rf(rd, 100,    "I-ADD");
-            check_result_rf(rd, -300,   "I-SUB");
-            check_result_rf(rd, -400,   "I-SLL");
             check_result_rf(rd, 1,      "I-SLT");
             check_result_rf(rd, 0,      "I-SLTU");
             check_result_rf(rd, -172,   "I-XOR");
-            check_result_rf(rd, 1073741799,    "I-SRL");
-            check_result_rf(rd, -25,    "I-SRA");
             check_result_rf(rd, -36,    "I-OR");
             check_result_rf(rd, 136,    "I-AND");
-
-            run(9); 
+            check_result_rf(rd, -400,    "I-SLL");
+            check_result_rf(rd, 1073741799,    "I-SRL");
+            check_result_rf(rd, -25,    "I-SRA");
         end
         //sim3----------------s-type------------------------
         // - SW, SH, SB
@@ -217,7 +216,7 @@ module tb_rv32i_all_type ();
                 `INSTR_MEM.rom[8+i] =     {imm[6:0],    rs2+i[4:0],  rs1,  `FNC3_SW,   imm[4:0]+i[4:0], `S_TYPE};  //SW dmem[rs1+i] <= rs2+i
             end
 
-            run(13);
+            run(1);
         end
         //sim4----------------il-type-----------------------
         // - LW, LH, LB, LHU, LBU
@@ -235,19 +234,34 @@ module tb_rv32i_all_type ();
                 `INSTR_MEM.rom[0+i]   = {imm+i,  rs1,    `FNC3_LB,   rd, `IL_TYPE};    //LB  x5 = dmem[rs1+imm+i]
             end
             for(i=0;i<4;i=i+1) begin
-                `INSTR_MEM.rom[4+i]   = {imm+i,  rs1,    `FNC3_LH,   rd, `IL_TYPE};    //LB  x5 = dmem[rs1+imm+i]
+                `INSTR_MEM.rom[4+i]   = {imm+i,  rs1,    `FNC3_LH,   rd, `IL_TYPE};    //LH  x5 = dmem[rs1+imm+i]
             end
             for(i=0;i<4;i=i+1) begin
-                `INSTR_MEM.rom[8+i]   = {imm+i,  rs1,    `FNC3_LW,   rd, `IL_TYPE};    //LB  x5 = dmem[rs1+imm+i]
+                `INSTR_MEM.rom[8+i]   = {imm+i,  rs1,    `FNC3_LW,   rd, `IL_TYPE};    //LW  x5 = dmem[rs1+imm+i]
             end
             for(i=0;i<4;i=i+1) begin
-                `INSTR_MEM.rom[12+i]  = {imm+i,  rs1,    `FNC3_LBU,  rd, `IL_TYPE};    //LB  x5 = dmem[rs1+imm+i]
+                `INSTR_MEM.rom[12+i]  = {imm+i,  rs1,    `FNC3_LBU,  rd, `IL_TYPE};    //LBU  x5 = dmem[rs1+imm+i]
             end
             for(i=0;i<4;i=i+1) begin
-                `INSTR_MEM.rom[16+i]  = {imm+i,  rs1,    `FNC3_LHU,  rd, `IL_TYPE};    //LB  x5 = dmem[rs1+imm+i]
+                `INSTR_MEM.rom[16+i]  = {imm+i,  rs1,    `FNC3_LHU,  rd, `IL_TYPE};    //LHU  x5 = dmem[rs1+imm+i]
             end
 
-            run(21);
+            run(1);
+            for(i=0;i<4;i=i+1) begin
+                check_result_rf(rd, $signed(`DMEM.dmem[0][i*8 +:8]),   "U_LB");
+            end
+            for(i=0;i<2;i=i+1) begin
+                repeat(2) check_result_rf(rd, $signed(`DMEM.dmem[0][i*16 +: 16]),   "U_LH");
+            end
+            for(i=0;i<4;i=i+1) begin
+                check_result_rf(rd, `DMEM.dmem[0],   "U_LW");
+            end
+            for(i=0;i<4;i=i+1) begin
+                check_result_rf(rd, `DMEM.dmem[0][i*8 +:8],   "U_LBU");
+            end
+            for(i=0;i<2;i=i+1) begin
+                repeat(2) check_result_rf(rd, `DMEM.dmem[0][i*16 +: 16],   "U_LHU");
+            end
         end
         //sim5----------------b-type-----------------------
         // - BEQ, BNE, BLT, BGE, BLTU, BGEU
@@ -285,7 +299,8 @@ module tb_rv32i_all_type ();
                             `INSTR_MEM.rom[25] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BGEU, imm[4:1], imm[11], `B_TYPE};  
             //SUB
                             `INSTR_MEM.rom[26] = {`FNC7_SUB, 5'd1, 5'd1, `FNC3_ADD_SUB, rd, `R_TYPE};
-            run(17);
+            run(1);
+            
         end
         //sim6----------------u-type------------------------
         // - LUI, AUIPC
@@ -314,7 +329,9 @@ module tb_rv32i_all_type ();
             `INSTR_MEM.rom[3] = {10,    rd, `AUIPC_TYPE};
 
 
-            run(3);
+            run(1);
+            check_result_rf(rd, -10,   "U_LUI");
+            check_result_rf(rd, 22,    "U_AUIPC");
         end
         //sim7----------------j-type------------------------
         // - JAL
@@ -345,7 +362,7 @@ module tb_rv32i_all_type ();
             //ADD
             rd = 3; rs1 = 2; rs2 = 1;
             `INSTR_MEM.rom[7] = {`FNC7_SUB, rs2,   rs1,   `FNC3_ADD_SUB,  rd,   `R_TYPE};
-            run(3);
+            run(1);
         end
 
         $stop;

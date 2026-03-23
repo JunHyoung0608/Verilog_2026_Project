@@ -6,13 +6,13 @@ module ex_path (
     input                       i_rst,
     //ctrl_unit
     input  alu_control_t        i_cu_alu_control,
+    input                       i_cu_alu_src_sel,
     //ID
     input                [31:0] i_id_rs1,
     input                [31:0] i_id_rs2,
     input                [31:0] i_id_imm_data,
     //MEM
     output logic         [31:0] o_ex_alu_result,
-    output logic         [31:0] o_ex_rs2,
     //IF
     input  logic         [31:0] i_if_pc,
     output logic                o_if_b_taken,
@@ -21,26 +21,31 @@ module ex_path (
 );
 
     //alu
-    logic [31:0] alu_result;
+    logic [31:0] alu_src2_mux_out,alu_result;
 
     always_ff @(posedge i_clk or posedge i_rst) begin : ex_path_ff
         if (i_rst) begin
             o_ex_alu_result  <= 0;
-            o_ex_rs2         <= 0;
             o_ex_pc_plus_4   <= 0;
             o_ex_pc_plus_imm <= 0;
         end else begin
             o_ex_alu_result  <= alu_result;
-            o_ex_rs2         <= i_id_rs2;
             o_ex_pc_plus_4   <= i_if_pc + 4;
             o_ex_pc_plus_imm <= i_if_pc + i_id_imm_data;
         end
     end
 
+    mux_2x1 U_ALU_SRC2_MUX (
+        .in0    (i_id_rs2),
+        .in1    (i_id_imm_data),
+        .mux_sel(i_cu_alu_src_sel),
+        .mux_out(alu_src2_mux_out)
+    );
+
 
     alu U_ALU (
         .a          (i_id_rs1),
-        .b          (i_id_rs2),
+        .b          (alu_src2_mux_out),
         .alu_control(i_cu_alu_control),
         .alu_result (alu_result),
         .b_taken    (o_if_b_taken)

@@ -20,7 +20,7 @@ module control_unit (
     output logic         [2:0] o_funct3,
     output logic               dwe
 );
-    typedef enum logic {
+    typedef enum logic [2:0] {
         FETCH,
         DECODE,
         EXECUTE,
@@ -49,9 +49,18 @@ module control_unit (
                 n_state = EXECUTE;
             end
             EXECUTE: begin
-
+                case (opcode)
+                    R_type, I_type, LUI_type, AUIPC_type, JAL_type, JALR_type:
+                    n_state = WB;
+                    S_type, IL_type: n_state = MEM;
+                    B_type: n_state = FETCH;
+                endcase
             end
             MEM: begin
+                case (opcode)
+                    S_type:  n_state = FETCH;
+                    IL_type: n_state = WB;
+                endcase
             end
             WB: begin
                 n_state = FETCH;
@@ -107,35 +116,22 @@ module control_unit (
                         //datapath
                         alu_src_sel = 1;
                         alu_control = ADD;
-                        //data_mem
-                        o_funct3    = funct3;
-                        dwe         = 1;
                     end
                     IL_type: begin
                         //datapath
-                        rf_we       = 1;
                         alu_src_sel = 1;
-                        rf_wd_sel   = 1;
                         alu_control = ADD;
-                        //pc
-                        b_src_sel   = 0;
-                        branch      = 0;
-                        //data_mem
-                        o_funct3    = funct3;
-                        dwe         = 0;
                     end
                     LUI_type: begin
+                        alu_src_sel = 0;
                     end
                     AUIPC_type: begin
                         //datapath
                         alu_src_sel = 0;
-                        alu_control = ADD;
                     end
                     JAL_type: begin
                         //datapath
-                        rf_we       = 1;
                         alu_src_sel = 0;
-                        rf_wd_sel   = 4;
                         alu_control = JUMP;
                         //pc
                         b_src_sel   = 0;
@@ -143,9 +139,7 @@ module control_unit (
                     end
                     JALR_type: begin
                         //datapath
-                        rf_we       = 1;
                         alu_src_sel = 1;
-                        rf_wd_sel   = 4;
                         alu_control = JUMP;
                         //pc
                         b_src_sel   = 1;
@@ -154,145 +148,23 @@ module control_unit (
                 endcase
             end
             MEM: begin
+                o_funct3 = funct3;
+                case (opcode)
+                    S_type:  dwe = 1;  //write
+                    IL_type: dwe = 0;  //read
+                endcase
             end
             WB: begin
-                
+                rf_we = 1;
+                case (opcode)
+                    R_type, I_type:     rf_wd_sel = 0;  //alu_result
+                    IL_type:            rf_wd_sel = 1;  //data_mem
+                    LUI_type, JAL_type: rf_wd_sel = 2;  //imm
+                    AUIPC_type:         rf_wd_sel = 3;  //pc+imm
+                    JALR_type:          rf_wd_sel = 4;  //pc+4
+                endcase
             end
         endcase
     end
 
-
-    // always_comb begin : ctrl_unit_comb2
-    //     //datapath
-    //     rf_we       = 0;
-    //     alu_src_sel = 0;
-    //     rf_wd_sel   = 0;
-    //     alu_control = ADD;
-    //     //pc
-    //     b_src_sel   = 0;
-    //     branch      = 0;
-    //     //data_mem
-    //     o_funct3    = 3'b000;
-    //     dwe         = 0;
-    //     case (opcode)
-    //         R_type: begin
-    //             //datapath
-    //             rf_we       = 1;
-    //             alu_src_sel = 0;
-    //             rf_wd_sel   = 0;
-    //             alu_control = alu_control_t'({1'b0, funct7[5], funct3});
-    //             b_src_sel   = 0;
-    //             branch      = 0;
-    //             //data_mem
-    //             o_funct3    = 3'b000;
-    //             dwe         = 0;
-    //         end
-    //         I_type: begin
-    //             //datapath
-    //             rf_we       = 1;
-    //             alu_src_sel = 1;
-    //             rf_wd_sel   = 0;
-    //             if (funct3 == `FNC3_SRL_SRA)
-    //                 alu_control = alu_control_t'({1'b0, funct7[5], funct3});
-    //             else alu_control = alu_control_t'({1'b0, 1'b0, funct3});
-    //             //pc
-    //             b_src_sel = 0;
-    //             branch    = 0;
-    //             //data_mem
-    //             o_funct3  = 3'b000;
-    //             dwe       = 0;
-    //         end
-    //         S_type: begin
-    //             //datapath
-    //             rf_we       = 0;
-    //             alu_src_sel = 1;
-    //             rf_wd_sel   = 0;
-    //             alu_control = ADD;
-    //             //pc
-    //             b_src_sel   = 0;
-    //             branch      = 0;
-    //             //data_mem
-    //             o_funct3    = funct3;
-    //             dwe         = 1;
-    //         end
-    //         IL_type: begin
-    //             //datapath
-    //             rf_we       = 1;
-    //             alu_src_sel = 1;
-    //             rf_wd_sel   = 1;
-    //             alu_control = ADD;
-    //             //pc
-    //             b_src_sel   = 0;
-    //             branch      = 0;
-    //             //data_mem
-    //             o_funct3    = funct3;
-    //             dwe         = 0;
-    //         end
-    //         B_type: begin
-    //             //datapath
-    //             rf_we       = 0;
-    //             alu_src_sel = 0;
-    //             rf_wd_sel   = 0;
-    //             alu_control = alu_control_t'({1'b1, 1'b0, funct3});
-    //             //pc
-    //             b_src_sel   = 0;
-    //             branch      = 1;
-    //             //data_mem
-    //             o_funct3    = 3'b000;
-    //             dwe         = 0;
-    //         end
-    //         LUI_type: begin
-    //             //datapath
-    //             rf_we       = 1;
-    //             alu_src_sel = 0;
-    //             rf_wd_sel   = 2;
-    //             alu_control = ADD;
-    //             //pc
-    //             b_src_sel   = 0;
-    //             branch      = 0;
-    //             //data_mem
-    //             o_funct3    = 3'b000;
-    //             dwe         = 0;
-    //         end
-    //         AUIPC_type: begin
-    //             //datapath
-    //             rf_we       = 1;
-    //             alu_src_sel = 0;
-    //             rf_wd_sel   = 3;
-    //             alu_control = ADD;
-    //             //pc
-    //             b_src_sel   = 0;
-    //             branch      = 0;
-    //             //data_mem
-    //             o_funct3    = 3'b000;
-    //             dwe         = 0;
-    //         end
-    //         JAL_type: begin
-    //             //datapath
-    //             rf_we       = 1;
-    //             alu_src_sel = 0;
-    //             rf_wd_sel   = 4;
-    //             alu_control = JUMP;
-    //             //pc
-    //             b_src_sel   = 0;
-    //             branch      = 1;
-    //             //data_mem
-    //             o_funct3    = 3'b000;
-    //             dwe         = 0;
-    //         end
-    //         JALR_type: begin
-    //             //datapath
-    //             rf_we       = 1;
-    //             alu_src_sel = 1;
-    //             rf_wd_sel   = 4;
-    //             alu_control = JUMP;
-    //             //pc
-    //             b_src_sel   = 1;
-    //             branch      = 1;
-    //             //data_mem
-    //             o_funct3    = 3'b000;
-    //             dwe         = 0;
-    //         end
-    //     endcase
-    // end
 endmodule

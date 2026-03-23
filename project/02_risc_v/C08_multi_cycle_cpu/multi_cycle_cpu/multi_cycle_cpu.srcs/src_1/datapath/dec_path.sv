@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 `include "../rv32i_opcode.svh"
 
-module dec_path(
+module dec_path (
     input               i_clk,
     input               i_rst,
     //ctrl_unit
@@ -20,24 +20,22 @@ module dec_path(
     logic [31:0] rd1, rd2;
     //imm_extender
     logic [31:0] imm_data;
-    //mux_2x1
-    logic [31:0] alu_src2_mux_out;
 
     always_ff @(posedge i_clk or posedge i_rst) begin : dec_path_ff
         if (i_rst) begin
-            o_dec_rs1      <= 0;
-            o_dec_rs2      <= 0;
+            o_dec_rs1 <= 0;
+            o_dec_rs2 <= 0;
             o_dec_imm <= 0;
         end else begin
-            o_dec_rs1      <= rd1;
-            o_dec_rs2      <= alu_src2_mux_out;
+            o_dec_rs1 <= rd1;
+            o_dec_rs2 <= rd2;
             o_dec_imm <= imm_data;
         end
     end
 
 
     register_file U_REG_FILE (
-        .clk  (clk),
+        .clk  (i_clk),
         .rst  (i_rst),
         .rf_we(i_cu_rf_we),
         //write
@@ -53,13 +51,6 @@ module dec_path(
     imm_extender U_IMM_EX (
         .instr_data(i_if_instr_data),
         .imm_data  (imm_data)
-    );
-
-    mux_2x1 U_ALU_SRC2_MUX (
-        .in0    (rd2),
-        .in1    (imm_data),
-        .mux_sel(i_cu_alu_src_sel),
-        .mux_out(alu_src2_mux_out)
     );
 
 endmodule
