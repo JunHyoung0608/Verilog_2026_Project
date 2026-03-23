@@ -1,14 +1,14 @@
 `timescale 1ns / 1ps
 `include "../../src_1/rv32i_opcode.svh"
 
-`define HEX_CODE 0
-`define R 1
-`define I 1
-`define S 0
-`define IL 1
-`define B 0
-`define U 1
-`define J 0
+`define HEX_CODE 1
+`define R   0
+`define I   0
+`define S   0
+`define IL  0
+`define B   0
+`define U   0
+`define J   0
 
 
 module tb_rv32i_all_type ();
@@ -88,20 +88,47 @@ module tb_rv32i_all_type ();
 
 
 
-    task check_result_rf(input [31:0]  rf_wa, input [31:0]  result, input [255:0] test_type);
+    task check_result(input [31:0]  waddr, input [31:0]  result,input [31:0] pc, input [255:0] test_type, input [1:0] mode);
+    //mode 0: register  1: data_mem 2: pc   3: pc + register
     begin
         done = 0;
+        cycle = 0;
         current_test_type = test_type;
         current_result    = result;
-        while (`REG_FILE.reg_file[rf_wa] !== result) begin
-          current_output = `REG_FILE.reg_file[rf_wa];
-          @(posedge clk);
+        if(mode == 0) begin
+            while (`REG_FILE.reg_file[waddr] !== result) begin
+                current_output = `REG_FILE.reg_file[waddr];
+                @(posedge clk);
+            end
+            $display("PC[%3d] cycle = %d, Test %s passed!", U_DUT.instr_addr[31:2], cycle, test_type);
+
+        end else if(mode == 1) begin
+            while (`DMEM.dmem[waddr] !== result) begin
+                current_output = `DMEM.dmem[waddr];
+                @(posedge clk);
+            end
+            $display("PC[%3d] cycle = %d, Test %s passed!", U_DUT.instr_addr[31:2], cycle, test_type);
+
+        end else if(mode == 2) begin
+            while (`INSTR_MEM.instr_addr !== pc) begin
+                current_output = `INSTR_MEM.instr_addr;
+                @(posedge clk);
+            end
+            $display("PC[%3d] cycle = %d, Test %s passed!", U_DUT.instr_addr[31:2], cycle, test_type);
+
+        end else if(mode == 3) begin
+            while ((`INSTR_MEM.instr_addr !== pc) && (`REG_FILE.reg_file[waddr] !== result)) begin
+                current_output = `REG_FILE.reg_file[waddr];
+                @(posedge clk);
+            end
+            $display("PC[%3d] cycle = %d, Test %s passed!", pc, cycle, test_type);
         end
         cycle = 0;
         done = 1;
-        $display("PC[%3d] cycle = %d, Test %s passed!", U_DUT.instr_addr[31:2], cycle, test_type);
     end
-  endtask
+    endtask
+
+    
 
 
     //sim
@@ -142,17 +169,17 @@ module tb_rv32i_all_type ();
             `INSTR_MEM.rom[9] = {`FNC7_0,   rs2,            rs1,    `FNC3_AND,      rd, `R_TYPE};
 
             run(1);
-            check_result_rf(rd, 100,    "R-ADD");
-            check_result_rf(rd, -300,   "R-SUB");
-            check_result_rf(rd, -400,   "R-SLL");
-            check_result_rf(rd, 1,      "R-SLT");
-            check_result_rf(rd, 0,      "R-SLTU");
-            check_result_rf(rd, -172,   "R-XOR");
-            check_result_rf(rd, 1073741799,    "R-SRL");
-            check_result_rf(rd, -25,    "R-SRA");
-            check_result_rf(rd, -36,    "R-OR");
-            check_result_rf(rd, 136,    "R-AND");
-
+            check_result(rd, 100,   0,    "R-ADD",    0);
+            check_result(rd, -300,  0,   "R-SUB",    0);
+            check_result(rd, -400,  0,   "R-SLL",    0);
+            check_result(rd, 1, 0,      "R-SLT",    0);
+            check_result(rd, 0, 0,      "R-SLTU",   0);
+            check_result(rd, -172,  0,   "R-XOR",    0);
+            check_result(rd, 1073741799,    0,    "R-SRL", 0);
+            check_result(rd, -25,   0,    "R-SRA",    0);
+            check_result(rd, -36,   0,    "R-OR", 0);
+            check_result(rd, 136,   0,    "R-AND",    0);
+            $display("******R-type Pass******");
         end
         //sim2----------------i-type------------------------
         // - ADDI, SLTI, SLTUI, XORI, ORI, ANDI
@@ -180,15 +207,16 @@ module tb_rv32i_all_type ();
             `INSTR_MEM.rom[8] = {`FNC7_SRA, shamt,  rs1,   `FNC3_SRL_SRA,  rd,   `I_TYPE};    //SRAI x2 = x1 + imm
             
             run(1);
-            check_result_rf(rd, 100,    "I-ADD");
-            check_result_rf(rd, 1,      "I-SLT");
-            check_result_rf(rd, 0,      "I-SLTU");
-            check_result_rf(rd, -172,   "I-XOR");
-            check_result_rf(rd, -36,    "I-OR");
-            check_result_rf(rd, 136,    "I-AND");
-            check_result_rf(rd, -400,    "I-SLL");
-            check_result_rf(rd, 1073741799,    "I-SRL");
-            check_result_rf(rd, -25,    "I-SRA");
+            check_result(rd, 100,   0,    "I-ADD",    0);
+            check_result(rd, 1, 0,      "I-SLT",    0);
+            check_result(rd, 0, 0,      "I-SLTU",   0);
+            check_result(rd, -172,  0,   "I-XOR",    0);
+            check_result(rd, -36,   0,    "I-OR", 0);
+            check_result(rd, 136,   0,    "I-AND",    0);
+            check_result(rd, -400,  0,    "I-SLL",   0);
+            check_result(rd, 1073741799,    0,    "I-SRL", 0);
+            check_result(rd, -25,   0,    "I-SRA",    0);
+            $display("******I-type Pass******");
         end
         //sim3----------------s-type------------------------
         // - SW, SH, SB
@@ -217,6 +245,19 @@ module tb_rv32i_all_type ();
             end
 
             run(1);
+            check_result(0,32'hxx_xx_xx_44, 0,"S_SB",1);
+            check_result(0,32'hxx_xx_33_44, 0,"S_SB",1);
+            check_result(0,32'hxx_22_33_44, 0,"S_SB",1);
+            check_result(0,32'h11_22_33_44, 0,"S_SB",1);
+            check_result(0,32'h11_22_00_44, 0,"S_SH",1);
+            check_result(0,32'h11_22_00_33, 0,"S_SH",1);
+            check_result(0,32'h00_22_00_33, 0,"S_SH",1);
+            check_result(0,32'h00_11_00_33, 0,"S_SH",1);
+            check_result(0,32'h00_00_00_44, 0,"S_SW",1);
+            check_result(0,32'h00_00_00_33, 0,"S_SW",1);
+            check_result(0,32'h00_00_00_22, 0,"S_SW",1);
+            check_result(0,32'h00_00_00_11, 0,"S_SW",1);
+            $display("******S-type Pass******");
         end
         //sim4----------------il-type-----------------------
         // - LW, LH, LB, LHU, LBU
@@ -248,20 +289,22 @@ module tb_rv32i_all_type ();
 
             run(1);
             for(i=0;i<4;i=i+1) begin
-                check_result_rf(rd, $signed(`DMEM.dmem[0][i*8 +:8]),   "U_LB");
+                check_result(rd, $signed(`DMEM.dmem[0][i*8 +:8]),   0,   "U_LB",  0);
             end
             for(i=0;i<2;i=i+1) begin
-                repeat(2) check_result_rf(rd, $signed(`DMEM.dmem[0][i*16 +: 16]),   "U_LH");
+                check_result(rd, $signed(`DMEM.dmem[0][i*16 +: 16]),    0,   "U_LH",   0);
+                check_result(rd, $signed(`DMEM.dmem[0][i*16 +: 16]),    0,   "U_LH",   0);
             end
             for(i=0;i<4;i=i+1) begin
-                check_result_rf(rd, `DMEM.dmem[0],   "U_LW");
+                check_result(rd, `DMEM.dmem[0], 0,   "U_LW",    0);
             end
             for(i=0;i<4;i=i+1) begin
-                check_result_rf(rd, `DMEM.dmem[0][i*8 +:8],   "U_LBU");
+                check_result(rd, `DMEM.dmem[0][i*8 +:8],    0,   "U_LBU",  0);
             end
             for(i=0;i<2;i=i+1) begin
-                repeat(2) check_result_rf(rd, `DMEM.dmem[0][i*16 +: 16],   "U_LHU");
+                repeat(2) check_result(rd, `DMEM.dmem[0][i*16 +: 16],   0,   "U_LHU", 0);
             end
+            $display("******IL-type Pass******");
         end
         //sim5----------------b-type-----------------------
         // - BEQ, BNE, BLT, BGE, BLTU, BGEU
@@ -279,8 +322,8 @@ module tb_rv32i_all_type ();
             //signed
             imm = 2 * 4;    `INSTR_MEM.rom[0]  = {imm[12], imm[10:5], rs1, rs1, `FNC3_BEQ,  imm[4:1], imm[11], `B_TYPE};
                             `INSTR_MEM.rom[2]  = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BNE,  imm[4:1], imm[11], `B_TYPE}; 
-                            `INSTR_MEM.rom[6]  = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BGE,  imm[4:1], imm[11], `B_TYPE};
                             `INSTR_MEM.rom[4]  = {imm[12], imm[10:5], 5'd0, rs1, `FNC3_BLT,  imm[4:1], imm[11], `B_TYPE};
+                            `INSTR_MEM.rom[6]  = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BGE,  imm[4:1], imm[11], `B_TYPE};
             imm = 6 * 4;    `INSTR_MEM.rom[8]  = {imm[12], imm[10:5], rs1, rs1, `FNC3_BGE,  imm[4:1], imm[11], `B_TYPE};
             //unsigned
             imm = -2 * 4;   `INSTR_MEM.rom[14] = {imm[12], imm[10:5], rs1, 5'd0, `FNC3_BLTU, imm[4:1], imm[11], `B_TYPE};
@@ -300,7 +343,15 @@ module tb_rv32i_all_type ();
             //SUB
                             `INSTR_MEM.rom[26] = {`FNC7_SUB, 5'd1, 5'd1, `FNC3_ADD_SUB, rd, `R_TYPE};
             run(1);
-            
+            check_result(0,0,2,"B_BEQ",2);
+            check_result(0,0,4,"B_BNE",2);
+            check_result(0,0,6,"B_BLT",2);
+            check_result(0,0,8,"B_BGE",2);
+            check_result(0,0,14,"B_BGE",2);
+            check_result(0,0,12,"B_BLTU",2);
+            check_result(0,0,10,"B_BGEU",2);
+            check_result(0,0,18,"B_BGEU",2);
+            $display("******B-type Pass******");
         end
         //sim6----------------u-type------------------------
         // - LUI, AUIPC
@@ -330,8 +381,9 @@ module tb_rv32i_all_type ();
 
 
             run(1);
-            check_result_rf(rd, -10,   "U_LUI");
-            check_result_rf(rd, 22,    "U_AUIPC");
+            check_result(rd, -10,   0,  "U_LUI", 0);
+            check_result(rd, 22,    0,  "U_AUIPC",   0);
+            $display("******U-type Pass******");
         end
         //sim7----------------j-type------------------------
         // - JAL
@@ -363,8 +415,10 @@ module tb_rv32i_all_type ();
             rd = 3; rs1 = 2; rs2 = 1;
             `INSTR_MEM.rom[7] = {`FNC7_SUB, rs2,   rs1,   `FNC3_ADD_SUB,  rd,   `R_TYPE};
             run(1);
+            check_result(1, 4,    3,  "U_JAL",   3);
+            check_result(2, 16,    7,  "U_JALR",   3);
+            $display("******J-type Pass******");
         end
-
         $stop;
     end
 endmodule

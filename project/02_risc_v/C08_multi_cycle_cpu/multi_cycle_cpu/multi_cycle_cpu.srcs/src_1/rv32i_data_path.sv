@@ -25,7 +25,7 @@ module data_path #(
 );
     logic [31:0] o_dec_rs1, o_dec_rs2, o_dec_imm;
     logic o_if_b_taken;
-    logic [31:0] o_ex_alu_result, o_ex_pc_plus_4, o_ex_pc_plus_imm;
+    logic [31:0] o_ex_alu_result,alu_result, o_ex_pc_plus_4, o_ex_pc_plus_imm;
     logic [31:0] o_mem_rdata;
     logic [31:0] o_wb_mux_out;
 
@@ -60,6 +60,8 @@ module data_path #(
         .i_id_imm_data   (o_dec_imm),
         //MEM
         .o_ex_alu_result (o_ex_alu_result),
+        //WB
+        .alu_result      (alu_result),
         //IF
         .i_if_pc         (instr_addr),
         .o_if_b_taken    (o_if_b_taken),
@@ -83,7 +85,7 @@ module data_path #(
         .i_id_imm        (o_dec_imm),
         .o_wb_mux_out    (o_wb_mux_out),
         //EX
-        .i_ex_alu_result (o_ex_alu_result),
+        .i_ex_alu_result (alu_result),
         .i_ex_pc_plus_imm(o_ex_pc_plus_imm),
         .i_ex_pc_plus_4  (o_ex_pc_plus_4),
         //MEM
@@ -100,7 +102,7 @@ module data_path #(
         .branch      (branch),
         .b_src_sel   (b_src_sel),
         //data
-        .rs1_plus_imm(o_ex_alu_result),
+        .rs1_plus_imm(alu_result),
         .pc_plus_imm (o_ex_pc_plus_imm),
         .pc_plus_4   (o_ex_pc_plus_4),
         .o_pc        (instr_addr)
@@ -135,6 +137,7 @@ module pc (
             pc_reg <= pc_next;
         end
     end
+
     always_comb begin : pc_comb
         //output
         if (pc_en) o_pc = pc_reg;

@@ -13,6 +13,8 @@ module ex_path (
     input                [31:0] i_id_imm_data,
     //MEM
     output logic         [31:0] o_ex_alu_result,
+    //WB
+    output logic         [31:0] alu_result,
     //IF
     input  logic         [31:0] i_if_pc,
     output logic                o_if_b_taken,
@@ -21,7 +23,7 @@ module ex_path (
 );
 
     //alu
-    logic [31:0] alu_src2_mux_out,alu_result;
+    logic [31:0] alu_src2_mux_out;
 
     always_ff @(posedge i_clk or posedge i_rst) begin : ex_path_ff
         if (i_rst) begin
