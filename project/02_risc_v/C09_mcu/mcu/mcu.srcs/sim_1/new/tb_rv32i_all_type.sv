@@ -16,6 +16,7 @@ module tb_rv32i_all_type ();
     logic clk, rst;
     logic [7:0] gpi,gpo;
     logic [15:0] gpio;
+    logic [7:0] uart_rx, uart_tx;
     //sim
     logic [4:0] rs1, rs2, shift_addr, rd, shamt;
     logic [31:0] rd1, rd2, shift;
@@ -27,6 +28,8 @@ module tb_rv32i_all_type ();
     logic [31:0] sim_tast;
 
 
+
+
     integer i,j;
 
     rv32I_mcu U_DUT (
@@ -34,7 +37,10 @@ module tb_rv32i_all_type ();
         .rst(rst),
         .gpi(gpi),
         .gpo(gpo),
-        .gpio()
+        .gpio(),
+        .fnd(),
+        .uart_rx(uart_rx),
+        .uart_tx(uart_tx)
     );
 
     always #5 clk = ~clk;
@@ -145,7 +151,7 @@ module tb_rv32i_all_type ();
             //gpio = 16'h0;
             reset(0);
             $display("[Test HEX_CODE]");
-            $readmemh("apb_gpio_led_black.mem",`INSTR_MEM.rom);
+            $readmemh("uart_test.mem",`INSTR_MEM.rom);
 
             run(520);    
         end

@@ -3,7 +3,7 @@
 module fnd_controller (
     input        clk,
     input        reset,
-    input  [8:0] d_in,
+    input  [13:0] d_in,
     output [7:0] fnd_data,
     output [3:0] fnd_digit
 );
@@ -146,7 +146,7 @@ endmodule
 
 
 module digit_splitter (
-    input  [8:0] in_data,
+    input  [13:0] in_data,
     output [3:0] digit_1,
     output [3:0] digit_10,
     output [3:0] digit_100,

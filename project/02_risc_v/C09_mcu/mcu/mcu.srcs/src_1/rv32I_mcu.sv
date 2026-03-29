@@ -10,6 +10,7 @@ interface apb_if;
     modport slave_io(input PSEL, output PRDATA, PREADY);
 endinterface
 
+
 module rv32I_mcu (
     input         clk,
     input         rst,
@@ -19,7 +20,10 @@ module rv32I_mcu (
     inout  [15:0] gpio,
     //FND
     output [ 7:0] fnd_data,
-    output [ 3:0] fnd_digit
+    output [ 3:0] fnd_digit,
+    //UART
+    input         uart_rx,
+    output        uart_tx
 );
     logic [31:0] instr_addr, instr_data;
     logic bus_wreq, bus_rreq, ready;
@@ -27,8 +31,10 @@ module rv32I_mcu (
     logic [2:0] o_funct3;
     logic PENABLE, PWRITE;
     logic [31:0] PADDR, PWDATA;
-    logic [7:0] FND_slv_data;
-
+    logic [13:0] FND_slv_data;
+    logic [ 1:0] baud_mode;
+    logic TX_busy, TX_start, RX_done;
+    logic [7:0] TX_data, RX_data;
 
     apb_if
         slv_RAM (),
@@ -45,10 +51,6 @@ module rv32I_mcu (
 
     rv32i_cpu U_CPU (.*);
 
-    // data_mem U_DATA_MEM (
-    //     .*,
-    //     .i_funct3(o_funct3)
-    // );
 
     apb_master U_APB_MASTER (
         .PCLK    (clk),
@@ -59,7 +61,6 @@ module rv32I_mcu (
         .Wreq    (bus_wreq),
         .Rreq    (bus_rreq),
         //APB Interface
-        // output logic                  slvERR,
         .Rdata   (bus_rdata),
         .ready   (ready),
         //output -> salve
@@ -120,11 +121,30 @@ module rv32I_mcu (
     );
 
     fnd_controller U_FND (
-        .clk      (clk),
-        .reset    (rst),
-        .d_in     (FND_slv_data),
-        .fnd_data (fnd_data),
-        .fnd_digit(fnd_digit)
+        .clk  (clk),
+        .reset(rst),
+        .d_in (FND_slv_data),
+        .*
+    );
+
+    apb_slave_UART U_SLV_UART (
+        .PCLK  (clk),
+        .PRESET(rst),
+        //APB_bus
+        //Baud
+        //TX
+        //RX
+        .*
+    );
+
+    uart_top U_UART (
+        .clk(clk),
+        .rst(rst),
+        //Baud
+        //TX data
+        //RX data
+        //UART
+        .*
     );
 
 endmodule

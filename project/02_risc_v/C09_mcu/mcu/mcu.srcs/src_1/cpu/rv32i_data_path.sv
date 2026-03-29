@@ -25,7 +25,12 @@ module data_path #(
 );
     logic [31:0] o_dec_rs1, o_dec_rs2, o_dec_imm;
     logic o_if_b_taken;
-    logic [31:0] o_ex_alu_result,alu_result, o_ex_pc_plus_4, o_ex_pc_plus_imm, pc_plus_imm;
+    logic [31:0]
+        o_ex_alu_result,
+        alu_result,
+        o_ex_pc_plus_4,
+        o_ex_pc_plus_imm,
+        pc_plus_imm;
     logic [31:0] o_mem_rdata;
     logic [31:0] o_wb_mux_out;
 
@@ -67,7 +72,7 @@ module data_path #(
         .i_if_pc         (instr_addr),
         .o_if_b_taken    (o_if_b_taken),
         .o_ex_pc_plus_4  (o_ex_pc_plus_4),
-        .pc_plus_imm (pc_plus_imm)
+        .pc_plus_imm     (pc_plus_imm)
     );
 
     mem_path U_MEM_PATH (
@@ -94,6 +99,7 @@ module data_path #(
     );
 
     //PC-----------------------------------------
+
     pc U_PC (
         .clk         (clk),
         .rst         (rst),
@@ -108,9 +114,8 @@ module data_path #(
         .pc_plus_4   (o_ex_pc_plus_4),
         .o_pc        (instr_addr)
     );
+
 endmodule
-
-
 
 module pc (
     input               clk,
@@ -128,6 +133,7 @@ module pc (
 );
 
     logic [31:0] pc_reg, pc_next;
+    logic j_event;
 
     //branch_event
     assign j_event = b_taken && branch;
@@ -135,17 +141,16 @@ module pc (
     always_ff @(posedge clk or posedge rst) begin : pc_ff
         if (rst) begin
             pc_reg <= 0;
+            o_pc   <= 0;
         end else begin
-            if(pc_en)
-                o_pc = pc_reg;
-            pc_reg <= pc_next;
+            if (pc_en) o_pc <= pc_reg;
+            else pc_reg <= pc_next;
         end
     end
 
 
     always_comb begin : pc_comb
         //mux   
-        pc_next = pc_reg;
         case ({
             j_event, b_src_sel
         })
@@ -156,3 +161,4 @@ module pc (
     end
 
 endmodule
+

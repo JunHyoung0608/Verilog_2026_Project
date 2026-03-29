@@ -11,7 +11,7 @@ module apb_slave_GPIO (
     input                        PENABLE,
           apb_if.slave_io        slv_GPIO,
     //inout
-    input logic           [15:0] GPIO_io
+    inout logic           [15:0] GPIO_io
 );
     localparam [11:0] GPIO_CTRL_ADDR = 12'h000;
     localparam [11:0] GPIO_ODATA_ADDR = 12'h004;
@@ -40,7 +40,7 @@ module apb_slave_GPIO (
         end
     end
 
-    //inout GPIO_io
+    //inout
     genvar i;
     generate
         for (i = 0; i < 16; i++) begin

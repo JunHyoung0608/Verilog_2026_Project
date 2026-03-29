@@ -12,13 +12,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1095375000fs"></ZoomStartTime>
-      <ZoomEndTime time="1112025001fs"></ZoomEndTime>
-      <Cursor1Time time="1100875000fs"></Cursor1Time>
+      <ZoomStartTime time="447300fs"></ZoomStartTime>
+      <ZoomEndTime time="590301fs"></ZoomEndTime>
+      <Cursor1Time time="505000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="169"></NameColumnWidth>
-      <ValueColumnWidth column_width="73"></ValueColumnWidth>
+      <ValueColumnWidth column_width="69"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="19" />
    <wvobject fp_name="/tb_rv32i_all_type/U_DUT/gpi" type="array">
@@ -186,26 +186,32 @@
       <wvobject fp_name="/tb_rv32i_all_type/U_DUT/U_CPU/U_DATA_PATH/U_PC/rs1_plus_imm" type="array">
          <obj_property name="ElementShortName">rs1_plus_imm[31:0]</obj_property>
          <obj_property name="ObjectShortName">rs1_plus_imm[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_rv32i_all_type/U_DUT/U_CPU/U_DATA_PATH/U_PC/pc_plus_imm" type="array">
          <obj_property name="ElementShortName">pc_plus_imm[31:0]</obj_property>
          <obj_property name="ObjectShortName">pc_plus_imm[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_rv32i_all_type/U_DUT/U_CPU/U_DATA_PATH/U_PC/pc_plus_4" type="array">
          <obj_property name="ElementShortName">pc_plus_4[31:0]</obj_property>
          <obj_property name="ObjectShortName">pc_plus_4[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_rv32i_all_type/U_DUT/U_CPU/U_DATA_PATH/U_PC/o_pc" type="array">
          <obj_property name="ElementShortName">o_pc[31:0]</obj_property>
          <obj_property name="ObjectShortName">o_pc[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_rv32i_all_type/U_DUT/U_CPU/U_DATA_PATH/U_PC/pc_reg" type="array">
          <obj_property name="ElementShortName">pc_reg[31:0]</obj_property>
          <obj_property name="ObjectShortName">pc_reg[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_rv32i_all_type/U_DUT/U_CPU/U_DATA_PATH/U_PC/pc_next" type="array">
          <obj_property name="ElementShortName">pc_next[31:0]</obj_property>
          <obj_property name="ObjectShortName">pc_next[31:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_rv32i_all_type/U_DUT/U_CPU/U_DATA_PATH/U_PC/j_event" type="logic">
          <obj_property name="ElementShortName">j_event</obj_property>
