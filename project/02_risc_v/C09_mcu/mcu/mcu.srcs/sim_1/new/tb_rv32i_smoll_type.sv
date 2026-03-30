@@ -96,13 +96,13 @@ module tb_rv32i_smoll_type ();
         //PC
         //R
         `INSTR_MEM.rom[0] = {`FNC7_SUB, rs2, rs1, `FNC3_ADD_SUB, rd, `R_TYPE};
-        `INSTR_MEM.rom[1] = {`FNC7_0,   shift_addr,     rs1,    `FNC3_SRL_SRA,  rd, `R_TYPE};
+        `INSTR_MEM.rom[1] = {`FNC7_0,   shift_addr,     rs1,    `FNC3_SLL,  rd, `R_TYPE};
         `INSTR_MEM.rom[2] = {`FNC7_0,   rs2,            rs1,    `FNC3_AND,      rd, `R_TYPE};
         //I
         imm = 200;
         shamt = 2;
         `INSTR_MEM.rom[3] = {imm,               rs1,   `FNC3_ADD_SUB,  rd,   `I_TYPE};
-        `INSTR_MEM.rom[4] = {`FNC7_0,   shamt,  rs1,   `FNC3_SRL_SRA,  rd,   `I_TYPE};
+        `INSTR_MEM.rom[4] = {`FNC7_0,   shamt,  rs1,   `FNC3_SLL,  rd,   `I_TYPE};
         `INSTR_MEM.rom[5] = {imm,               rs1,   `FNC3_AND,      rd,   `I_TYPE};
         //J
         imm = 12; rs1 = 3; 
