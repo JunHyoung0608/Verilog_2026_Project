@@ -23,7 +23,7 @@ module apb_slave_FND (
     //APB_bus
     assign slv_FND.PREADY = (PENABLE && slv_FND.PSEL);
     assign slv_FND.PRDATA = (PADDR[11:0] == FND_CTRL_ADDR)  ? {18'h0,FND_CTRL_REG}: 
-                            (PADDR[11:0]  == FND_ODATA_ADDR)? {18'h0,FND_ODATA_REG}: 32'hx;
+                            (PADDR[11:0]  == FND_ODATA_ADDR)? {18'h0,FND_ODATA_REG}: 32'h0;
 
 
     always_ff @(posedge PCLK or posedge PRESET) begin : slv_FND_ff
@@ -43,7 +43,7 @@ module apb_slave_FND (
     genvar i;
     generate
         for (i = 0; i < 14; i++) begin
-            assign FND_slv_data[i] = (FND_CTRL_REG[i]) ? FND_ODATA_REG[i] : 14'bz;
+            assign FND_slv_data[i] = (FND_CTRL_REG[i]) ? FND_ODATA_REG[i] : 14'b0;
         end
     endgenerate
 

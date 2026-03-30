@@ -20,7 +20,7 @@ module apb_slave_gpo (
     //APB_bus
     assign slv_GPO.PREADY = (PENABLE && slv_GPO.PSEL);
     assign slv_GPO.PRDATA = (PADDR[11:0] == GPO_CTRL_ADDR)  ? {16'h0,GPO_CTRL_REG}: 
-                            (PADDR[11:0]  == GPO_ODATA_ADDR)? {16'h0,GPO_ODATA_REG}: 32'hx;
+                            (PADDR[11:0]  == GPO_ODATA_ADDR)? {16'h0,GPO_ODATA_REG}: 32'h0;
 
 
     always_ff @(posedge PCLK or posedge PRESET) begin : slv_gpo_ff
@@ -40,7 +40,7 @@ module apb_slave_gpo (
     genvar i;
     generate
         for (i = 0; i < 16; i++) begin
-            assign GPO_out[i] = (GPO_CTRL_REG[i]) ? GPO_ODATA_REG[i] : 16'bz;
+            assign GPO_out[i] = (GPO_CTRL_REG[i]) ? GPO_ODATA_REG[i] : 16'b0;
         end
     endgenerate
 

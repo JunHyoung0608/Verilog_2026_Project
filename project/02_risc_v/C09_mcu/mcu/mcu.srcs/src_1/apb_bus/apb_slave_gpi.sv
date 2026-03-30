@@ -19,7 +19,7 @@ module apb_slave_gpi (
     //APB_bus
     assign slv_GPI.PREADY = (PENABLE && slv_GPI.PSEL);
     assign slv_GPI.PRDATA = (PADDR[11:0] == GPI_CTRL_ADDR)  ? {16'h0,GPI_CTRL_REG}: 
-                            (PADDR[11:0]  == GPI_IDATA_ADDR)? {16'h0,GPI_IDATA_REG}: 32'hx;
+                            (PADDR[11:0]  == GPI_IDATA_ADDR)? {16'h0,GPI_IDATA_REG}: 32'h0;
 
 
     always_ff @(posedge PCLK or posedge PRESET) begin : slv_gpo_ff
@@ -38,7 +38,7 @@ module apb_slave_gpi (
     genvar i;
     generate
         for (i = 0; i < 16; i++) begin
-            assign GPI_IDATA_REG[i] = (GPI_CTRL_REG[i]) ? GPI_in[i] : 16'bz;
+            assign GPI_IDATA_REG[i] = (GPI_CTRL_REG[i]) ? GPI_in[i] : 16'b0;
         end
     endgenerate
 endmodule

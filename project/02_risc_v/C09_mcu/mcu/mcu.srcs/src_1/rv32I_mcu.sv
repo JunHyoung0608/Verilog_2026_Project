@@ -25,6 +25,7 @@ module rv32I_mcu (
     input         uart_rx,
     output        uart_tx
 );
+    logic clk_out;
     logic [31:0] instr_addr, instr_data;
     logic bus_wreq, bus_rreq, ready;
     logic [31:0] bus_addr, bus_wdata, bus_rdata;
@@ -44,12 +45,22 @@ module rv32I_mcu (
         slv_FND (),
         slv_UART ();
 
+
+    // clk_div50 U_CLK_DIV (
+    //     .clk    (clk),
+    //     .rst    (rst),
+    //     .clk_out(clk_out)
+    // );
+
     instruction_mem U_INSTR_MEM (
         .instr_addr(instr_addr[31:2]),
         .instr_data(instr_data)
     );
 
-    rv32i_cpu U_CPU (.*);
+    rv32i_cpu U_CPU (
+        .clk(clk),
+        .*
+    );
 
 
     apb_master U_APB_MASTER (
@@ -147,4 +158,29 @@ module rv32I_mcu (
         .*
     );
 
+endmodule
+
+
+module clk_div50 #(
+    parameter DIV_VALUE = 2
+) (
+    input        clk,
+    input        rst,
+    output logic clk_out
+);
+    logic [31:0] cnt;
+
+    always_ff @(posedge clk or posedge rst) begin : blockName
+        if (rst) begin
+            cnt <= 0;
+            clk_out <= 0;
+        end else begin
+            if (cnt == ((DIV_VALUE / 2) - 1)) begin
+                cnt <= 0;
+                clk_out <= ~clk_out;
+            end else begin
+                cnt <= cnt + 1;
+            end
+        end
+    end
 endmodule

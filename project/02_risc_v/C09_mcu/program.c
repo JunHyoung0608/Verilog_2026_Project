@@ -111,6 +111,30 @@ void main(void){
 }
 
 //-------------------<FCN>-----------------------------
+void run_game(unsigned int com){
+    int i, j;
+    unsigned int user = 0;
+    unsigned int balls = 0, strikes = 0;
+    
+
+    // 3. 판정 로직 (모든 곱셈을 시프트 연산으로 대체)
+        for (int i = 0; i < 4; i++) {
+            // i << 2는 i * 4와 동일 (0, 4, 8, 12비트 위치)
+            int s_digit = (com >> (i << 2)) & 0xF;
+            
+            for (int j = 0; j < 4; j++) {
+                int u_digit = (user >> (j << 2)) & 0xF;
+                
+                if (s_digit == u_digit) {
+                    if (i == j) strikes++;
+                    else balls++;
+                }
+            }
+        }
+
+}
+
+
 void UART_init(UART_TYPEDEF *UARTx, unsigned int control, unsigned int baud) {
     UARTx->CTRL = control;
     UARTx->BAUD = baud;

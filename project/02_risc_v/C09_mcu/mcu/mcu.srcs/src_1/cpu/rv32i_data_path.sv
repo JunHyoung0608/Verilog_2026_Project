@@ -140,11 +140,11 @@ module pc (
 
     always_ff @(posedge clk or posedge rst) begin : pc_ff
         if (rst) begin
-            pc_reg <= 0;
+            pc_reg   <= 0;
             o_pc   <= 0;
         end else begin
+            pc_reg <= pc_next;
             if (pc_en) o_pc <= pc_reg;
-            else pc_reg <= pc_next;
         end
     end
 

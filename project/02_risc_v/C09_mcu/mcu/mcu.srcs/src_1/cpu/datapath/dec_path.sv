@@ -96,7 +96,7 @@ module imm_extender (
         imm_data = 32'b0;
         case (opcode_t'(instr_data[6:0]))
             // I-Type: imm[11:0]
-            IL_type, I_type: begin
+            IL_type, I_type, JALR_type: begin
                 imm_data = {{20{instr_data[31]}}, instr_data[31:20]};
             end
 
@@ -119,7 +119,6 @@ module imm_extender (
             JAL_type: begin
                 imm_data = {{12{instr_data[31]}}, instr_data[19:12], instr_data[20], instr_data[30:21], 1'b0};
             end
-            
             default: imm_data = 32'b0;
         endcase
     end

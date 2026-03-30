@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 `include "../../src_1/cpu/rv32i_opcode.svh"
 
-`define HEX_CODE 1
-`define R   0
+`define HEX_CODE 0
+`define R   1
 `define I   0
 `define S   0
 `define IL  0
@@ -38,7 +38,8 @@ module tb_rv32i_all_type ();
         .gpi(gpi),
         .gpo(gpo),
         .gpio(),
-        .fnd(),
+        .fnd_data(),
+        .fnd_digit(),
         .uart_rx(uart_rx),
         .uart_tx(uart_tx)
     );
@@ -83,7 +84,7 @@ module tb_rv32i_all_type ();
             if (cycle === timeout_cycle) begin
                 $display("[Failed] Timeout at PC[%d] test %s, expected_result = %h, got = %h",
                     (`INSTR_MEM.instr_addr), current_test_type, current_result, current_output);
-                $stop();
+                //$stop();
             end
         end
     end
@@ -233,11 +234,12 @@ module tb_rv32i_all_type ();
         //sim3----------------s-type------------------------
         // - SW, SH, SB
         if(`S) begin
-            reset(1);
+            reset(0);
             $display("%t : [Test S_type Instr]",$realtime);
 
             //REG
-            rs1 = 0; rs2 = 28;
+            `REG_FILE.reg_file[1] = 32'h1000_0000;
+            rs1 = 1; rs2 = 28;
             imm = 0;
             `REG_FILE.reg_file[31] = 32'h11;
             `REG_FILE.reg_file[30] = 32'h22;
@@ -247,28 +249,28 @@ module tb_rv32i_all_type ();
             //PC
             //dmem[rs1+imm] <= rs2[Byte,half,word] : {imm[6:0], rs2[4:0], rs1[4:0], funct3[2:0], imm[4:0],`S_TYPE}
             for(i=0;i<4;i=i+1) begin
-                `INSTR_MEM.rom[0+i] =     {imm[6:0],    rs2+i[4:0],  rs1,  `FNC3_SB,   imm[4:0]+i[4:0], `S_TYPE};  //SB dmem[rs1+i] <= rs2+i
+                `INSTR_MEM.rom[0+i] =     {imm[11:5],    rs2+i[4:0],  rs1,  `FNC3_SB,   imm[4:0]+i[4:0], `S_TYPE};  //SB dmem[rs1+i] <= rs2+i
             end
             for(i=0;i<4;i=i+1) begin
-                `INSTR_MEM.rom[4+i] =     {imm[6:0],    rs2+i[4:0],  rs1,  `FNC3_SH,   imm[4:0]+i[4:0], `S_TYPE};  //SH dmem[rs1+i] <= rs2+i
+                `INSTR_MEM.rom[4+i] =     {imm[11:5],    rs2+i[4:0],  rs1,  `FNC3_SH,   imm[4:0]+i[4:0], `S_TYPE};  //SH dmem[rs1+i] <= rs2+i
             end
             for(i=0;i<4;i=i+1) begin
-                `INSTR_MEM.rom[8+i] =     {imm[6:0],    rs2+i[4:0],  rs1,  `FNC3_SW,   imm[4:0]+i[4:0], `S_TYPE};  //SW dmem[rs1+i] <= rs2+i
+                `INSTR_MEM.rom[8+i] =     {imm[11:5],    rs2+i[4:0],  rs1,  `FNC3_SW,   imm[4:0]+i[4:0], `S_TYPE};  //SW dmem[rs1+i] <= rs2+i
             end
 
             run(1);
-            check_result(0,32'hxx_xx_xx_44, 0,"S_SB",1);
-            check_result(0,32'hxx_xx_33_44, 0,"S_SB",1);
-            check_result(0,32'hxx_22_33_44, 0,"S_SB",1);
-            check_result(0,32'h11_22_33_44, 0,"S_SB",1);
-            check_result(0,32'h11_22_00_44, 0,"S_SH",1);
-            check_result(0,32'h11_22_00_33, 0,"S_SH",1);
-            check_result(0,32'h00_22_00_33, 0,"S_SH",1);
-            check_result(0,32'h00_11_00_33, 0,"S_SH",1);
-            check_result(0,32'h00_00_00_44, 0,"S_SW",1);
-            check_result(0,32'h00_00_00_33, 0,"S_SW",1);
-            check_result(0,32'h00_00_00_22, 0,"S_SW",1);
-            check_result(0,32'h00_00_00_11, 0,"S_SW",1);
+            check_result(0,32'hxx_xx_xx_44, 32'h1000_0000,"S_SB",1);
+            check_result(0,32'hxx_xx_33_44, 32'h1000_0000,"S_SB",1);
+            check_result(0,32'hxx_22_33_44, 32'h1000_0000,"S_SB",1);
+            check_result(0,32'h11_22_33_44, 32'h1000_0000,"S_SB",1);
+            check_result(0,32'h11_22_00_44, 32'h1000_0000,"S_SH",1);
+            check_result(0,32'h11_22_00_33, 32'h1000_0000,"S_SH",1);
+            check_result(0,32'h00_22_00_33, 32'h1000_0000,"S_SH",1);
+            check_result(0,32'h00_11_00_33, 32'h1000_0000,"S_SH",1);
+            check_result(0,32'h00_00_00_44, 32'h1000_0000,"S_SW",1);
+            check_result(0,32'h00_00_00_33, 32'h1000_0000,"S_SW",1);
+            check_result(0,32'h00_00_00_22, 32'h1000_0000,"S_SW",1);
+            check_result(0,32'h00_00_00_11, 32'h1000_0000,"S_SW",1);
             $display("******S-type Pass******");
         end
         //sim4----------------il-type-----------------------

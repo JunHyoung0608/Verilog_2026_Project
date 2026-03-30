@@ -21,7 +21,7 @@ module apb_slave_UART (
     input  logic           [ 7:0] RX_data
 );
     localparam [11:0]   UART_CTRL_ADDR = 12'h000,
-                        UART_BAUD_ADDR = 12'h003,
+                        UART_BAUD_ADDR = 12'h004,
                         UART_STATUS_ADDR = 12'h008,
                         UART_TX_DATA_ADDR = 12'h00c,
                         UART_RX_DATA_ADDR = 12'h010;
@@ -40,7 +40,7 @@ module apb_slave_UART (
                              (PADDR[11:0] == UART_BAUD_ADDR)    ? {16'h0,UART_BAUD_REG}: 
                              (PADDR[11:0] == UART_STATUS_ADDR)  ? {16'h0,UART_STATUS_REG}:
                              (PADDR[11:0] == UART_TX_DATA_ADDR) ? {16'h0,UART_TX_DATA_REG}:
-                             (PADDR[11:0] == UART_RX_DATA_ADDR) ? {16'h0,UART_RX_DATA_REG}: 32'hx;
+                             (PADDR[11:0] == UART_RX_DATA_ADDR) ? {16'h0,UART_RX_DATA_REG}: 32'h0;
 
 
     //APB Bus Write
@@ -48,9 +48,7 @@ module apb_slave_UART (
         if (PRESET) begin
             UART_CTRL_REG    <= 16'h0;
             UART_BAUD_REG    <= 16'h0;
-            UART_STATUS_REG  <= 16'h0;
             UART_TX_DATA_REG <= 16'h0;
-            UART_RX_DATA_REG <= 16'h0;
         end else begin
             if (slv_UART.PREADY && PWRITE) begin
                 case (PADDR[11:0])

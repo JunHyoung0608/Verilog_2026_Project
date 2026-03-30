@@ -9,7 +9,7 @@ module instruction_mem (
     logic [31:0] rom[0:511];
 
     initial begin
-        $readmemh("uart_test.mem",rom);
+        //$readmemh("uart_test.mem",rom);
     end
 
     assign instr_data = rom[instr_addr];
