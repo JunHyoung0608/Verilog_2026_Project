@@ -34,7 +34,7 @@ module rv32I_mcu (
     logic [31:0] PADDR, PWDATA;
     logic [13:0] FND_slv_data;
     logic [ 1:0] baud_mode;
-    logic TX_busy, TX_start, RX_done;
+    logic TX_busy, TX_start,TX_done, RX_done;
     logic [7:0] TX_data, RX_data;
 
     apb_if

@@ -1,0 +1,40 @@
+<mxfile host="65bd71144e">
+    <diagram id="N58ZOYU4ikpGUl3CP29W" name="Page-1">
+        <mxGraphModel dx="2024" dy="1139" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="CPU" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="300" y="370" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="APB&lt;br&gt;Master" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="470" y="320" width="120" height="200" as="geometry"/>
+                </mxCell>
+                <mxCell id="4" value="slave&lt;br&gt;UART" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="630" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="slave&lt;br&gt;BTN" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="410" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="slave&lt;br&gt;SW" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="520" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="slave&lt;br&gt;&lt;div&gt;RAM&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="190" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="UART" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="840" y="510" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="BTN&lt;br&gt;&lt;div&gt;CTRL UNIT&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="840" y="290" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="INSTR&lt;div&gt;ROM&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="370" width="120" height="100" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="slave&lt;br&gt;image_file" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="680" y="300" width="120" height="100" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

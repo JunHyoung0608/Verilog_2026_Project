@@ -16,6 +16,7 @@ module apb_slave_UART (
     input                         TX_busy,
     output                 [ 7:0] TX_data,
     output                        TX_start,
+    output                        TX_done,
     //RX
     input                         RX_done,
     input  logic           [ 7:0] RX_data
@@ -65,7 +66,7 @@ module apb_slave_UART (
     //Baud
     assign baud_mode           = UART_BAUD_REG[1:0];
     //TX
-    assign UART_STATUS_REG[1]  = TX_busy;
+    assign UART_STATUS_REG[0]  = TX_busy;
     assign TX_data             = UART_TX_DATA_REG;
     assign TX_start            = UART_CTRL_REG[0];
     //RX

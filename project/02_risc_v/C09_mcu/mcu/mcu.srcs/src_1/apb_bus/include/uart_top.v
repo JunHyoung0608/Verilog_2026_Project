@@ -9,6 +9,7 @@ module uart_top (
     input        TX_start,
     input  [7:0] TX_data,
     output       TX_busy,
+    output       TX_done,
     //RX data
     output       RX_done,
     output [7:0] RX_data,
@@ -26,7 +27,7 @@ module uart_top (
         .b_tick  (w_b_tick),
         .tx_data (TX_data),
         .tx_busy (TX_busy),
-        .tx_done (),
+        .tx_done (TX_done),
         .uart_tx (uart_tx)
     );
     uart_rx U_UART_RX (
