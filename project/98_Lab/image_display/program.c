@@ -123,6 +123,11 @@ void UART_putc(UART_TYPEDEF *UARTx, unsigned int wdata)
 void send_image_to_uart(unsigned int base_addr) {
     unsigned int current_addr = base_addr;
     unsigned int word_data;
+    int a = 0;
+    while(UART_status(UART) & 0x1);
+    UART_putc(UART, 0xaa);
+    while(UART_status(UART) & 0x1);
+    UART_putc(UART, 0x55);
 
     // 1200번 반복 (루프 카운트는 덧셈/비교라 괜찮음)
     for (int i = 0; i < 1200; i++) {

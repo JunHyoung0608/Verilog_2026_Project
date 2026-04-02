@@ -140,7 +140,8 @@ module pc (
     output logic [31:0] o_pc
 );
 
-    logic [31:0] pc_reg, pc_next;
+    (* max_fanout = 50 *) logic [31:0] pc_reg;
+    logic [31:0] pc_next;
     logic j_event;
 
     //branch_event
