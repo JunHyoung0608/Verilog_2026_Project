@@ -1,5 +1,38 @@
 `timescale 1ns / 1ps
 
+module I2C_Master (
+    input              clk,
+    input              rst,
+    // command port
+    input              cmd_start,
+    input              cmd_write,
+    input              cmd_read,
+    input              cmd_stop,
+    input        [7:0] tx_data,
+    input              ack_in,
+    // internal output
+    output logic [7:0] rx_data,
+    output logic       done,
+    output logic       ack_out,
+    output logic       busy,
+    // external port
+    output logic       scl,
+    inout  logic       sda
+);
+    logic sda_o, sda_i;
+
+    assign sda   = (sda_o) ? 1'bz : 1'b0;
+    assign sda_i = sda;
+
+
+    i2c_master U_I2C_MASTER_CORE (
+        .*,
+        .sda_o(sda_o),
+        .sda_i(sda_i)
+    );
+
+endmodule
+
 module i2c_master (
     input              clk,
     input              rst,
@@ -31,17 +64,17 @@ module i2c_master (
     } i2c_state_e;
 
     i2c_state_e state;
-
     logic [7:0] div_cnt;
     logic qtr_tick;
     logic scl_r, sda_r;
     logic [1:0] step;
     logic [7:0] tx_shift_reg, rx_shift_reg;
     logic [2:0] bit_cnt;
-    logic is_read;
+    logic is_read, ack_in_r;
 
     assign scl   = scl_r;
     assign sda_o = sda_r;
+    assign busy  = (state != IDLE);
 
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
@@ -61,27 +94,25 @@ module i2c_master (
 
     always_ff @(posedge clk or posedge rst) begin : i2c_master_ff
         if (rst) begin
-            state <= IDLE;
-            scl_r <= 1'b1;
-            sda_r <= 1'b1;
-            busy <= 1'b0;
-            step <= 1'b0;
-            done <= 1'b0;
+            state        <= IDLE;
+            scl_r        <= 1'b1;
+            sda_r        <= 1'b1;
+            step         <= 1'b0;
+            done         <= 1'b0;
             tx_shift_reg <= 0;
             rx_shift_reg <= 0;
-            is_read <= 1'b0;
-            bit_cnt <= 7;
+            is_read      <= 1'b0;
+            bit_cnt      <= 0;
+            ack_in_r     <= 1'b1;
         end else begin
             done <= 1'b0;
             case (state)
                 IDLE: begin
                     scl_r <= 1'b1;
                     sda_r <= 1'b1;
-                    busy  <= 1'b0;
                     if (cmd_start) begin
                         state <= START;
                         step  <= 0;
-                        busy  <= 1'b1;
                     end
                 end
                 START: begin
@@ -113,13 +144,15 @@ module i2c_master (
                     step <= 0;
                     if (cmd_write) begin
                         tx_shift_reg <= tx_data;
-                        bit_cnt <= 7;
-                        is_read <= 1'b0;
-                        state <= DATA;
+                        bit_cnt      <= 0;
+                        is_read      <= 1'b0;
+                        state        <= DATA;
                     end else if (cmd_read) begin
                         rx_shift_reg <= 0;
-                        is_read <= 1'b1;
-                        state <= DATA;
+                        bit_cnt      <= 0;
+                        is_read      <= 1'b1;
+                        ack_in_r     <= ack_in;
+                        state        <= DATA;
                     end else if (cmd_stop) begin
                         state <= STOP;
                     end else if (cmd_start) begin
@@ -141,7 +174,7 @@ module i2c_master (
                             2'd2: begin
                                 scl_r <= 1'b1;
                                 if (is_read) begin
-                                    rx_shift_reg <= {rx_shift_reg, sda_i};
+                                    rx_shift_reg <= {rx_shift_reg[6:0], sda_i};
                                 end
                                 step <= 2'd3;
                             end
@@ -151,6 +184,12 @@ module i2c_master (
                                     tx_shift_reg <= {tx_shift_reg[6:0], 1'b0};
                                 end
                                 step <= 2'd0;
+
+                                if (bit_cnt == 7) begin
+                                    state <= DATA_ACK;
+                                end else begin
+                                    bit_cnt <= bit_cnt + 1;
+                                end
                             end
                         endcase
                     end
@@ -159,19 +198,32 @@ module i2c_master (
                     if (qtr_tick) begin
                         case (step)
                             2'd0: begin
-                                step <= 2'b1;
+                                scl_r <= 1'b0;
+                                if (is_read) begin
+                                    sda_r <= ack_in_r;
+                                end else begin
+                                    sda_r <= 1'b1;  //sda input 설정
+                                end
+                                step <= 2'd1;
                             end
                             2'd1: begin
-                                step <= 2'b1;
+                                scl_r <= 1'b1;
+                                step  <= 2'd2;
 
                             end
                             2'd2: begin
-                                step <= 2'b1;
-
+                                if (!is_read) begin  //ack 수신
+                                    ack_out <= sda_i;
+                                end else begin
+                                    rx_data <= rx_shift_reg;
+                                end
+                                step <= 2'd3;
                             end
                             2'd3: begin
-                                step <= 2'b1;
-
+                                scl_r <= 1'b0;
+                                done  <= 1'b1;
+                                step  <= 2'd0;
+                                state <= WAIT_CMD;
                             end
                         endcase
                     end
@@ -185,7 +237,6 @@ module i2c_master (
                                 step  <= 2'd1;
                             end
                             2'd1: begin
-                                sda_r <= 1'b0;
                                 scl_r <= 1'b1;
                                 step  <= 2'd2;
 
@@ -201,6 +252,9 @@ module i2c_master (
                             end
                         endcase
                     end
+                end
+                default: begin
+                    state <= IDLE;
                 end
             endcase
         end

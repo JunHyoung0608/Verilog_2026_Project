@@ -22,10 +22,10 @@ module spi_slave (
     spi_state_e state;
 
     logic sclk_ff1, sclk_ff2, sclk_posedge, sclk_negedge;
-    logic cs_n_ff1, cs_n_ff2, cs_n_negedge;
+    logic cs_n_ff1, cs_n_ff2, start;
     logic [7:0] tx_shift_reg, rx_shift_reg;
     logic [2:0] bit_cnt;
-    logic [1:0] mode_r;
+    logic [1:0] mode_reg;
 
     //edge_deecter
     always_ff @(posedge clk or posedge rst) begin
@@ -43,7 +43,7 @@ module spi_slave (
     end
     assign sclk_posedge = (sclk_ff1 && ~sclk_ff2);
     assign sclk_negedge = (~sclk_ff1 && sclk_ff2);
-    assign cs_n_negedge = (~cs_n_ff1 && cs_n_ff2);
+    assign start        = (~cs_n_ff1 && cs_n_ff2);
 
     always_ff @(posedge clk or posedge rst) begin
         if (rst) begin
@@ -54,7 +54,7 @@ module spi_slave (
             rx_shift_reg <= 0;
             slv_rx_data  <= 0;
             bit_cnt      <= 0;
-            mode_r       <= 0;
+            mode_reg     <= 0;
         end else begin
             done <= 1'b0;
             case (state)
@@ -62,8 +62,8 @@ module spi_slave (
                     miso         <= 1'b1;
                     rx_shift_reg <= 0;
                     tx_shift_reg <= 0;
-                    mode_r       <= 0;
-                    if (cs_n_negedge) begin
+                    mode_reg     <= 0;
+                    if (start) begin
                         tx_shift_reg <= slv_tx_data;
                         bit_cnt      <= 0;
                         state        <= START;
@@ -76,20 +76,20 @@ module spi_slave (
                 end
                 DATA: begin
                     if (bit_cnt == 0) begin
-                        if (mode_r == 0) begin
+                        if (mode_reg == 0) begin
                             if (sclk_negedge) begin
                                 bit_cnt <= bit_cnt + 1;
                                 rx_shift_reg <= {rx_shift_reg[6:0], mosi};
-                                mode_r <= 2'd2;
+                                mode_reg <= 2'd2;
                             end
                             if (sclk_posedge) begin
                                 bit_cnt <= bit_cnt + 1;
                                 rx_shift_reg <= {rx_shift_reg[6:0], mosi};
-                                mode_r <= 2'd1;
+                                mode_reg <= 2'd1;
                             end
                         end
                     end else if (bit_cnt < 7) begin
-                        if (mode_r == 1) begin
+                        if (mode_reg == 1) begin
                             if (sclk_negedge) begin
                                 miso         <= tx_shift_reg[7];
                                 tx_shift_reg <= {tx_shift_reg[6:0], 1'b0};
@@ -109,7 +109,7 @@ module spi_slave (
                             end
                         end
                     end else if (bit_cnt == 7) begin
-                        if (mode_r == 1) begin
+                        if (mode_reg == 1) begin
                             if (sclk_posedge) begin
                                 bit_cnt <= bit_cnt + 1;
                                 slv_rx_data <= {rx_shift_reg[6:0], mosi};
