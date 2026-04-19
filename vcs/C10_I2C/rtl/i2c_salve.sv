@@ -5,7 +5,7 @@ module i2c_salve #(
     input              rst,
     // i2c port
     input              scl,
-    inout  logic       sda,
+    inout  wire        sda,
     // external port
     input        [7:0] tx_data,
     input              ack_in,
@@ -48,13 +48,12 @@ module i2c_salve #(
 
     always_ff @(posedge clk or posedge rst) begin : i2c_salve
         if (rst) begin
-            state        <= IDLE;
-            sda_r        <= 0;
-            is_m_read    <= 0;
-            bit_cnt      <= 0;
+            state <= IDLE;
+            sda_r <= 0;
+            is_m_read <= 0;
+            bit_cnt <= 0;
             rx_shift_reg <= 0;
             tx_shift_reg <= 0;
-            rx_data      <= 0;
         end else begin
             done <= 1'b0;
             case (state)
@@ -94,16 +93,18 @@ module i2c_salve #(
                             end
                             state <= WAIT_DATA;
                         end else begin
-                            state <= IDLE;
+                            state <= WAIT_DATA;
                         end
                     end
                 end
                 WAIT_DATA: begin
-                    rx_shift_reg <= 0;
-                    tx_shift_reg <= tx_data;
-                    state        <= DATA;
+                    if (scl_negedge) begin
+                        rx_shift_reg <= 0;
+                        tx_shift_reg <= tx_data;
+                        state        <= DATA;
 
-                    sda_r        <= (is_m_read) ? ~(tx_data[7]) : 1'b0;
+                        sda_r        <= (is_m_read) ? ~(tx_data[7]) : 1'b0;
+                    end
                 end
                 DATA: begin
                     if (scl_posedge) begin
@@ -146,8 +147,8 @@ module i2c_salve #(
                             state <= (sda_r) ? WAIT_DATA : STOP;
                             done  <= (sda_r);
                         end else begin  // master is reading
-                            state <= (sda) ? WAIT_DATA : STOP;
-                            done  <= (sda);
+                            state <= (sda_r) ? STOP : WAIT_DATA;
+                            done  <= 1'b1;
                         end
                     end
                 end

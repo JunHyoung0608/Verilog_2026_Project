@@ -4,17 +4,18 @@
 `timescale 1ns / 1ps
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-`include "I2C_ram_seq_item.sv"
+// `include "I2C_ram_seq_item.sv"
 
 class I2C_scoreboard extends uvm_scoreboard;
     `uvm_component_utils(I2C_scoreboard);
 
     uvm_analysis_imp #(I2C_seq_item, I2C_scoreboard) ap_imp;
 
-    int num_addr_target = 0;
-    int num_writes = 0;
-    int num_reads = 0;
-    int num_errors = 0;
+    int addr_fail_cnt = 0;
+    int is_writes_cnt = 0;
+    int is_reads_cnt = 0;
+    int write_errors_cnt = 0;
+    int read_errors_cnt = 0;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
@@ -27,42 +28,72 @@ class I2C_scoreboard extends uvm_scoreboard;
 
     virtual function void write(I2C_seq_item tr);
         if (tr.addr != 7'h12) begin
+            addr_fail_cnt++;
+            `uvm_error(get_type_name(), $sformatf("FAIL ADDR! paddr = 0x%02h, ", tr.addr));
         end else begin
-            if (tr.m_read) begin
-                num_reads++;
+            //IS_READ
+            if (tr.m_is_read) begin
+                is_reads_cnt++;
+                if (tr.m_rx_data !== tr.s_tx_data) begin
+                    read_errors_cnt++;
+                    `uvm_error(get_type_name(), $sformatf(
+                               "FAIL! paddr = 0x%02h, exptected=0x%08h -x> m_rx_data=0x%08h",
+                               tr.addr,
+                               tr.s_tx_data,
+                               tr.m_rx_data
+                               ));
+                end else begin
+                    `uvm_info(get_type_name(), $sformatf(
+                              "PASS! paddr = 0x%02h, exptected=0x%08h -> m_rx_data=0x%08h",
+                              tr.addr,
+                              tr.s_tx_data,
+                              tr.m_rx_data
+                              ), UVM_MEDIUM);
+                end
+                //IS_WRITE
             end else begin
-                num_writes++;
+                is_writes_cnt++;
+                if (tr.m_tx_data !== tr.s_rx_data) begin
+                    write_errors_cnt++;
+                    `uvm_error(get_type_name(), $sformatf(
+                               "FAIL! paddr = 0x%02h, m_tx_data=0x%08h -x> s_rx_data=0x%08h",
+                               tr.addr,
+                               tr.m_tx_data,
+                               tr.s_rx_data
+                               ));
+                end else begin
+                    `uvm_info(get_type_name(), $sformatf(
+                              "PASS! paddr = 0x%02h, m_tx_data=0x%08h -> s_rx_data=0x%08h",
+                              tr.addr,
+                              tr.m_tx_data,
+                              tr.s_rx_data
+                              ), UVM_MEDIUM);
+                end
             end
-        end
-        if (tr.addr[] !== tr.prdata) begin
-            num_errors++;
-            `uvm_error(get_type_name(), $sformatf(
-                       "FAIL! paddr = 0x%02h, exptected=0x%08h, prdata=0x%08h",
-                       tr.paddr,
-                       expected,
-                       tr.prdata
-                       ));
-        end else begin
-            `uvm_info(get_type_name(), $sformatf(
-                      "PASS! paddr = 0x%02h, exptected=0x%08h, prdata=0x%08h",
-                      tr.paddr,
-                      expected,
-                      tr.prdata
-                      ), UVM_MEDIUM);
         end
     endfunction
 
     virtual function void report_phase(uvm_phase phase);
-        string result = (num_errors == 0) ? "** PASS **" : "** FAIL **";
+        string result = ((read_errors_cnt == 0) && (write_errors_cnt == 0)) ? "** PASS **" : "** FAIL **";
 
         super.report_phase(phase);
-        `uvm_info(get_type_name(), $sformatf("\
+        `uvm_info(get_type_name(), $sformatf(
+                  "\
         \n===== Summary Report =========\
-        \n  Result      : %s\
-        \n  write num   : %0d\
-        \n  read num    : %0d\
-        \n  error num   : %0d\
-        \n==============================", result, num_writes, num_reads, num_errors), UVM_LOW);
+        \n  - Result          : [%s]\
+        \n  - addr_fail_cnt   : %0d\
+        \n  - is_writes_cnt   : %0d\
+        \n  - is_reads_cnt    : %0d\
+        \n  - write_errors_cnt: %0d\
+        \n  - read_errors_cnt : %0d\
+        \n==============================",
+                  result,
+                  addr_fail_cnt,
+                  is_writes_cnt,
+                  is_reads_cnt,
+                  write_errors_cnt,
+                  read_errors_cnt
+                  ), UVM_LOW);
     endfunction
 
 endclass  //component extends uvm_componet

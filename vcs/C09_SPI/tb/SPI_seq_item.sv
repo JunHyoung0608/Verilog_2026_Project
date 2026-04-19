@@ -5,24 +5,34 @@
 import uvm_pkg::*;
 
 class SPI_seq_item extends uvm_sequence_item;
-    rand logic [ 7:0] paddr;
-    rand logic        pwrite;
-    rand logic        penable;
-    rand logic [31:0] pwdata;
-    rand logic        psel;
-    logic      [31:0] prdata;
-    logic             pready;
+    logic             m_cpol;
+    logic             m_cpha;
+    logic             m_clk_div;
+    randc logic [7:0] m_tx_data;
+    logic             m_start;
+    logic       [7:0] m_rx_data;
+    logic             m_done;
+    logic             m_busy;
 
-    constraint c_addr {paddr % 4 == 0;}
+    randc logic [7:0] s_slv_tx_data;
+    logic       [7:0] s_slv_rx_data;
+    logic             s_done;
+    //-----------local---------------
+
+    // constraint c_addr {paddr % 4 == 0;}
 
     `uvm_object_utils_begin(SPI_seq_item)
-        `uvm_field_int(paddr, UVM_ALL_ON)
-        `uvm_field_int(pwrite, UVM_ALL_ON)
-        `uvm_field_int(penable, UVM_ALL_ON)
-        `uvm_field_int(pwdata, UVM_ALL_ON)
-        `uvm_field_int(psel, UVM_ALL_ON)
-        `uvm_field_int(prdata, UVM_ALL_ON)
-        `uvm_field_int(pready, UVM_ALL_ON)
+        `uvm_field_int(m_cpol, UVM_ALL_ON)
+        `uvm_field_int(m_clk_div, UVM_ALL_ON)
+        `uvm_field_int(m_tx_data, UVM_ALL_ON)
+        `uvm_field_int(m_start, UVM_ALL_ON)
+        `uvm_field_int(m_rx_data, UVM_ALL_ON)
+        `uvm_field_int(m_done, UVM_ALL_ON)
+        `uvm_field_int(m_busy, UVM_ALL_ON)
+
+        `uvm_field_int(s_slv_tx_data, UVM_ALL_ON)
+        `uvm_field_int(s_slv_rx_data, UVM_ALL_ON)
+        `uvm_field_int(s_done, UVM_ALL_ON)
     `uvm_object_utils_end
 
 
@@ -31,9 +41,22 @@ class SPI_seq_item extends uvm_sequence_item;
     endfunction  //new()
 
     function string convert2string();
-        string op = pwrite ? "WRITE" : "READ";
+        //string op = pwrite ? "WRITE" : "READ";
+        logic [1:0] mode = {m_cpol, m_clk_div};
         return $sformatf(
-            "%s paddr=0x%02h, pwdata=0x%08h, prdata=0x%08h", op, paddr, pwdata, prdata
+            "\n[%0d]m_cpol=%01b, m_clk_div=%01b, m_tx_data=0x%02h, m_start=%01b, m_rx_data=%02h ,m_done=%01b,\
+             m_busy=%01b,\n s_slv_tx_data=%02h, s_slv_rx_data=%02h, s_done=%01b",
+            mode,
+            m_cpol,
+            m_clk_div,
+            m_tx_data,
+            m_start,
+            m_rx_data,
+            m_done,
+            m_busy,
+            s_slv_tx_data,
+            s_slv_rx_data,
+            s_done
         );
     endfunction
 

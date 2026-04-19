@@ -4,7 +4,7 @@
 #-------------------value---------------------
 NAME		:= I2C
 TOP 		:= tb_top
-TEST 		:= uart_tx_test
+TEST 		:= I2C_write
 VERBOSITY 	:= UVM_DEBUG
 SEED 		:= random
 
@@ -21,7 +21,7 @@ TAR_FILE 	:= uvm2_format.tar.gz
 #-------------------macro---------------------
 COMP_OPTS += -full64 -sverilog  
 COMP_OPTS += -debug_access+all -kdb -lca 
-# COMP_OPTS += -ntb_opts uvm-1.2 
+COMP_OPTS += -ntb_opts uvm-1.2 
 COMP_OPTS += -timescale=1ns/1ps 
 COMP_OPTS += +incdir+./rtl 
 COMP_OPTS += +incdir+./tb 
@@ -29,8 +29,8 @@ COMP_OPTS += -cm line+cond+fsm+tgl+branch+assert
 
 
 
-# SIM_OPTS += +UVM_TESTNAME=$(TEST)
-# SIM_OPTS += +UVM_VERBOSITY=$(VERBOSITY)
+SIM_OPTS += +UVM_TESTNAME=$(TEST)
+SIM_OPTS += +UVM_VERBOSITY=$(VERBOSITY)
 SIM_OPTS +=	+ntb_random_seed=$(SEED)
 SIM_OPTS +=	-cm line+cond+fsm+tgl+branch+assert
 SIM_OPTS +=	-cm_dir coverage.vdb
@@ -92,7 +92,10 @@ sim: comp
 verdi: sim
 	verdi $(VERDI_OPTS) &
 
-verdi_c: sim
+verdi2:
+	verdi $(VERDI_OPTS) &
+
+verdi_c:
 	verdi -cov -covdir coverage.vdb &
 
 clean:

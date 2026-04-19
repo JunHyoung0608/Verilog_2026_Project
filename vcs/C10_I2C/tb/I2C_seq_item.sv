@@ -25,8 +25,8 @@ class I2C_seq_item extends uvm_sequence_item;
     logic             s_busy;
     logic             s_done;
     //----------local---------------
-    logic             m_read;
-    rand logic  [6:0] addr;
+    rand logic        m_is_read;
+    logic       [6:0] addr;
     // constraint c_addr_dist { 
     // addr dist {
     //     12         := 70, 
@@ -58,6 +58,9 @@ class I2C_seq_item extends uvm_sequence_item;
         `uvm_field_int(s_ack_in, UVM_ALL_ON)
         `uvm_field_int(s_busy, UVM_ALL_ON)
         `uvm_field_int(s_done, UVM_ALL_ON)
+    //---------other----------------
+        `uvm_field_int(m_is_read, UVM_ALL_ON)
+        `uvm_field_int(addr, UVM_ALL_ON)
     `uvm_object_utils_end
 
 
@@ -71,10 +74,11 @@ class I2C_seq_item extends uvm_sequence_item;
                     (cmd_read) ?  "READ" :
                     (cmd_stop) ? "STOP" :
                     "NONE";
+        string m_write = (m_is_read) ? "WRITE" : "READ";
         return $sformatf(
-            "\ncmd_%s[%s]addr=0x%02h\
-            \tMaster m_tx_data=0x%02h, m_ack_out=%01b, m_busy=%01b\
-            \ts_tx_data=0x%02h, s_rx_data=0x%02h, s_ack_in=%01b s_busy=%01b s_done=%01b",
+            "\n\t- cmd_%s[%s]addr=0x%02h\
+            \n\t- Master m_tx_data=0x%02h, m_ack_out=%01b, m_busy=%01b\
+            \n\t- Slave  s_tx_data=0x%02h, s_rx_data=0x%02h, s_ack_in=%01b s_busy=%01b s_done=%01b",
             op,
             m_write,
             addr,

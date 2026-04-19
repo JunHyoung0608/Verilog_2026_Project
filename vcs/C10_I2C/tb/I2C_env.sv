@@ -4,9 +4,9 @@
 `timescale 1ns / 1ps
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-`include "I2C_ram_agent.sv"
-`include "I2C_ram_scoreboard.sv"
-`include "I2C_ram_coverage.sv"
+// `include "I2C_ram_agent.sv"
+// `include "I2C_ram_scoreboard.sv"
+// `include "I2C_ram_coverage.sv"
 
 class I2C_env extends uvm_env;
     `uvm_component_utils(I2C_env);

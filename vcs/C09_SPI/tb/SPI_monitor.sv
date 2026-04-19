@@ -4,8 +4,8 @@
 `timescale 1ns / 1ps
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-// `include "ram_interface.sv"
-`include "SPI_ram_seq_item.sv"
+// `include "interface.sv"
+`include "SPI_seq_item.sv"
 
 
 class SPI_monitor extends uvm_monitor;
@@ -36,23 +36,30 @@ class SPI_monitor extends uvm_monitor;
 
     task collect_transaction();
         SPI_seq_item tx;
+        tx               = SPI_seq_item::type_id::create("mon_tx");
 
+        wait (vif.mon_cb.m_start);
+        @(vif.mon_cb);
+        tx.m_tx_data     = vif.mon_cb.m_tx_data;
+        tx.s_slv_tx_data = vif.mon_cb.s_slv_tx_data;
+        wait (vif.mon_cb.m_done);
         @(vif.mon_cb);
 
-        if (vif.mon_cb.psel && vif.mon_cb.penable && vif.mon_cb.pready) begin
-            tx         = SPI_seq_item::type_id::create("mon_tx");
-
-            tx.paddr   = vif.mon_cb.paddr;
-            tx.pwrite  = vif.mon_cb.pwrite;
-            tx.pwdata  = vif.mon_cb.pwdata;
-            tx.prdata  = vif.mon_cb.prdata;
-            tx.pready  = vif.mon_cb.pready;
-            tx.penable = vif.mon_cb.penable;
-            tx.psel    = vif.mon_cb.psel;
-            `uvm_info(get_type_name(), $sformatf("mon tx: %s", tx.convert2string()), UVM_MEDIUM);
-
-            ap.write(tx);
-        end
+        tx.m_cpol        = vif.mon_cb.m_cpol;
+        tx.m_cpha        = vif.mon_cb.m_cpha;
+        tx.m_clk_div     = vif.mon_cb.m_clk_div;
+        
+        tx.m_start       = vif.mon_cb.m_start;
+        tx.m_rx_data     = vif.mon_cb.m_rx_data;
+        tx.m_done        = vif.mon_cb.m_done;
+        tx.m_busy        = vif.mon_cb.m_busy;
+        
+        tx.s_slv_rx_data = vif.mon_cb.s_slv_rx_data;
+        tx.s_done        = vif.mon_cb.s_done;
+        `uvm_info(get_type_name(), $sformatf("모니터 전송: %s", tx.convert2string()),
+                  UVM_MEDIUM);
+        ap.write(tx);
+        @(vif.mon_cb);
     endtask
 
 endclass  //component extends uvm_componet

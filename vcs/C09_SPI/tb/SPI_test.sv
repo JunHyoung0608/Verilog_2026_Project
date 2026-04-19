@@ -35,8 +35,8 @@ class SPI_base_test extends uvm_test;
 
 endclass
 
-class SPI_write_read extends SPI_base_test;
-    `uvm_component_utils(SPI_write_read);
+class SPI_write_read_test extends SPI_base_test;
+    `uvm_component_utils(SPI_write_read_test);
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
@@ -46,29 +46,7 @@ class SPI_write_read extends SPI_base_test;
         SPI_write_read_seq seq;
         phase.raise_objection(this);
         seq = SPI_write_read_seq::type_id::create("seq");
-        seq.num_loop = 10;
-        seq.start(env.agt.sqr);
-        phase.drop_objection(this);
-    endtask
-
-    virtual task run_test_seq();
-        // 자식 클래스에서 해당 기능 구현
-    endtask
-
-endclass
-
-class SPI_rand_test extends SPI_base_test;
-    `uvm_component_utils(SPI_write_read);
-
-    function new(string name, uvm_component parent);
-        super.new(name, parent);
-    endfunction  //new()
-
-    virtual task run_phase(uvm_phase phase);
-        SPI_rand_seq seq;
-        phase.raise_objection(this);
-        seq = SPI_rand_seq::type_id::create("seq");
-        seq.num_loop = 10;
+        seq.num_loop = 256;
         seq.start(env.agt.sqr);
         phase.drop_objection(this);
     endtask

@@ -3,7 +3,7 @@
 
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-`include "I2C_ram_seq_item.sv"
+// `include "I2C_ram_seq_item.sv"
 
 class I2C_coverage extends uvm_subscriber #(I2C_seq_item);
     `uvm_component_utils(I2C_coverage);
@@ -11,28 +11,22 @@ class I2C_coverage extends uvm_subscriber #(I2C_seq_item);
     I2C_seq_item tx;
 
     covergroup I2C_cg;
-        cp_addr: coverpoint tx.paddr {
-            bins addr_low = {[8'h00 : 8'h3c]};
-            bins addr_mid_low = {[8'h40 : 8'h7c]};
-            bins addr_mid_high = {[8'h80 : 8'h8c]};
-            bins addr_high = {[8'hc0 : 8'hcf]};
+        cp_m_tx_data: coverpoint tx.m_tx_data {
+            bins special_55 = {8'h55};  // 01010101 확인
+            bins special_aa = {8'hAA};  // 10101010 확인
+            bins all_ones = {8'hFF};  // Pull-up 확인용
+            bins all_zeros = {8'h00};
+            bins range_0 = {[8'h01 : 8'h54], [8'h56 : 8'hA9], [8'hAB : 8'hFE]};  // 나머지
         }
-        cp_rw: coverpoint tx.pwrite {bins write_op = {1}; bins read_op = {0};}
-        cp_wdata: coverpoint tx.pwdata {
-            bins all_zeros = {32'h0000_0000};
-            bins all_ones = {32'hffff_ffff};
-            bins all_a = {32'haaaa_aaaa};
-            bins all_5 = {32'h5555_5555};
-            bins other = default;
+        cp_s_tx_data: coverpoint tx.s_tx_data {
+            bins special_55 = {8'h55};  // 01010101 확인
+            bins special_aa = {8'hAA};  // 10101010 확인
+            bins all_ones = {8'hFF};  // Pull-up 확인용
+            bins all_zeros = {8'h00};
+            bins range_0 = {[8'h01 : 8'h54], [8'h56 : 8'hA9], [8'hAB : 8'hFE]};  // 나머지
         }
-        cp_rdata: coverpoint tx.prdata {
-            bins all_zeros = {32'h0000_0000};
-            bins all_ones = {32'hffff_ffff};
-            bins all_a = {32'haaaa_aaaa};
-            bins all_5 = {32'h5555_5555};
-            bins other = default;
-        }
-        cx_addr_rw: cross cp_addr, cp_rw;
+        cp_rw: coverpoint tx.m_is_read {bins write_op = {1}; bins read_op = {0};}
+
     endgroup
 
     function new(string name = "COV", uvm_component c);
@@ -51,19 +45,15 @@ class I2C_coverage extends uvm_subscriber #(I2C_seq_item);
         `uvm_info(get_type_name(), $sformatf(
                   "\
         \n===== Coverage Summary =====\
-        \n  addr            : %.1f%%\
-        \n  rw              : %.1f%%\
-        \n  wdata           : %.1f%%\
-        \n  rdata           : %.1f%%\
-        \n  cross(addr, rw) : %.1f%%\
+        \n  - m_tx_data         : %.1f%%\
+        \n  - s_tx_data         : %.1f%%\
+        \n  - cp_rw             : %.1f%%\
         \n============================",
-                  I2C_cg.cp_addr.get_coverage(),
-                  I2C_cg.cp_rw.get_coverage(),
-                  I2C_cg.cp_wdata.get_coverage(),
-                  I2C_cg.cp_rdata.get_coverage(),
-                  I2C_cg.cx_addr_rw.get_coverage()
+                  I2C_cg.cp_m_tx_data.get_coverage(),
+                  I2C_cg.cp_s_tx_data.get_coverage(),
+                  I2C_cg.cp_rw.get_coverage()
                   ), UVM_LOW);
     endfunction
-endclass  
+endclass
 
 `endif

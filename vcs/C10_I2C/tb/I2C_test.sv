@@ -35,18 +35,18 @@ class I2C_base_test extends uvm_test;
 
 endclass
 
-class I2C_write_read extends I2C_base_test;
-    `uvm_component_utils(I2C_write_read);
+class I2C_write extends I2C_base_test;
+    `uvm_component_utils(I2C_write);
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
     endfunction  //new()
 
     virtual task run_phase(uvm_phase phase);
-        I2C_write_read_seq seq;
+        I2C_write_seq seq;
         phase.raise_objection(this);
-        seq = I2C_write_read_seq::type_id::create("seq");
-        seq.num_loop = 10;
+        seq = I2C_write_seq::type_id::create("seq");
+        seq.num_loop = 256;
         seq.start(env.agt.sqr);
         phase.drop_objection(this);
     endtask

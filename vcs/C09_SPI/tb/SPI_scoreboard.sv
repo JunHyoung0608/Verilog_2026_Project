@@ -4,7 +4,7 @@
 `timescale 1ns / 1ps
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-`include "SPI_ram_seq_item.sv"
+`include "SPI_seq_item.sv"
 
 class SPI_scoreboard extends uvm_scoreboard;
     `uvm_component_utils(SPI_scoreboard);
@@ -13,10 +13,9 @@ class SPI_scoreboard extends uvm_scoreboard;
 
     logic [31:0] ref_mem[0:2**6-1];
 
-    int num_writes = 0;
-    int num_reads = 0;
-    int num_errors = 0;
-    logic [31:0] expected;
+    int test_cnt = 0;
+    int mosi_errors = 0;
+    int miso_errors = 0;
 
     function new(string name, uvm_component parent);
         super.new(name, parent);
@@ -28,42 +27,43 @@ class SPI_scoreboard extends uvm_scoreboard;
     endfunction
 
     virtual function void write(SPI_seq_item tx);
-        if (tx.pwrite) begin
-            num_writes++;
-            ref_mem[tx.paddr>>2] = tx.pwdata;
+        test_cnt++;
+        //miso
+        if (tx.m_tx_data !== tx.s_slv_rx_data) begin
+            mosi_errors++;
+            `uvm_error(get_type_name(), $sformatf(
+                       "FAIL!  m_tx_data=0x%02h -> s_rx_data=0x%02h", tx.m_tx_data, tx.s_slv_rx_data
+                       ));
         end else begin
-            num_reads++;
-            expected = ref_mem[tx.paddr>>2];
-            if (expected !== tx.prdata) begin
-                num_errors++;
-                `uvm_error(get_type_name(), $sformatf(
-                           "FAIL! paddr = 0x%02h, exptected=0x%08h, prdata=0x%08h",
-                           tx.paddr,
-                           expected,
-                           tx.prdata
-                           ));
-            end else begin
-                `uvm_info(get_type_name(), $sformatf(
-                          "PASS! paddr = 0x%02h, exptected=0x%08h, prdata=0x%08h",
-                          tx.paddr,
-                          expected,
-                          tx.prdata
-                          ), UVM_MEDIUM);
-            end
+            `uvm_info(get_type_name(), $sformatf(
+                      "PASS!  m_tx_data=0x%02h -> s_rx_data=0x%02h", tx.m_tx_data, tx.s_slv_rx_data
+                      ), UVM_MEDIUM);
         end
+        //mosi
+        if (tx.s_slv_tx_data !== tx.m_rx_data) begin
+            miso_errors++;
+            `uvm_error(get_type_name(), $sformatf(
+                       "FAIL!  s_tx_data=0x%02h -> m_rx_data=0x%02h", tx.s_slv_tx_data, tx.m_rx_data
+                       ));
+        end else begin
+            `uvm_info(get_type_name(), $sformatf(
+                      "PASS!  s_tx_data=0x%02h -> m_rx_data=0x%02h", tx.s_slv_tx_data, tx.m_rx_data
+                      ), UVM_MEDIUM);
+        end
+
     endfunction
 
     virtual function void report_phase(uvm_phase phase);
-        string result = (num_errors == 0) ? "** PASS **" : "** FAIL **";
+        string result = ((mosi_errors + miso_errors) == 0) ? "** PASS **" : "** FAIL **";
 
         super.report_phase(phase);
         `uvm_info(get_type_name(), $sformatf("\
         \n===== Summary Report =========\
         \n  Result      : %s\
-        \n  write num   : %0d\
-        \n  read num    : %0d\
-        \n  error num   : %0d\
-        \n==============================", result, num_writes, num_reads, num_errors), UVM_LOW);
+        \n  test_cnt    : %0d\
+        \n  mosi_errors : %0d\
+        \n  miso_errors : %0d\
+        \n==============================", result, test_cnt, mosi_errors, miso_errors), UVM_LOW);
     endfunction
 
 endclass  //component extends uvm_componet
