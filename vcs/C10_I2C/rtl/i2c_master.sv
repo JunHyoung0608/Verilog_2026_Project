@@ -17,7 +17,7 @@ module I2C_Master (
     output logic       busy,
     // external port
     output logic       scl,
-    inout  logic       sda
+    inout  wire        sda
 );
     logic sda_o, sda_i;
 
@@ -205,7 +205,7 @@ module i2c_master (
                         case (step)
                             2'd0: begin
                                 scl_r <= 1'b1;
-                                step <= 2'd1;
+                                step  <= 2'd1;
                             end
                             2'd1: begin
                                 scl_r <= 1'b1;
@@ -214,11 +214,11 @@ module i2c_master (
                                 end else begin
                                     rx_data <= rx_shift_reg;
                                 end
-                                step  <= 2'd2;
+                                step <= 2'd2;
                             end
                             2'd2: begin
                                 scl_r <= 1'b0;
-                                step <= 2'd3;
+                                step  <= 2'd3;
                             end
                             2'd3: begin
                                 scl_r <= 1'b0;

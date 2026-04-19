@@ -4,9 +4,9 @@
 `timescale 1ns / 1ps
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-`include "SPI_ram_agent.sv"
-`include "SPI_ram_scoreboard.sv"
-`include "SPI_ram_coverage.sv"
+`include "SPI_agent.sv"
+`include "SPI_scoreboard.sv"
+`include "SPI_coverage.sv"
 
 class SPI_env extends uvm_env;
     `uvm_component_utils(SPI_env);

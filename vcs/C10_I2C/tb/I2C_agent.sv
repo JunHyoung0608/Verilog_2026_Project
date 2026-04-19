@@ -4,9 +4,9 @@
 `timescale 1ns / 1ps
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-`include "I2C_ram_seq_item.sv"
-`include "I2C_ram_driver.sv"
-`include "I2C_ram_monitor.sv"
+// `include "I2C_ram_seq_item.sv"
+// `include "I2C_ram_driver.sv"
+// `include "I2C_ram_monitor.sv"
 
 
 typedef uvm_sequencer#(I2C_seq_item) I2C_sequencer;

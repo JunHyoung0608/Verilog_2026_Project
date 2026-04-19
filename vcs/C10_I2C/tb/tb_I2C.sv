@@ -19,11 +19,11 @@ module tb_I2C ();
     initial clk = 0;
     always #5 clk = ~clk;
 
-    logic scl;
+    wire scl;
     wire  sda;
 
-    pullup (vif.sda);
-    pullup (vif.scl);
+    pullup (sda);
+    pullup (scl);
 
     I2C_if vif (
         clk,

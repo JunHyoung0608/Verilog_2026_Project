@@ -4,9 +4,9 @@
 `timescale 1ns / 1ps
 `include "uvm_macros.svh"
 import uvm_pkg::*;
-`include "SPI_ram_seq_item.sv"
-`include "SPI_ram_driver.sv"
-`include "SPI_ram_monitor.sv"
+`include "SPI_seq_item.sv"
+`include "SPI_driver.sv"
+`include "SPI_monitor.sv"
 
 
 typedef uvm_sequencer#(SPI_seq_item) SPI_sequencer;

@@ -15,22 +15,52 @@ import uvm_pkg::*;
 
 module tb_SPI ();
     logic clk;
-    logic rst_n;
-    initial pclk = 0;
-    always #5 pclk = ~pclk;
+    logic rst;
+    initial clk = 0;
+    always #5 clk = ~clk;
+
+    logic sclk;
+    logic mosi;
+    logic miso;
+    logic cs_n;
 
     SPI_if vif (
+        clk, rst
     );
 
     //DUT
+    spi_master U_SPI_MM (
+        .clk    (clk),
+        .reset  (rst),
+        .cpol   (vif.m_cpol),     //idle 0: low, 1: high
+        .cpha   (vif.m_cpha),     //first sampling 0: first efge, 1: seconed edge
+        .clk_div(vif.m_clk_div),
+        .tx_data(vif.m_tx_data),
+        .start  (vif.m_start),
+        .rx_data(vif.m_rx_data),
+        .done   (vif.m_done),
+        .busy   (vif.m_busy),
+        .*
+    );
+
+    spi_slave U_SPI_SS (
+        .clk        (clk),
+        .rst        (rst),
+        //spi_protocals
+        .*,
+        //slave I/O
+        .slv_tx_data(vif.s_slv_tx_data),
+        .slv_rx_data(vif.s_slv_rx_data),
+        .done       (vif.s_done)
+    );
 
     initial begin
         clk = 0;
-        rst_n = 0;
-        repeat (5) @(posedge pclk);
-        rst_n = 1;
+        rst = 1;
+        repeat (5) @(posedge clk);
+        rst = 0;
     end
-    
+
     initial begin
         uvm_config_db#(virtual SPI_if)::set(null, "*", "vif", vif);
         run_test();
