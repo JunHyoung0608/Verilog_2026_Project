@@ -98,11 +98,13 @@ module i2c_salve #(
                     end
                 end
                 WAIT_DATA: begin
-                    rx_shift_reg <= 0;
-                    tx_shift_reg <= tx_data;
-                    state        <= DATA;
+                    if (scl_negedge) begin
+                        rx_shift_reg <= 0;
+                        tx_shift_reg <= tx_data;
+                        state        <= DATA;
 
-                    sda_r        <= (is_m_read) ? ~(tx_data[7]) : 1'b0;
+                        sda_r        <= (is_m_read) ? ~(tx_data[7]) : 1'b0;
+                    end
                 end
                 DATA: begin
                     if (scl_posedge) begin
@@ -132,7 +134,7 @@ module i2c_salve #(
                     if (scl_negedge) begin
                         state <= CHECK_NACK;
                         if (!is_m_read) begin  //master is writing
-                            sda_r <= ack_in;
+                            sda_r <= 1;
                         end else begin  //master is reading
                             sda_r <= 1'b0;
                         end
@@ -142,11 +144,11 @@ module i2c_salve #(
                 CHECK_NACK: begin
                     if (scl_posedge) begin
                         if (!is_m_read) begin  //master is reading
-                            state <= (sda_r) ? WAIT_DATA : STOP;
+                            state <=  STOP;
                             done  <= (sda_r);
                         end else begin  // master is reading
-                            state <= (sda) ? WAIT_DATA : STOP;
-                            done  <= (sda);
+                            state <= (sda_r) ? STOP : WAIT_DATA;
+                            done  <= 1'b1;
                         end
                     end
                 end

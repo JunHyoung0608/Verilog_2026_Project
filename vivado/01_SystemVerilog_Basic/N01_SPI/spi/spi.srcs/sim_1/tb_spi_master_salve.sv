@@ -87,19 +87,19 @@ module tb_spi_master_salve ();
         @(posedge clk);
 
         //master -> slave
-        // spi_set_mode(0);
-        // spi_send_data(8'h55);
+        spi_set_mode(0);
+        spi_send_data(8'h55);
 
-        // spi_set_mode(1);
-        // spi_send_data(8'h55);
+        spi_set_mode(1);
+        spi_send_data(8'h55);
 
-        // spi_set_mode(2);
-        // spi_send_data(8'h55);
+        spi_set_mode(2);
+        spi_send_data(8'h55);
 
-        // spi_set_mode(3);
-        // spi_send_data(8'h55);
+        spi_set_mode(3);
+        spi_send_data(8'h55);
 
-        // master -> slave
+        // master <- slave
         spi_set_mode(0);
         spi_get_data(8'haa);
 

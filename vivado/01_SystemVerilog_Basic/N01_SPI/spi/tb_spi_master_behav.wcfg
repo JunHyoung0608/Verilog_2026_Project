@@ -12,12 +12,12 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="3435000fs"></ZoomEndTime>
-      <Cursor1Time time="526127fs"></Cursor1Time>
+      <ZoomEndTime time="6795000fs"></ZoomEndTime>
+      <Cursor1Time time="4245000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="212"></NameColumnWidth>
-      <ValueColumnWidth column_width="98"></ValueColumnWidth>
+      <ValueColumnWidth column_width="94"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="2" />
    <wvobject fp_name="group61" type="group">
@@ -67,6 +67,8 @@
       <wvobject fp_name="/tb_spi_master_salve/dut_master/sclk" type="logic">
          <obj_property name="ElementShortName">sclk</obj_property>
          <obj_property name="ObjectShortName">sclk</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
       </wvobject>
       <wvobject fp_name="/tb_spi_master_salve/dut_master/mosi" type="logic">
          <obj_property name="ElementShortName">mosi</obj_property>
@@ -167,10 +169,6 @@
          <obj_property name="ElementShortName">sclk_negedge</obj_property>
          <obj_property name="ObjectShortName">sclk_negedge</obj_property>
       </wvobject>
-      <wvobject fp_name="/tb_spi_master_salve/dut_salve/cs_n_negedge" type="logic">
-         <obj_property name="ElementShortName">cs_n_negedge</obj_property>
-         <obj_property name="ObjectShortName">cs_n_negedge</obj_property>
-      </wvobject>
       <wvobject fp_name="/tb_spi_master_salve/dut_salve/tx_shift_reg" type="array">
          <obj_property name="ElementShortName">tx_shift_reg[7:0]</obj_property>
          <obj_property name="ObjectShortName">tx_shift_reg[7:0]</obj_property>
@@ -184,10 +182,6 @@
       <wvobject fp_name="/tb_spi_master_salve/dut_salve/bit_cnt" type="array">
          <obj_property name="ElementShortName">bit_cnt[2:0]</obj_property>
          <obj_property name="ObjectShortName">bit_cnt[2:0]</obj_property>
-      </wvobject>
-      <wvobject fp_name="/tb_spi_master_salve/dut_salve/mode_r" type="array">
-         <obj_property name="ElementShortName">mode_r[1:0]</obj_property>
-         <obj_property name="ObjectShortName">mode_r[1:0]</obj_property>
       </wvobject>
    </wvobject>
 </wave_config>
