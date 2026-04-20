@@ -12,17 +12,17 @@ class SPI_coverage extends uvm_subscriber #(SPI_seq_item);
 
     covergroup SPI_cg;
         cp_m_tx_data: coverpoint tx.m_tx_data {
-            bins all_zeros = {32'h0000_0000};
-            bins all_ones = {32'hffff_ffff};
-            bins all_a = {32'haaaa_aaaa};
-            bins all_5 = {32'h5555_5555};
+            bins all_zeros = {8'h00};
+            bins all_ones = {8'hff};
+            bins all_a = {8'haa};
+            bins all_5 = {8'h55};
             bins other = default;
         }
         cp_s_tx_data: coverpoint tx.s_slv_tx_data {
-            bins all_zeros = {32'h0000_0000};
-            bins all_ones = {32'hffff_ffff};
-            bins all_a = {32'haaaa_aaaa};
-            bins all_5 = {32'h5555_5555};
+            bins all_zeros = {8'h00};
+            bins all_ones = {8'hff};
+            bins all_a = {8'haa};
+            bins all_5 = {8'h55};
             bins other = default;
         }
     endgroup
