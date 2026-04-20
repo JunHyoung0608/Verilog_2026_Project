@@ -81,4 +81,42 @@ class I2C_write_seq extends I2C_base_seq;
     endtask
 endclass
 
+class I2C_rand_seq extends I2C_base_seq;
+    `uvm_object_utils(I2C_rand_seq);
+    int num_loop = 256;
+
+
+    function new(string name = "I2C_rand_seq");
+        super.new(name);
+    endfunction  //new()
+
+    virtual task body();
+        I2C_seq_item item = I2C_seq_item::type_id::create("item");
+        for (int i = 0; i < num_loop; i++) begin
+            do_write(8'h12, i);
+        end
+        for (int i = 0; i < num_loop; i++) begin
+            do_read(8'h12, i);
+        end
+    endtask
+
+    task do_read(bit [7:0] addr_in, bit [7:0] data);
+        I2C_seq_item item;
+        item = I2C_seq_item::type_id::create("item");
+        start_item(item);
+        slv_ack_in = 0;
+        if (!item.randomize() with {
+                m_is_read == 1;
+                m_tx_data == 0;
+            })
+
+            `uvm_fatal(get_type_name(), "do_read() Ramdomization Fail!")
+        addr = 8'h12;
+        finish_item(item);
+        `uvm_info(get_type_name(), $sformatf(
+                                       "do_read() 전송 완료: addr=0x%02h, s_tx_data=0x%08h",
+                                       addr, item.s_tx_data), UVM_MEDIUM)
+    endtask
+endclass
+
 `endif

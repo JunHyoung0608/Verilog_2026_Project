@@ -28,10 +28,10 @@ module i2c_salve #(
     logic scl_ff1, scl_ff2, scl_posedge, scl_negedge;
     i2c_state_e state;
     logic [2:0] bit_cnt;
-    logic is_m_read, sda_r;
+    logic is_m_read, sda_ctrl;
     logic [7:0] tx_shift_reg, rx_shift_reg;
 
-    assign sda  = (sda_r) ? 1'b0 : 1'bz;
+    assign sda  = (sda_ctrl) ? 1'bz : 1'b0;
     assign busy = (state != IDLE);
 
     always_ff @(posedge clk or posedge rst) begin : blockName
@@ -49,7 +49,7 @@ module i2c_salve #(
     always_ff @(posedge clk or posedge rst) begin : i2c_salve
         if (rst) begin
             state <= IDLE;
-            sda_r <= 0;
+            sda_ctrl <= 1;
             is_m_read <= 0;
             bit_cnt <= 0;
             rx_shift_reg <= 0;
@@ -62,7 +62,7 @@ module i2c_salve #(
                         tx_shift_reg <= 0;
                         rx_shift_reg <= 0;
                         state        <= ADDR;
-                        sda_r        <= 1'b0;
+                        sda_ctrl     <= 1'b1;
                     end
                 end
                 ADDR: begin
@@ -75,10 +75,10 @@ module i2c_salve #(
                         end else if (bit_cnt == 7) begin
                             bit_cnt <= 0;
                             state   <= ADDR_ACK;
-                            if (!sda) begin  // master is writing
-                                is_m_read <= 1'b0;
-                            end else begin  // master is reading
+                            if (sda) begin  // master is reading
                                 is_m_read <= 1'b1;
+                            end else begin  // master is writing
+                                is_m_read <= 1'b0;
                             end
                         end
                     end
@@ -87,7 +87,7 @@ module i2c_salve #(
                     if (scl_posedge) begin
                         // Check Addr
                         if (rx_shift_reg == SLA) begin
-                            sda_r <= 1'b1;
+                            sda_ctrl <= 1'b0;
                             if (is_m_read) begin
                                 done <= 1'b1;
                             end
@@ -103,16 +103,16 @@ module i2c_salve #(
                         tx_shift_reg <= tx_data;
                         state        <= DATA;
 
-                        sda_r        <= (is_m_read) ? ~(tx_data[7]) : 1'b0;
+                        sda_ctrl     <= (is_m_read) ? (tx_data[7]) : 1'b1;
                     end
                 end
                 DATA: begin
                     if (scl_posedge) begin
                         if (is_m_read) begin  // master is reading
-                            sda_r        <= ~(tx_shift_reg[7]);
+                            sda_ctrl     <= (tx_shift_reg[7]);
                             tx_shift_reg <= {tx_shift_reg[6:0], 1'b0};
                         end else begin  // master is writing
-                            sda_r <= 1'b0;
+                            sda_ctrl <= 1'b1;
                             rx_shift_reg <= {rx_shift_reg[6:0], sda};
                         end
                         bit_cnt <= bit_cnt + 1;
@@ -126,17 +126,17 @@ module i2c_salve #(
                 DATA_ACK: begin
                     if (scl_posedge) begin
                         if (!is_m_read) begin  //master is writing
-                            sda_r <= 1'b1;
+                            sda_ctrl <= 1'b0;
                         end else begin  //master is reading
-                            sda_r <= 1'b0;
+                            sda_ctrl <= 1'b1;
                         end
                     end
                     if (scl_negedge) begin
                         state <= CHECK_NACK;
                         if (!is_m_read) begin  //master is writing
-                            sda_r <= ack_in;
+                            sda_ctrl <= ack_in;
                         end else begin  //master is reading
-                            sda_r <= 1'b0;
+                            sda_ctrl <= 1'b1;
                         end
                         state <= CHECK_NACK;
                     end
@@ -144,10 +144,10 @@ module i2c_salve #(
                 CHECK_NACK: begin
                     if (scl_posedge) begin
                         if (!is_m_read) begin  //master is reading
-                            state <= (sda_r) ? WAIT_DATA : STOP;
-                            done  <= (sda_r);
+                            state <= (sda_ctrl) ? WAIT_DATA : STOP;
+                            done  <= (sda_ctrl);
                         end else begin  // master is reading
-                            state <= (sda_r) ? STOP : WAIT_DATA;
+                            state <= (sda_ctrl) ? STOP : WAIT_DATA;
                             done  <= 1'b1;
                         end
                     end

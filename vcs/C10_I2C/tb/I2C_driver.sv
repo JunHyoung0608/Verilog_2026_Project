@@ -66,33 +66,34 @@ class I2C_driver extends uvm_driver #(I2C_seq_item);
 
     task drive_I2C(I2C_seq_item tr);
         @(vif.drv_cb);
-        `uvm_info(get_type_name(), $sformatf("drv I2C 구동 완료: %s", tr.convert2string()),
-                  UVM_MEDIUM)
+        `uvm_info(get_type_name(), $sformatf("IDLE: %s", tr.convert2string()), UVM_MEDIUM)
         wait (!vif.drv_cb.m_busy);
         @(vif.drv_cb);
+        //START
         cmd_init(1);
         wait (vif.drv_cb.m_done);
         @(vif.drv_cb);
-        `uvm_info(get_type_name(), $sformatf("start->ADDR"), UVM_MEDIUM)
 
-        cmd_init(2);
+        //ADDR
         vif.drv_cb.m_tx_data <= {8'h12, tr.m_is_read};
+        `uvm_info(get_type_name(), $sformatf("start->ADDR"), UVM_MEDIUM)
+        cmd_init(2);
+        vif.drv_cb.s_tx_data <= tr.s_tx_data;
+        wait (vif.drv_cb.m_done);
+        @(vif.drv_cb);
 
+        //DATA
         if (tr.m_is_read) begin
-            wait (vif.drv_cb.m_done);
-            @(vif.drv_cb);
-
-            `uvm_info(get_type_name(), $sformatf("ADDR->DATA"), UVM_MEDIUM)
             cmd_init(3);
-            vif.drv_cb.s_tx_data <= tr.s_tx_data;
         end else begin
-            wait (vif.drv_cb.m_done);
-            @(vif.drv_cb);
-
-            `uvm_info(get_type_name(), $sformatf("ADDR->DATA"), UVM_MEDIUM)
-            cmd_init(2);
             vif.drv_cb.m_tx_data <= tr.m_tx_data;
+            cmd_init(2);
         end
+        `uvm_info(get_type_name(), $sformatf("ADDR->DATA"), UVM_MEDIUM)
+        wait (vif.drv_cb.m_done);
+        @(vif.drv_cb);
+
+        
         wait (vif.drv_cb.m_done);
         @(vif.drv_cb);
 

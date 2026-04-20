@@ -2,11 +2,11 @@ Magic 271485
 Revision Verdi_W-2024.09-SP2
 
 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
-viewPort 0 25 1701 618 141 65
+viewPort 0 25 1701 576 141 63
 
 ; File list:
 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
-openDirFile -d / "" "/home/hedu22/PROJECT/Verilog_2026_Project/vcs/C10_I2C/novas.fsdb"
+openDirFile -d / "" "/home/hedu22/PROJECT/Verilog_2026_Project/vcs/C10_I2C/inter.fsdb"
 
 ; file time scale:
 ; fileTimeScale ### s|ms|us|ns|ps
@@ -16,16 +16,16 @@ signalSpacing 5
 
 ; windowTimeUnit is used for zoom, cursor & marker
 ; waveform viewport range
-zoom 25600016250.000000 76800048750.000000
-cursor 45712555000.000000
-marker 0.000000
+zoom 81177242309.957962 81504922309.957962
+cursor 81292575000.000000
+marker 190065.000000
 
 ; user define markers
 ; userMarker time_pos marker_name color linestyle
 ; visible top row signal index
-top 0
+top 10
 ; marker line index
-markerPos 27
+markerPos 31
 
 ; event list
 ; addEvent event_name event_expression
@@ -45,57 +45,58 @@ COMPLEX_EVENT_END
 curSTATUS ByChange
 
 
-addGroup "U_I2C_MASTER_CORE"
-addSubGroup "U_MASTER"
-activeDirFile "" "/home/hedu22/PROJECT/Verilog_2026_Project/vcs/C10_I2C/novas.fsdb"
+addGroup "U_MASTER"
+activeDirFile "" "/home/hedu22/PROJECT/Verilog_2026_Project/vcs/C10_I2C/inter.fsdb"
 addSignal -h 15 /tb_I2C/U_MASTER/clk
-addSignal -h 15 -holdScope rst
-addSignal -h 15 -holdScope cmd_start
-addSignal -h 15 -holdScope cmd_write
-addSignal -h 15 -holdScope cmd_read
-addSignal -h 15 -holdScope cmd_stop
-addSignal -h 15 -UNSIGNED -HEX -holdScope tx_data[7:0]
-addSignal -h 15 -holdScope ack_in
-addSignal -h 15 -UNSIGNED -HEX -holdScope rx_data[7:0]
-addSignal -h 15 -holdScope done
-addSignal -h 15 -holdScope ack_out
-addSignal -h 15 -holdScope busy
-addSignal -h 15 -holdScope scl
-addSignal -h 15 -holdScope sda
+addSignal -h 15 /tb_I2C/U_MASTER/rst
+addSignal -h 15 /tb_I2C/U_MASTER/cmd_start
+addSignal -h 15 /tb_I2C/U_MASTER/cmd_write
+addSignal -h 15 /tb_I2C/U_MASTER/cmd_read
+addSignal -h 15 /tb_I2C/U_MASTER/cmd_stop
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_MASTER/tx_data[7:0]
+addSignal -h 15 /tb_I2C/U_MASTER/ack_in
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_MASTER/rx_data[7:0]
+addSignal -h 15 /tb_I2C/U_MASTER/done
+addSignal -h 15 /tb_I2C/U_MASTER/ack_out
+addSignal -h 15 /tb_I2C/U_MASTER/busy
+addSignal -h 15 /tb_I2C/U_MASTER/scl
+addSignal -h 15 /tb_I2C/U_MASTER/sda
 addSignal -h 15 -UNSIGNED /tb_I2C/U_MASTER/U_I2C_MASTER_CORE/state[2:0]
-endSubGroup "U_MASTER"
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_MASTER/U_I2C_MASTER_CORE/rx_shift_reg[7:0]
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_MASTER/U_I2C_MASTER_CORE/tx_shift_reg[7:0]
 addGroup "U_SLAVE"
 addSignal -h 15 /tb_I2C/U_SLAVE/clk
-addSignal -h 15 -holdScope rst
-addSignal -h 15 -holdScope scl
-addSignal -h 15 -holdScope sda
-addSignal -h 15 -UNSIGNED -HEX -holdScope tx_data[7:0]
-addSignal -h 15 -holdScope ack_in
-addSignal -h 15 -UNSIGNED -HEX -holdScope rx_data[7:0]
-addSignal -h 15 -holdScope busy
-addSignal -h 15 -holdScope done
-addSignal -h 483 -UNSIGNED -HEX -holdScope rx_shift_reg[7:0]
-addSignal -h 15 -UNSIGNED -holdScope state[2:0]
+addSignal -h 15 /tb_I2C/U_SLAVE/rst
+addSignal -h 15 /tb_I2C/U_SLAVE/scl
+addSignal -h 15 /tb_I2C/U_SLAVE/sda
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_SLAVE/tx_data[7:0]
+addSignal -h 15 /tb_I2C/U_SLAVE/ack_in
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_SLAVE/rx_data[7:0]
+addSignal -h 15 /tb_I2C/U_SLAVE/busy
+addSignal -h 15 /tb_I2C/U_SLAVE/done
+addSignal -h 15 -UNSIGNED /tb_I2C/U_SLAVE/state[2:0]
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_SLAVE/rx_shift_reg[7:0]
+addSignal -h 15 -UNSIGNED -HEX /tb_I2C/U_SLAVE/tx_shift_reg[7:0]
+addSignal -h 15 /tb_I2C/U_SLAVE/scl_posedge
 addGroup "G3"
 
 ; getSignalForm Scope Hierarchy Status
 ; active file of getSignalForm
-activeDirFile "" "/home/hedu22/PROJECT/Verilog_2026_Project/vcs/C10_I2C/novas.fsdb"
+activeDirFile "" "/home/hedu22/PROJECT/Verilog_2026_Project/vcs/C10_I2C/inter.fsdb"
 
 GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
 getSignalForm close
 
 "/tb_I2C"
 "/tb_I2C/U_MASTER"
-"/tb_I2C/U_SLAVE"
+"/tb_I2C/U_MASTER/U_I2C_MASTER_CORE"
 
 SCOPE_LIST_BEGIN
 "/tb_I2C"
-"/tb_I2C/U_MASTER"
-"/tb_I2C/U_SLAVE/i2c_salve"
-"/tb_I2C/U_SLAVE/blockName"
-"/tb_I2C/U_MASTER/U_I2C_MASTER_CORE"
 "/tb_I2C/U_SLAVE"
+"/tb_I2C/U_MASTER"
+"/tb_I2C/U_MASTER/U_I2C_MASTER_CORE"
+"/tb_I2C/U_MASTER/U_I2C_MASTER_CORE/i2c_master_ff"
 SCOPE_LIST_END
 
 GETSIGNALFORM_SCOPE_HIERARCHY_END

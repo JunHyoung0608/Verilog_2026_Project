@@ -42,11 +42,13 @@ class I2C_monitor extends uvm_monitor;
         `uvm_info(get_type_name(), $sformatf("start..."), UVM_MEDIUM)
         //ADDR
         wait (vif.mon_cb.cmd_write);
-        wait (vif.mon_cb.m_done);
-
-        @(vif.mon_cb);
         tr.addr      = vif.mon_cb.m_tx_data[7:1];
         tr.m_is_read = vif.mon_cb.m_tx_data[0];
+        @(vif.mon_cb);
+        wait (vif.mon_cb.m_done);
+        
+
+        @(vif.mon_cb);
         `uvm_info(get_type_name(), $sformatf("addr...%02h", tr.addr), UVM_MEDIUM)
 
         //R/W
@@ -65,6 +67,7 @@ class I2C_monitor extends uvm_monitor;
             tr.s_rx_data = vif.mon_cb.s_rx_data;
         end else begin
             // Write 완료 대기
+            wait (vif.mon_cb.m_done);
             wait (vif.mon_cb.m_done);
             @(vif.mon_cb);
             tr.m_tx_data = vif.mon_cb.m_tx_data;
