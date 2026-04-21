@@ -7,14 +7,14 @@ module mem_path (
     input        [31:0] i_ex_alu_result,
     input        [31:0] i_dmem_rdata,
     input        [31:0] i_ex_imm,
-    input        [31:0] i_ex_pc_plus_imm,
     input        [31:0] i_ex_pc_plus_4,
+    input        [31:0] i_ex_pc_plus_imm,
     //OUTPUT
     output logic [31:0] o_mem_alu_result,
     output logic [31:0] o_mem_dmem_rdata,
     output logic [31:0] o_mem_imm,
-    output logic [31:0] o_mem_pc_plus_imm,
-    output logic [31:0] o_mem_pc_plus_4
+    output logic [31:0] o_mem_pc_plus_4,
+    output logic [31:0] o_mem_pc_plus_imm
 );
 
     always_ff @(posedge clk or posedge rst) begin : mem_path_ff
@@ -28,8 +28,8 @@ module mem_path (
             o_mem_alu_result  <= i_ex_alu_result;
             o_mem_dmem_rdata  <= i_dmem_rdata;
             o_mem_imm         <= i_ex_imm;
-            o_mem_pc_plus_imm <= i_ex_pc_plus_imm;
             o_mem_pc_plus_4   <= i_ex_pc_plus_4;
+            o_mem_pc_plus_imm <= i_ex_pc_plus_imm;
         end
     end
 
