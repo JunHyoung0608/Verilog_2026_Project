@@ -2,34 +2,34 @@
 `include "../rv32i_opcode.svh"
 
 module dec_path (
-    input               i_clk,
-    input               i_rst,
+    input               clk,
+    input               rst,
     //ctrl_unit
     input               i_cu_rf_we,
     //Input
     input        [31:0] i_if_instr_data,
     input        [31:0] i_if_pc,
-    input        [31:0] i_if_pc_puls_4,
+    input        [31:0] i_if_pc_plus_4,
     input        [31:0] i_wb_mux_data,
     //Output
     output logic [31:0] o_dec_rs1,
     output logic [31:0] o_dec_rs2,
     output logic [31:0] o_dec_imm,
     output logic [31:0] o_dec_pc_plus_4,
-    output logic [31:0] o_dec_pc_plus_imm
+    output logic [31:0] o_dec_pc_plus_rs1
 );
     //register_file
     logic [31:0] rd1, rd2;
     //imm_extender
     logic [31:0] imm_data;
 
-    always_ff @(posedge i_clk or posedge i_rst) begin : dec_path_ff
-        if (i_rst) begin
+    always_ff @(posedge clk or posedge rst) begin : dec_path_ff
+        if (rst) begin
             o_dec_rs1         <= 0;
             o_dec_rs2         <= 0;
             o_dec_imm         <= 0;
             o_dec_pc_plus_4   <= 0;
-            o_dec_pc_puls_rs1 <= 0;
+            o_dec_pc_plus_rs1 <= 0;
         end else begin
             o_dec_rs1         <= rd1;
             o_dec_rs2         <= rd2;
@@ -41,8 +41,8 @@ module dec_path (
 
 
     register_file U_REG_FILE (
-        .clk  (i_clk),
-        .rst  (i_rst),
+        .clk  (clk),
+        .rst  (rst),
         .rf_we(i_cu_rf_we),
         //write
         .wa   (i_if_instr_data[11:7]),

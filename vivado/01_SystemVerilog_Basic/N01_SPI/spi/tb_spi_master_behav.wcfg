@@ -11,15 +11,120 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="6795000fs"></ZoomEndTime>
+      <ZoomStartTime time="3165000fs"></ZoomStartTime>
+      <ZoomEndTime time="4323001fs"></ZoomEndTime>
       <Cursor1Time time="4245000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="212"></NameColumnWidth>
-      <ValueColumnWidth column_width="94"></ValueColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="2" />
+   <WVObjectSize size="4" />
+   <wvobject fp_name="group58" type="group">
+      <obj_property name="label">SPI_MASTER</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="divider" fp_name="divider60">
+         <obj_property name="label">MASTER</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/clk" type="logic">
+         <obj_property name="ElementShortName">clk</obj_property>
+         <obj_property name="ObjectShortName">clk</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/start" type="logic">
+         <obj_property name="ElementShortName">start</obj_property>
+         <obj_property name="ObjectShortName">start</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/sclk" type="logic">
+         <obj_property name="ElementShortName">sclk</obj_property>
+         <obj_property name="ObjectShortName">sclk</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/mosi" type="logic">
+         <obj_property name="ElementShortName">mosi</obj_property>
+         <obj_property name="ObjectShortName">mosi</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/miso" type="logic">
+         <obj_property name="ElementShortName">miso</obj_property>
+         <obj_property name="ObjectShortName">miso</obj_property>
+         <obj_property name="CustomSignalColor">#FFD700</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/tx_data" type="array">
+         <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/rx_data" type="array">
+         <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/state" type="array">
+         <obj_property name="ElementShortName">state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">state[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/bit_cnt" type="array">
+         <obj_property name="ElementShortName">bit_cnt[2:0]</obj_property>
+         <obj_property name="ObjectShortName">bit_cnt[2:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/done" type="logic">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/tx_shift_reg" type="array">
+         <obj_property name="ElementShortName">tx_shift_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_shift_reg[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_master/rx_shift_reg" type="array">
+         <obj_property name="ElementShortName">rx_shift_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_shift_reg[7:0]</obj_property>
+         <obj_property name="Radix">BINARYRADIX</obj_property>
+      </wvobject>
+      <wvobject type="divider" fp_name="divider60">
+         <obj_property name="label">SALVE</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/slv_rx_data" type="array">
+         <obj_property name="ElementShortName">slv_rx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">slv_rx_data[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/slv_tx_data" type="array">
+         <obj_property name="ElementShortName">slv_tx_data[7:0]</obj_property>
+         <obj_property name="ObjectShortName">slv_tx_data[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/state" type="array">
+         <obj_property name="ElementShortName">state[1:0]</obj_property>
+         <obj_property name="ObjectShortName">state[1:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/rx_shift_reg" type="array">
+         <obj_property name="ElementShortName">rx_shift_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">rx_shift_reg[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/tx_shift_reg" type="array">
+         <obj_property name="ElementShortName">tx_shift_reg[7:0]</obj_property>
+         <obj_property name="ObjectShortName">tx_shift_reg[7:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/sclk_posedge" type="logic">
+         <obj_property name="ElementShortName">sclk_posedge</obj_property>
+         <obj_property name="ObjectShortName">sclk_posedge</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/sclk_negedge" type="logic">
+         <obj_property name="ElementShortName">sclk_negedge</obj_property>
+         <obj_property name="ObjectShortName">sclk_negedge</obj_property>
+      </wvobject>
+      <wvobject fp_name="/tb_spi_master_salve/dut_salve/done" type="logic">
+         <obj_property name="ElementShortName">done</obj_property>
+         <obj_property name="ObjectShortName">done</obj_property>
+      </wvobject>
+   </wvobject>
    <wvobject fp_name="group61" type="group">
       <obj_property name="label">MASTER</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -183,5 +288,9 @@
          <obj_property name="ElementShortName">bit_cnt[2:0]</obj_property>
          <obj_property name="ObjectShortName">bit_cnt[2:0]</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider60">
+      <obj_property name="label">SALVE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
    </wvobject>
 </wave_config>

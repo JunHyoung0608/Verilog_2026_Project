@@ -1,8 +1,8 @@
 `timescale 1ns / 1ps
 
 module mem_path (
-    input               i_clk,
-    input               i_rst,
+    input               clk,
+    input               rst,
     //INPUT
     input        [31:0] i_ex_alu_result,
     input        [31:0] i_dmem_rdata,
@@ -17,8 +17,8 @@ module mem_path (
     output logic [31:0] o_mem_pc_plus_4
 );
 
-    always_ff @(posedge i_clk or posedge i_rst) begin : mem_path_ff
-        if (i_rst) begin
+    always_ff @(posedge clk or posedge rst) begin : mem_path_ff
+        if (rst) begin
             o_mem_alu_result  <= 0;
             o_mem_dmem_rdata  <= 0;
             o_mem_imm         <= 0;

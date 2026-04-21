@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="290135001fs"></ZoomEndTime>
-      <Cursor1Time time="290135000fs"></Cursor1Time>
+      <ZoomEndTime time="687000001fs"></ZoomEndTime>
+      <Cursor1Time time="382545000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="212"></NameColumnWidth>
-      <ValueColumnWidth column_width="86"></ValueColumnWidth>
+      <ValueColumnWidth column_width="82"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="2" />
+   <WVObjectSize size="16" />
    <wvobject fp_name="group67" type="group">
       <obj_property name="label">MASTER</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -189,5 +189,69 @@
          <obj_property name="ObjectShortName">rx_shift_reg[7:0]</obj_property>
          <obj_property name="Radix">HEXRADIX</obj_property>
       </wvobject>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider122">
+      <obj_property name="label">Master</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/DUT/rx_data" type="array">
+      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/DUT/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/DUT/U_I2C_MASTER_CORE/tx_shift_reg" type="array">
+      <obj_property name="ElementShortName">tx_shift_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_shift_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/DUT/U_I2C_MASTER_CORE/rx_shift_reg" type="array">
+      <obj_property name="ElementShortName">rx_shift_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_shift_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/DUT/sda" type="logic">
+      <obj_property name="ElementShortName">sda</obj_property>
+      <obj_property name="ObjectShortName">sda</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/DUT/scl" type="logic">
+      <obj_property name="ElementShortName">scl</obj_property>
+      <obj_property name="ObjectShortName">scl</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/DUT/U_I2C_MASTER_CORE/state" type="array">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="divider" fp_name="divider123">
+      <obj_property name="label">SLAVE</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/U_I2C_SLV/state" type="array">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/U_I2C_SLV/rx_data" type="array">
+      <obj_property name="ElementShortName">rx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_data[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/U_I2C_SLV/tx_data" type="array">
+      <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/U_I2C_SLV/tx_shift_reg" type="array">
+      <obj_property name="ElementShortName">tx_shift_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tx_shift_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_i2c_master/U_I2C_SLV/rx_shift_reg" type="array">
+      <obj_property name="ElementShortName">rx_shift_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_shift_reg[7:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
    </wvobject>
 </wave_config>

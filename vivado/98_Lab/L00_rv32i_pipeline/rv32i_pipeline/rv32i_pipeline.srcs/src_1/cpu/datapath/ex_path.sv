@@ -2,8 +2,8 @@
 `include "../rv32i_opcode.svh"
 
 module ex_path (
-    input                       i_clk,
-    input                       i_rst,
+    input                       clk,
+    input                       rst,
     //ctrl_unit
     input  alu_control_t        i_cu_alu_control,
     input                       i_cu_alu_src_sel,
@@ -26,8 +26,8 @@ module ex_path (
     logic [31:0] alu_src2_mux_out;
     logic b_taken;
 
-    always_ff @(posedge i_clk or posedge i_rst) begin : ex_path_ff
-        if (i_rst) begin
+    always_ff @(posedge clk or posedge rst) begin : ex_path_ff
+        if (rst) begin
             o_ex_alu_result  <= 0;
             o_ex_rs2         <= 0;
             o_ex_imm         <= 0;

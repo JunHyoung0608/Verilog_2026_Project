@@ -25,12 +25,7 @@ module data_path #(
 );
     logic [31:0] o_dec_rs1, o_dec_rs2, o_dec_imm;
     logic o_if_b_taken;
-    logic [31:0]
-        o_ex_alu_result,
-        alu_result,
-        o_ex_pc_plus_4,
-        o_ex_pc_plus_imm,
-        pc_plus_imm;
+    logic [31:0] o_ex_alu_result, alu_result, o_ex_pc_plus_4, o_ex_pc_plus_imm, pc_plus_imm;
     logic [31:0] o_mem_rdata;
     logic [31:0] o_wb_mux_out;
     logic [31:0] o_pc_delay;
@@ -40,64 +35,75 @@ module data_path #(
 
 
     dec_path U_DEC_PATH (
-        .i_clk          (clk),
-        .i_rst          (rst),
+        .i_clk            (clk),
+        .i_rst            (rst),
         //ctrl_unit
-        .i_cu_rf_we     (rf_we),
-        //IF
-        .i_if_instr_data(instr_data),
-        //ID
-        .o_dec_rs1      (o_dec_rs1),
-        .o_dec_rs2      (o_dec_rs2),
-        .o_dec_imm      (o_dec_imm),
-        //WB
-        .i_wb_mux_data  (o_wb_mux_out)
+        .i_cu_rf_we       (),
+        //Input
+        .i_if_instr_data  (),
+        .i_if_pc          (),
+        .i_if_pc_plus_4   (),
+        .i_wb_mux_data    (),
+        //Output
+        .o_dec_rs1        (),
+        .o_dec_rs2        (),
+        .o_dec_imm        (),
+        .o_dec_pc_plus_4  (),
+        .o_dec_pc_plus_rs1()
     );
 
     ex_path U_EX_PATH (
-        .i_clk           (clk),
-        .i_rst           (rst),
+        .clk             (clk),
+        .rst             (rst),
         //ctrl_unit
-        .i_cu_alu_src_sel(alu_src_sel),
-        .i_cu_alu_control(alu_control),
-        //ID
-        .i_id_rs1        (o_dec_rs1),
-        .i_id_rs2        (o_dec_rs2),
-        .i_id_imm_data   (o_dec_imm),
-        //MEM
-        .o_ex_alu_result (o_ex_alu_result),
-        //WB
-        .alu_result      (alu_result),
-        .o_ex_pc_plus_imm(o_ex_pc_plus_imm),
-        //IF
-        .i_if_pc         (o_pc_delay),
-        .o_if_b_taken    (o_if_b_taken),
-        .o_ex_pc_plus_4  (o_ex_pc_plus_4),
-        .pc_plus_imm     (pc_plus_imm)
+        .i_cu_alu_control(),
+        .i_cu_alu_src_sel(),
+        //INPUT
+        .i_id_rs1        (),
+        .i_id_rs2        (),
+        .i_id_imm_data   (),
+        .i_id_pc_plus_4  (),
+        .i_id_pc_plus_imm(),
+        //OUPUT
+        .o_ex_alu_result (),
+        .o_ex_rs2        (),
+        .o_ex_imm        (),
+        .o_ex_b_taken    (),
+        .o_ex_pc_plus_4  (),
+        .o_ex_pc_plus_imm()
     );
 
     mem_path U_MEM_PATH (
-        .i_clk       (clk),
-        .i_rst       (rst),
-        //data_mem
-        .i_dmem_rdata(bus_rdata),
-        //WB
-        .o_mem_rdata (o_mem_rdata)
+        .clk              (clk),
+        .rst              (rst),
+        //INPUT
+        .i_ex_alu_result  (),
+        .i_dmem_rdata     (),
+        .i_ex_imm         (),
+        .i_ex_pc_plus_imm (),
+        .i_ex_pc_plus_4   (),
+        //OUTPUT
+        .o_mem_alu_result (),
+        .o_mem_dmem_rdata (),
+        .o_mem_imm        (),
+        .o_mem_pc_plus_imm(),
+        .o_mem_pc_plus_4  ()
     );
 
     wb_path U_WB_PATH (
         //ctrl_unit
-        .i_cu_rf_wd_sel  (rf_wd_sel),
-        //ID
-        .i_id_imm        (o_dec_imm),
-        .o_wb_mux_out    (o_wb_mux_out),
-        //EX
-        .i_ex_alu_result (alu_result),
-        .i_ex_pc_plus_imm(o_ex_pc_plus_imm),
-        .i_ex_pc_plus_4  (o_ex_pc_plus_4),
-        //MEM
-        .i_mem_rdata     (o_mem_rdata)
+        .i_cu_rf_wd_sel   (),
+        //INPUT
+        .i_mem_alu_result (),
+        .i_mem_dmem_rdata (),
+        .i_mem_imm        (),
+        .i_mem_pc_plus_imm(),
+        .i_mem_pc_plus_4  (),
+        //OUTPUT
+        .o_wb_mux_out     ()
     );
+
+
 
     //PC-----------------------------------------
 
@@ -115,13 +121,6 @@ module data_path #(
         .pc_plus_4   (o_ex_pc_plus_4),
         .o_pc        (instr_addr)
     );
-
-    always_ff @( posedge clk or posedge rst ) begin : blockName
-        if(rst)
-        o_pc_delay <= 0;
-        else
-        o_pc_delay <= instr_addr;
-    end
 
 endmodule
 
@@ -148,7 +147,7 @@ module pc (
 
     always_ff @(posedge clk or posedge rst) begin : pc_ff
         if (rst) begin
-            pc_reg   <= 0;
+            pc_reg <= 0;
             o_pc   <= 0;
         end else begin
             pc_reg <= pc_next;
