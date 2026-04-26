@@ -1,4 +1,0 @@
-	tb_SPI.U_SPI_SS.slv_rx_data	ID_YELLOW5
-	tb_SPI.U_SPI_SS.slv_tx_data	ID_YELLOW5
-	tb_SPI.U_SPI_MM.rx_data	ID_YELLOW5
-	tb_SPI.U_SPI_MM.tx_data	ID_YELLOW5
