@@ -1,108 +1,68 @@
-/*
- * gpio_counter.c
- *
- *  Created on: 2026. 4. 25.
- *      Author: wnsgu
- */
-
-
 #include <stdint.h>
-#include "xparameters.h"
-#include "xil_printf.h"
+
 #include "sleep.h"
+#include "xil_printf.h"
+#include "xparameters.h"
 
+typedef struct {
+    uint32_t CR;
+    uint32_t IDR;
+    uint32_t ODR;
+} GPIO_Typedef_t;
 
-#define GPIOA_CR   (*(uint32_t *)(XPAR_GPIO_0_S00_AXI_BASEADDR + 0x00))
-#define GPIOA_IDR  (*(uint32_t *)(XPAR_GPIO_0_S00_AXI_BASEADDR + 0x04))
-#define GPIOA_ODR  (*(uint32_t *)(XPAR_GPIO_0_S00_AXI_BASEADDR + 0x08))
+#define GPIOA_CR  (*(uint32_t*)(XPAR_GPIO_0_S00_AXI_BASEADDR + 0x00))
+#define GPIOA_IDR (*(uint32_t*)(XPAR_GPIO_0_S00_AXI_BASEADDR + 0x04))
+#define GPIOA_ODR (*(uint32_t*)(XPAR_GPIO_0_S00_AXI_BASEADDR + 0x08))
 
-#define GPIOB_CR   (*(uint32_t *)(XPAR_GPIO_1_S00_AXI_BASEADDR + 0x00))
-#define GPIOB_IDR  (*(uint32_t *)(XPAR_GPIO_1_S00_AXI_BASEADDR + 0x04))
-#define GPIOB_ODR  (*(uint32_t *)(XPAR_GPIO_1_S00_AXI_BASEADDR + 0x08))
+#define GPIOB_CR  (*(uint32_t*)(XPAR_GPIO_1_S00_AXI_BASEADDR + 0x00))
+#define GPIOB_IDR (*(uint32_t*)(XPAR_GPIO_1_S00_AXI_BASEADDR + 0x04))
+#define GPIOB_ODR (*(uint32_t*)(XPAR_GPIO_1_S00_AXI_BASEADDR + 0x08))
 
-#define GPIOC_CR   (*(uint32_t *)(XPAR_GPIO_2_S00_AXI_BASEADDR + 0x00))
-#define GPIOC_IDR  (*(uint32_t *)(XPAR_GPIO_2_S00_AXI_BASEADDR + 0x04))
-#define GPIOC_ODR  (*(uint32_t *)(XPAR_GPIO_2_S00_AXI_BASEADDR + 0x08))
+#define GPIOC_CR  (*(uint32_t*)(XPAR_GPIO_2_S00_AXI_BASEADDR + 0x00))
+#define GPIOC_IDR (*(uint32_t*)(XPAR_GPIO_2_S00_AXI_BASEADDR + 0x04))
+#define GPIOC_ODR (*(uint32_t*)(XPAR_GPIO_2_S00_AXI_BASEADDR + 0x08))
 
-int fnd_display(int counter, int step, uint32_t *fnd_digit);
+//----------------------study code------------------------------------------
 
-int main(){
-	int counter = 0;
-	int run_flag = 0;
-	uint32_t fnd_digit, fnd_data = 0;
+#define GPIOA ((GPIO_Typedef_t*)(XPAR_GPIO_0_S00_AXI_BASEADDR))
+#define GPIOB ((GPIO_Typedef_t*)(XPAR_GPIO_1_S00_AXI_BASEADDR))
+#define GPIOC ((GPIO_Typedef_t*)(XPAR_GPIO_2_S00_AXI_BASEADDR))
 
-	GPIOA_CR = 0x00;	//btn[0] = run /btn[1] = stop/btn[2] = clear
-	GPIOB_CR = 0xff;	//data_data[7:0]
-	GPIOC_CR = 0xff;	//data_digit[3:0]
-
-
-
-	xil_printf("hello\r\n");
-	while(1){
-		//xil_printf("CR: 0x%X, IDR: 0x%X\r\n", GPIOA_CR, GPIOA_IDR);
-		if(GPIOA_IDR & (1<<0)){
-			run_flag = 1;
-		} else if(GPIOA_IDR & (1<<1)){
-			run_flag = 0;
-		} else if(GPIOA_IDR & (1<<2)){
-			counter = 0;
-			run_flag = 0;
-		}
-		for(int i = 0; i < 4; i++){
-			fnd_data = fnd_display(counter, i, &fnd_digit);
-			//xil_printf("debug %d : %2x fnd_digit : %2x\r\n",counter,fnd_data, fnd_digit);
-
-			GPIOB_ODR = fnd_data;
-			GPIOC_ODR = fnd_digit;
-
-			usleep(1000);
-		}
-
-		if(run_flag){
-			counter++;
-			if(counter > 9999) counter = 0;
-		}
-	}
-
-	return 0;
+void GPIO_SetMode(GPIO_Typedef_t* GPIOx, int GPIO_PIN_x, int IO_SET) {
+    GPIOx->CR &= (IO_SET << GPIO_PIN_x);
 }
 
-int fnd_display(int counter, int step, uint32_t *fnd_digit){
-	int num = 0;
-	uint32_t fnd_data = 0;
+void GPIO_WritePin(GPIO_Typedef_t* GPIOx, int GPIO_PIN_x, int RESET) {
+    GPIOx->ODR &= (RESET) ? ~(1 << GPIO_PIN_x) : (1 << GPIO_PIN_x);
+}
 
-	switch(step){
-	case 3:
-		num = (counter / 1000) % 10;
-		*fnd_digit = 0b0111;
-		break;
-	case 2:
-		num = (counter / 100) % 10;
-		*fnd_digit = 0b1011;
-		break;
-	case 1:
-		num = (counter / 10) % 10;
-		*fnd_digit = 0b1101;
-		break;
-	case 0:
-		num = counter % 10;
-		*fnd_digit = 0b1110;
-		break;
-	}
+int main() {
+    GPIOA->CR = 0x00;
+    GPIOB->CR = 0xff;
+    GPIOC->CR = 0xff;
 
-	switch(num){
-		case 0: fnd_data = 0xc0;	break;
-		case 1: fnd_data = 0xf9;	break;
-		case 2: fnd_data = 0xa4;	break;
-		case 3: fnd_data = 0xb0;	break;
-		case 4: fnd_data = 0x99;	break;
-		case 5: fnd_data = 0x92;	break;
-		case 6: fnd_data = 0x82;	break;
-		case 7: fnd_data = 0xf8;	break;
-		case 8: fnd_data = 0x80;	break;
-		case 9: fnd_data = 0x90;	break;
-		default: fnd_data = 0xff;	break;
-	}
+    GPIO_SetMode(GPIOA, GPIO_PIN_0, INPUT);
+    GPIO_SetMode(GPIOA, GPIO_PIN_1, INPUT);
+    GPIO_SetMode(GPIOA, GPIO_PIN_2, INPUT);
+    GPIO_SetMode(GPIOA, GPIO_PIN_3, INPUT);
 
-	return fnd_data;
+    while (1) {
+        GPIOB->ODR = 0x00;
+
+        GPIO_WritePin(GPIOA, GPIO_PIN_0, RESET);
+        GPIO_WritePin(GPIOA, GPIO_PIN_1, SET);
+
+        if (GPIO_ReadPIn(GPIOA, GPIO_PIN_0)) {
+            GPIOC->ODR &= ~(1 << 0);
+            GPIO_WritePin(GPIOA, GPIO_PIN_0, RESET);
+        } else if ((GPIOA->IDR & (1 << 1))) {
+            GPIOC->ODR &= ~(1 << 1);
+        } else if ((GPIOA->IDR & (1 << 2))) {
+            GPIOC->ODR &= ~(1 << 2);
+        } else if ((GPIOA->IDR & (1 << 3))) {
+            GPIOC->ODR &= ~(1 << 3);
+        } else {
+            GPIOC->ODR |= 0xf;
+        }
+    }
 }

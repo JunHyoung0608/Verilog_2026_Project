@@ -830,8 +830,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>GPIO_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>23</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-04-26T03:36:08Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>24</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-04-27T02:36:37Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@12fb510_ARCHIVE_LOCATION">d:/class_verilog/Verilog_2026_Project/vivado/01_SystemVerilog_Basic/Z00_ip_repo/GPIO_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@12339dff_ARCHIVE_LOCATION">d:/class_verilog/Verilog_2026_Project/vivado/01_SystemVerilog_Basic/Z00_ip_repo/GPIO_1.0</xilinx:tag>
@@ -1093,6 +1093,17 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@77e3d07f_ARCHIVE_LOCATION">d:/project_2026/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@7d44cc89_ARCHIVE_LOCATION">d:/project_2026/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@25d074f9_ARCHIVE_LOCATION">d:/project_2026/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1c606a7f_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3bf3deeb_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1aa98047_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@73c47518_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b992e7d_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4eed8797_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7670defa_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@607ee90d_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@25e42d01_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@732d753b_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@433b2fec_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/GPIO_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>

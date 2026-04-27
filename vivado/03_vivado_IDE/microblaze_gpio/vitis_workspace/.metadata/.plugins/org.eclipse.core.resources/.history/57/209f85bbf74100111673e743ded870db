@@ -1,0 +1,26 @@
+/*
+ * gpio_counter.c
+ *
+ *  Created on: 2026. 4. 25.
+ *      Author: wnsgud
+ */
+
+#include <stdint.h>
+
+#include "sleep.h"
+#include "xil_printf.h"
+#include "xparameters.h"
+
+int main() {
+
+	char str[30] = {"Hello Vitis"};
+	int a, b, sim;
+	a = 10;
+	b = 20;
+	sum = a + b;
+
+	xil_printf("str : %s\n", str);
+	xil_printf(" a(%d) + b(%d) = %d\n"m a, b, sum);
+
+    return 0;
+}

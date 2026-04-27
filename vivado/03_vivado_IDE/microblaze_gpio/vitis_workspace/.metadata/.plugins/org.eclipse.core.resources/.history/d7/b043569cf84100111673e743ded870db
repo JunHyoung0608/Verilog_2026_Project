@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="gpio_counter" location="D:/project_2026/Verilog_2026_Project/04_Vitis_IDE/N01_GPIO_fnd_upcounter/worksapce/gpio_counter" platform="D:/project_2026/Verilog_2026_Project/04_Vitis_IDE/N01_GPIO_fnd_upcounter/worksapce/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm" platformUID="xilinx:basys3::0.0(custom)" systemProject="gpio_counter_system" sysConfig="design_1_wrapper" runtime="cpp" cpu="standalone_microblaze_0" cpuInstance="microblaze_0" os="standalone" mssSignature="82c24611cb8a16b312181f96a093de9f">
+  <configuration name="Debug" id="xilinx.gnu.mb.exe.debug.505961591">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.mb.exe.release.511665105" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>

@@ -48,11 +48,11 @@
 
 
 // IP VLNV: xilinx.com:user:GPIO:1.0
-// IP Revision: 23
+// IP Revision: 24
 
 (* X_CORE_INFO = "myip_v1_0,Vivado 2020.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_GPIO_2_0,myip_v1_0,{}" *)
-(* CORE_GENERATION_INFO = "design_1_GPIO_2_0,myip_v1_0,{x_ipProduct=Vivado 2020.2,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=GPIO,x_ipVersion=1.0,x_ipCoreRevision=23,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S00_AXI_DATA_WIDTH=32,C_S00_AXI_ADDR_WIDTH=4,GPIO_WIDTH=4}" *)
+(* CORE_GENERATION_INFO = "design_1_GPIO_2_0,myip_v1_0,{x_ipProduct=Vivado 2020.2,x_ipVendor=xilinx.com,x_ipLibrary=user,x_ipName=GPIO,x_ipVersion=1.0,x_ipCoreRevision=24,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,C_S00_AXI_DATA_WIDTH=32,C_S00_AXI_ADDR_WIDTH=4,GPIO_WIDTH=4}" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_GPIO_2_0 (
   io_port,
