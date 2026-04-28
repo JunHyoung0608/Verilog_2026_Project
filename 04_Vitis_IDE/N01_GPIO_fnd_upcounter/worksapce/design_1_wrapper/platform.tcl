@@ -51,3 +51,5 @@ platform config -updatehw {D:/project_2026/Verilog_2026_Project/04_Vitis_IDE/N01
 platform generate -domains 
 platform config -updatehw {D:/project_2026/Verilog_2026_Project/04_Vitis_IDE/N01_GPIO_fnd_upcounter/XSA/design_1_wrapper.xsa}
 platform generate -domains 
+platform generate -domains standalone_microblaze_0 
+platform generate -domains standalone_microblaze_0 

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;gpio_counter/src/main.c&apos; to &apos;mainaa.c&apos;" description="Rename resource &apos;main.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main.c" name="mainaa.c" stamp="1777338186597" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;gpio_counter/src/main22.c&apos; to &apos;main.c&apos;" description="Rename resource &apos;main22.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main22.c" name="main.c" stamp="1777338209052" updateReferences="true"/>
+</session>

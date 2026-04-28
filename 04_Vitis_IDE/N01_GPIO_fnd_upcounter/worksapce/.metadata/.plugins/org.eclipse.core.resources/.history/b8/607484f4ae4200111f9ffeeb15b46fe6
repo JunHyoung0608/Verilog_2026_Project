@@ -1,0 +1,27 @@
+#include <stdint.h>
+
+#include "HAL/GPIO/GPIO.h"
+#include "driver/FND/FND.h"
+#include "sleep.h"
+#include "xil_printf.h"
+#include "xparameters.h"
+
+int main() {
+    // GPIO_SetMode(GPIOA, GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7, INPUT);
+
+    FND_Init();
+
+    uint16_t counter = 0;
+    uint8_t step;
+    FND_SetNum(1234);
+    while (1) {
+        FND_DispDigit();
+        if(step%4 ==0){
+        	step = 0;
+			FND_SetNum(counter);
+			counter++;
+        }
+        step++;
+        usleep(1000);
+    }
+}

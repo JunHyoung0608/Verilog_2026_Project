@@ -1,0 +1,12 @@
+/*
+ * UpCounter.c
+ *
+ *  Created on: 2026. 4. 28.
+ *      Author: kccistc
+ */
+
+#include "UpCounter.h"
+
+void UpCounter_Init(){
+	FND_Init();p
+}
