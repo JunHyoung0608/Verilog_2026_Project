@@ -8,13 +8,6 @@
 
 hBtn_t hBtnUpDown, hBtnSetTime, hBtnMode;
 
-typedef struct {
-    uint8_t msec;
-    uint8_t sec;
-    uint8_t min;
-    uint8_t hour;
-} Watch_Time_t;
-
 Watch_Time_t* Time;
 
 void Watch_Init() {
@@ -39,12 +32,13 @@ void Watch_Run() {
     int num = Time->min * 100 + Time->sec;
 
     // delay 1sec x 10배
-    // if (millis() - prevTimeCounter < 10 - 1)
-    //     return;
-    // prevTimeCounter = millis();
+    if (millis() - prevTimeCounter < 10 - 1)
+        return;
+    prevTimeCounter = millis();
 
     // display
     FND_SetNum(num);
+    xil_printf("%02d:%02d:%2d:%03d\r\n", Time->hour, Time->min, Time->sec, Time->msec);
 
     Time_Update();
 }
