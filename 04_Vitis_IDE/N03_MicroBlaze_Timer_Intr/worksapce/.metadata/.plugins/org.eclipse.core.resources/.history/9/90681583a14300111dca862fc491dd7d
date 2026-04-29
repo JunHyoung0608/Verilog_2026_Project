@@ -1,0 +1,62 @@
+/*
+ * ap_main.c
+ *
+ *  Created on: 2026. 4. 28.
+ *      Author: kccistc
+ */
+
+#include "ap_main.h"
+
+XIntc IntrController;
+
+typedef enum {
+    UpCounter = 0,
+    Watch
+} mode_t;
+
+hBtn_t hBtnMode;
+
+void ap_init() {
+    Button_Init(&hBtnMode, GPIOA, GPIO_PIN_6);
+    SetupInterruptSystem();
+
+    Watch_Init();
+    UpCounter_Init();
+
+    TMR_SetPsc(TMR1, 100 - 1);
+    TMR_SetARR(TMR1, 1000000 - 1);
+    TMR_StartIntr(TMR1);
+    TMR_StartTimer(TMR1);
+
+    TMR_SetPsc(TMR2, 100 - 1);
+    TMR_SetARR(TMR2, 2000000 - 1);
+    TMR_StartIntr(TMR2);
+    TMR_StartTimer(TMR2);
+}
+
+void ap_excute() {
+    static mode_t mode = UpCounter;
+
+    while (1) {
+        switch (mode) {
+            case UpCounter:
+                UpCounter_Excute();
+                if (Button_GetState(&hBtnMode) == ACT_PUSHED) {
+                    mode = Watch;
+                    UpCounter_Init();
+                }
+                break;
+            case Watch:
+                Watch_Excute();
+                if (Button_GetState(&hBtnMode) == ACT_PUSHED) {
+                    mode = UpCounter;
+                }
+                break;
+            default:
+                break;
+        }
+
+        millis_inc();
+        delay_ms(1);
+    }
+}
