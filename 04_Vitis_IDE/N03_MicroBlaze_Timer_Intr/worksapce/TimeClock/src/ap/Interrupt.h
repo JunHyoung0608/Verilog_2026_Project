@@ -8,6 +8,9 @@
 #ifndef SRC_COMMON_INTERRUPT_H_
 #define SRC_COMMON_INTERRUPT_H_
 
+#include "../common/common.h"
+#include "UpCounter/UpCounter.h"
+#include "Watch/Watch.h"
 #include "Xintc.h"
 #include "xil_exception.h"
 #include "xil_printf.h"

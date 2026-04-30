@@ -12,6 +12,7 @@
 #include "../HAL/TMR/TMR.h"
 #include "../common/common.h"
 #include "../driver/Button/button.h"
+#include "../driver/LED/LED.h"
 #include "Interrupt.h"
 #include "Upcounter/UpCounter.h"
 #include "Watch/Watch.h"
@@ -19,6 +20,13 @@
 #include "xil_exception.h"
 #include "xil_printf.h"
 #include "xparameters.h"
+
+typedef enum {
+    UpCounter = 0,
+    Watch
+} mainMode_t;
+
+extern mainMode_t Mainmode;
 
 void ap_init();
 void ap_excute();

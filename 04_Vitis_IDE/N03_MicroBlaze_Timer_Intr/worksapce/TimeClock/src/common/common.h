@@ -9,6 +9,7 @@
 #define SRC_COMMON_COMMON_H_
 #include <stdint.h>
 
+#include "../HAL/TMR/TMR.h"
 #include "sleep.h"
 
 uint32_t millis();

@@ -23,6 +23,7 @@ void ap_init() {
 
 void ap_excute() {
     static mode_t mode = UpCounter;
+
     while (1) {
         switch (mode) {
             case UpCounter:

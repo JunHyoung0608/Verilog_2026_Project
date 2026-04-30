@@ -20,16 +20,16 @@ void FND_Init() {
 void FND_SetComPort(GPIO_Typedef_t* FND_Port, uint32_t Seg_Pin, int OnOff) {
     GPIO_WritePin(FND_Port, Seg_Pin, OnOff);
 }
-void FND_DispDigit(uint8_t dot) {
+void FND_DispDigit(uint8_t dot_set) {
     static uint8_t fndDigState = 0;
     fndDigState = (fndDigState + 1) % 4;
 
     switch (fndDigState) {
-        case 0: FND_DispDigit_1(dot & 0x01); break;
-        case 1: FND_DispDigit_10(dot & 0x02); break;
-        case 2: FND_DispDigit_100(dot & 0x04); break;
+        case 0: FND_DispDigit_1(dot_set & 0x01); break;
+        case 1: FND_DispDigit_10(dot_set & 0x02); break;
+        case 2: FND_DispDigit_100(dot_set & 0x04); break;
         case 3:
-            FND_DispDigit_1000(dot & 0x08);
+            FND_DispDigit_1000(dot_set & 0x08);
             break;
             // default: FND_DispDigit_1(0); break;
     }

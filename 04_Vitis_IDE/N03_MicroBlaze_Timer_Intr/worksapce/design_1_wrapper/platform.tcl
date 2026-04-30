@@ -19,3 +19,7 @@ platform active {design_1_wrapper}
 platform generate -quick
 platform generate
 platform generate -domains standalone_microblaze_0 
+platform config -updatehw {D:/Verilog_2026_Project/04_Vitis_IDE/N03_MicroBlaze_Timer_Intr/XSA/kim_wrapper.xsa}
+platform generate -domains 
+platform config -updatehw {D:/Verilog_2026_Project/04_Vitis_IDE/N03_MicroBlaze_Timer_Intr/XSA/design_1_wrapper.xsa}
+platform generate -domains 

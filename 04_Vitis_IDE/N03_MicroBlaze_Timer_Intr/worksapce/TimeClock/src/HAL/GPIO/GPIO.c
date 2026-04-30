@@ -12,6 +12,7 @@ void GPIO_SetMode(GPIO_Typedef_t* GPIOx, uint32_t GPIO_Pin, uint32_t GPIO_Dir) {
     else
         GPIOx->CR &= ~(GPIO_Pin);
 }
+
 void GPIO_WritePin(GPIO_Typedef_t* GPIOx, int GPIO_Pin, int level) {
     if (level == SET)
         GPIOx->ODR |= GPIO_Pin;

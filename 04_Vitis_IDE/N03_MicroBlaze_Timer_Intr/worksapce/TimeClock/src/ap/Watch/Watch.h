@@ -11,19 +11,29 @@
 
 #include "../../driver/Button/button.h"
 #include "../../driver/FND/FND.h"
+#include "../../driver/LED/LED.h"
+#include "../ap_main.h"
 #include "xil_printf.h"
 
 typedef struct {
-    uint8_t msec;
-    uint8_t sec;
-    uint8_t min;
     uint8_t hour;
-} Watch_Time_t;
+    uint8_t min;
+    uint8_t sec;
+    uint8_t msec;
+} WatchTime_t;
+
+extern WatchTime_t Time;
+typedef enum TimeMode {
+    HourMin = 0,
+    SecMSec
+} TimeMode_t;
 
 void Watch_Init();
+void Watch_SetTime(uint8_t hh, uint8_t mm, uint8_t ss, uint8_t ms);
 void Watch_Excute();
-void Watch_DispLoop();
-void Watch_Run();
-void Time_Update();
+void Watch_IncTime();
+void Watch_DispTime();
+void Watch_DispHourMin();
+void Watch_DispSecMSec();
 
 #endif /* SRC_AP_TIMER_TIMER_H_ */

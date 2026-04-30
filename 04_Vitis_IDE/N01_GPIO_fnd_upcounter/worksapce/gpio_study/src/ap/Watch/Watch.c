@@ -22,16 +22,16 @@ void Watch_Excute() {
 
 void Watch_DispLoop() {
     if (Time->msec > 50)
-        FND_DispDigit(0x4);
+        FND_DispDigit(0x04);
     else if (Time->msec <= 50)
-        FND_DispDigit(0x0);
+        FND_DispDigit(0x00);
 }
 
 void Watch_Run() {
     static uint32_t prevTimeCounter = 0;
     int num = Time->min * 100 + Time->sec;
 
-    // delay 1sec x 10배
+    // delay 1sec
     if (millis() - prevTimeCounter < 10 - 1)
         return;
     prevTimeCounter = millis();
@@ -46,7 +46,7 @@ void Watch_Run() {
 void Time_Update() {
     Time->msec++;
 
-    if (Time->msec == 100) {
+    if (Time->msec == 100) {  // msec
         Time->sec++;
         Time->msec = 0;
         if (Time->sec == 60) {  // sec
@@ -55,9 +55,9 @@ void Time_Update() {
             if (Time->min == 60) {  // min
                 Time->min = 0;
                 Time->hour++;
-            }
-            if (Time->hour == 24) {  // hour
-                Time->hour = 0;
+                if (Time->hour == 24) {  // hour
+                    Time->hour = 0;
+                }
             }
         }
     }

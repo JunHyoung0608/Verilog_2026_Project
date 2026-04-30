@@ -6,14 +6,22 @@
  */
 #include "Interrupt.h"
 
+#include "ap_main.h"
+
 XIntc IntrController;
 
+void TMR0_ISR(void* callbackRef) {
+}
+
+// 1msec intterupt service route
 void TMR1_ISR(void* callbackRef) {
-    xil_printf("1sec TIMER 1 ISR!\n");
+    millis_inc();
+    UpCounter_DispLoop();
+    LED_IncLoopMove();
 }
 
 void TMR2_ISR(void* callbackRef) {
-    xil_printf("2sec                        TIMER 2 ISR!\n");
+    Watch_IncTime();
 }
 
 int SetupInterruptSystem() {

@@ -30,15 +30,22 @@
 #define OFF 1
 #define ON  0
 
+#define FND_DIGIT_1    0x01
+#define FND_DIGIT_10   0x02
+#define FND_DIGIT_100  0x04
+#define FND_DIGIT_1000 0x08
+
 void FND_Init();
 void FND_SetComPort(GPIO_Typedef_t* FND_Port, uint32_t Seg_Pin, int OnOff);
-void FND_DispDigit(uint8_t dot_set);
-void FND_DispDigit_1(int dot);
-void FND_DispDigit_10(int dot);
-void FND_DispDigit_100(int dot);
-void FND_DispDigit_1000(int dot);
+void FND_DispDigit();
+void FND_DispDigit_1();
+void FND_DispDigit_10();
+void FND_DispDigit_100();
+void FND_DispDigit_1000();
 void FND_SetNum(uint16_t num);
 void FND_DispAllOn();
 void FND_DispAllOff();
+void FND_SetDP(uint16_t digit, uint8_t on_off);
+void FND_DispDP(uint8_t digit);
 
 #endif /* SRC_DRIVER_FND_FND_H_ */

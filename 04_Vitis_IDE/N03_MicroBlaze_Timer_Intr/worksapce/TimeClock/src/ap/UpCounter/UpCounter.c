@@ -8,11 +8,11 @@
 
 hBtn_t hBtnRunStop, hBtnClear;
 uint16_t counter = 0;
-static upcounter_state_t upCounterState = STOP;
+upcounter_state_t upCounterState = STOP;
 
 void UpCounter_Init() {
     Button_Init(&hBtnRunStop, GPIOA, GPIO_PIN_4);
-    Button_Init(&hBtnClear, GPIOA, GPIO_PIN_5);
+    Button_Init(&hBtnClear, GPIOA, GPIO_PIN_7);
 
     FND_Init();
     counter = 0;
@@ -20,8 +20,7 @@ void UpCounter_Init() {
 }
 
 void UpCounter_Excute() {
-    UpCounter_DispLoop();
-
+    LED_StateDisp(0, 0);
     switch (upCounterState) {
         case STOP:
             UpCounter_Stop();
@@ -49,7 +48,7 @@ void UpCounter_Excute() {
 }
 
 void UpCounter_DispLoop() {
-    FND_DispDigit(0);
+    FND_DispDigit();
 }
 
 void UpCounter_Run() {

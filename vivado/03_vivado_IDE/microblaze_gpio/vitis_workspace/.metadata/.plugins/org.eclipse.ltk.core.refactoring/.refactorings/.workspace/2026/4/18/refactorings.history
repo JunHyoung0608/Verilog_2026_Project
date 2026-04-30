@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">&#x0A;<refactoring comment="Delete resource &apos;gpio_counter/src/GPIO_selftest.c&apos;" deleteContents="false" description="Delete resource &apos;gpio_counter/src/GPIO_selftest.c&apos;" element1="/gpio_counter/src/GPIO_selftest.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1777261790202"/>&#x0A;<refactoring comment="Delete resource &apos;gpio_counter/src/aader.c&apos;" deleteContents="false" description="Delete resource &apos;gpio_counter/src/aader.c&apos;" element1="/gpio_counter/src/aader.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1777267005495"/>
-</session>

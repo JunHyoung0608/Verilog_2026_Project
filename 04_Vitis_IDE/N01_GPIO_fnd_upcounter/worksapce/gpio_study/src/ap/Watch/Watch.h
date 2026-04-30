@@ -10,6 +10,7 @@
 #include <stdint.h>
 
 #include "../../driver/Button/button.h"
+#include "../../driver/FND/FND.h"
 #include "xil_printf.h"
 
 typedef struct {

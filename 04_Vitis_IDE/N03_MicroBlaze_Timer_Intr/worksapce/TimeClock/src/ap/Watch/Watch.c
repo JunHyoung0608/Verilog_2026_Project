@@ -6,59 +6,85 @@
  */
 #include "Watch.h"
 
-hBtn_t hBtnUpDown, hBtnSetTime, hBtnMode;
-
-Watch_Time_t* Time;
+WatchTime_t Time;
+hBtn_t hBtnTimeMode;
+TimeMode_t TimeMode = HourMin;
 
 void Watch_Init() {
+    Button_Init(&hBtnTimeMode, GPIOA, GPIO_PIN_6);
+
     FND_Init();
-    Time->sec = 0, Time->min = 0, Time->hour = 0;
+    Watch_SetTime(12, 0, 0, 0);
+}
+
+void Watch_SetTime(uint8_t hh, uint8_t mm, uint8_t ss, uint8_t ms) {
+    Time.hour = hh;
+    Time.min = mm;
+    Time.sec = ss;
+    Time.msec = ms;
 }
 
 void Watch_Excute() {
-    Watch_DispLoop();
-    Watch_Run();
+    LED_StateDisp(1, TimeMode);
+
+    Watch_DispTime();
 }
 
-void Watch_DispLoop() {
-    if (Time->msec > 50)
-        FND_DispDigit(0x04);
-    else if (Time->msec <= 50)
-        FND_DispDigit(0x00);
-}
-
-void Watch_Run() {
-    static uint32_t prevTimeCounter = 0;
-    int num = Time->min * 100 + Time->sec;
-
-    // delay 1sec
-    if (millis() - prevTimeCounter < 10 - 1)
+void Watch_IncTime() {
+    if (Time.msec < 100 - 1) {
+        Time.msec++;
         return;
-    prevTimeCounter = millis();
+    }
+    Time.msec = 0;
+    if (Time.sec < 60 - 1) {
+        Time.sec++;
+        return;
+    }
+    Time.sec = 0;
 
-    // display
-    FND_SetNum(num);
-    // xil_printf("%02d:%02d:%2d:%03d\r\n", Time->hour, Time->min, Time->sec, Time->msec);
+    if (Time.min < 60 - 1) {
+        Time.min++;
+        return;
+    }
+    Time.min = 0;
 
-    Time_Update();
+    if (Time.hour < 60 - 1) {
+        Time.hour++;
+        return;
+    }
+    Time.hour = 0;
 }
 
-void Time_Update() {
-    Time->msec++;
-
-    if (Time->msec == 100) {  // msec
-        Time->sec++;
-        Time->msec = 0;
-        if (Time->sec == 60) {  // sec
-            Time->sec = 0;
-            Time->min++;
-            if (Time->min == 60) {  // min
-                Time->min = 0;
-                Time->hour++;
-                if (Time->hour == 24) {  // hour
-                    Time->hour = 0;
-                }
+void Watch_DispTime() {
+    switch (TimeMode) {
+        case HourMin:
+            Watch_DispHourMin();
+            if (Button_GetState(&hBtnTimeMode) == ACT_PUSHED) {
+                TimeMode = SecMSec;
             }
-        }
+            break;
+        case SecMSec:
+            Watch_DispSecMSec();
+            if (Button_GetState(&hBtnTimeMode) == ACT_PUSHED) {
+                TimeMode = HourMin;
+            }
+            break;
+        default:
+            break;
     }
+
+    if (Time.msec < 50) {
+        FND_SetDP(FND_DIGIT_100, ON);
+    } else {
+        FND_SetDP(FND_DIGIT_100, OFF);
+    }
+}
+
+void Watch_DispHourMin() {
+    uint16_t timeNum = Time.hour * 100 + Time.min;
+    FND_SetNum(timeNum);
+}
+void Watch_DispSecMSec() {
+    uint16_t timeNum = Time.sec * 100 + Time.msec;
+    FND_SetNum(timeNum);
 }

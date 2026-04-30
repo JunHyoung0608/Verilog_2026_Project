@@ -7,56 +7,57 @@
 
 #include "ap_main.h"
 
-XIntc IntrController;
-
-typedef enum {
-    UpCounter = 0,
-    Watch
-} mode_t;
-
-hBtn_t hBtnMode;
+hBtn_t hBtnMainMode;
+mainMode_t Mainmode = UpCounter;
 
 void ap_init() {
-    Button_Init(&hBtnMode, GPIOA, GPIO_PIN_6);
+    //-------------HW-------------------------
+    Button_Init(&hBtnMainMode, GPIOA, GPIO_PIN_5);
+    LED_Init();
     SetupInterruptSystem();
-
-    Watch_Init();
-    UpCounter_Init();
-
+    // 1Mhz -> 1us
+    TMR_SetPSC(TMR0, 100 - 1);
+    TMR_SetARR(TMR0, 0xffffffff);
+    TMR_StartIntr(TMR0);
+    TMR_StartTimer(TMR0);
+    // 1Khz -> 1ms
     TMR_SetPSC(TMR1, 100 - 1);
-    TMR_SetARR(TMR1, 1000000 - 1);
+    TMR_SetARR(TMR1, 1000 - 1);
     TMR_StartIntr(TMR1);
     TMR_StartTimer(TMR1);
-
+    // 100hz -> 10ms
     TMR_SetPSC(TMR2, 100 - 1);
-    TMR_SetARR(TMR2, 2000000 - 1);
+    TMR_SetARR(TMR2, 10000 - 1);
     TMR_StartIntr(TMR2);
     TMR_StartTimer(TMR2);
+    //-------------SW-------------------------
+    Watch_Init();
+    UpCounter_Init();
 }
 
 void ap_excute() {
-    static mode_t mode = UpCounter;
-
     while (1) {
-        switch (mode) {
+        switch (Mainmode) {
             case UpCounter:
                 UpCounter_Excute();
-                if (Button_GetState(&hBtnMode) == ACT_PUSHED) {
-                    mode = Watch;
+                if (Button_GetState(&hBtnMainMode) == ACT_PUSHED) {
+                    Mainmode = Watch;
                     UpCounter_Init();
+                    LED_DispAllOff();
                 }
                 break;
             case Watch:
                 Watch_Excute();
-                if (Button_GetState(&hBtnMode) == ACT_PUSHED) {
-                    mode = UpCounter;
+                if (Button_GetState(&hBtnMainMode) == ACT_PUSHED) {
+                    FND_SetDP(FND_DIGIT_100, OFF);
+                    Mainmode = UpCounter;
+                    LED_DispAllOff();
                 }
                 break;
             default:
                 break;
         }
 
-        millis_inc();
-        delay_ms(1);
+        // delay_ms(1);
     }
 }
