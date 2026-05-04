@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ASCII"?>
+<sdkproject:SdkProject xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:sdkproject="http://www.xilinx.com/sdkproject" name="SPI_I2C" location="D:/Verilog_2026_Project/99_presentation/L05_Micro_Blaze_SPI_I2C/worksapce/SPI_I2C" platform="D:/Verilog_2026_Project/99_presentation/L05_Micro_Blaze_SPI_I2C/worksapce/design_1_wrapper/export/design_1_wrapper/design_1_wrapper.xpfm" platformUID="xilinx:basys3::0.0(custom)" systemProject="SPI_I2C_system" sysConfig="design_1_wrapper" runtime="cpp" cpu="standalone_microblaze_0" cpuInstance="microblaze_0" os="standalone" mssSignature="e7b72eb49a9f3f46a058368f686fa763">
+  <configuration name="Debug" id="xilinx.gnu.mb.exe.debug.1444013487">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+    <lastBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <configuration name="Release" id="xilinx.gnu.mb.exe.release.1989846107" dirty="true">
+    <configBuildOptions xsi:type="sdkproject:SdkOptions"/>
+  </configuration>
+  <template appTemplateName="empty_application"/>
+</sdkproject:SdkProject>
