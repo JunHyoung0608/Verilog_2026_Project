@@ -1,0 +1,128 @@
+Magic 271485
+Revision Verdi_W-2024.09-SP2
+
+; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+viewPort 0 25 1484 767 156 133
+
+; File list:
+; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+openDirFile -d / "" "/home/hedu22/PROJECT/Verilog_2026_Project/03_UVM/C11_AXI_SPI/novas.fsdb"
+
+; file time scale:
+; fileTimeScale ### s|ms|us|ns|ps
+
+; signal spacing:
+signalSpacing 5
+
+; windowTimeUnit is used for zoom, cursor & marker
+windowTimeUnit 1ns
+
+; waveform viewport range
+zoom 0.000000 6666.000000 1n
+cursor 1535.000000
+marker 0.000000
+
+; user define markers
+; userMarker time_pos marker_name color linestyle
+; visible top row signal index
+top 25
+; marker line index
+markerPos 55
+
+; event list
+; addEvent event_name event_expression
+; curEvent event_name
+
+
+
+COMPLEX_EVENT_BEGIN
+
+
+COMPLEX_EVENT_END
+
+
+
+; toolbar current search type
+; curSTATUS search_type
+curSTATUS ByChange
+
+
+addGroup "G1"
+activeDirFile "" "/home/hedu22/PROJECT/Verilog_2026_Project/03_UVM/C11_AXI_SPI/novas.fsdb"
+addSignal -h 15 /tb_AXI_SPI/SPI_MASTER/busy
+addSignal -h 15 -UNSIGNED -HEX -holdScope clk_div[7:0]
+addSignal -h 15 -holdScope cpha
+addSignal -h 15 -holdScope cpol
+addSignal -h 15 -holdScope cs_n
+addSignal -h 15 -holdScope done
+addSignal -h 15 -holdScope miso
+addSignal -h 15 -holdScope mosi
+addSignal -h 15 -UNSIGNED -HEX -holdScope rx_data[7:0]
+addSignal -h 15 -holdScope s00_axi_aclk
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_araddr[3:0]
+addSignal -h 15 -holdScope s00_axi_aresetn
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_arprot[2:0]
+addSignal -h 15 -holdScope s00_axi_arready
+addSignal -h 15 -holdScope s00_axi_arvalid
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_awaddr[3:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_awprot[2:0]
+addSignal -h 15 -holdScope s00_axi_awready
+addSignal -h 15 -holdScope s00_axi_awvalid
+addSignal -h 15 -holdScope s00_axi_bready
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_bresp[1:0]
+addSignal -h 15 -holdScope s00_axi_bvalid
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_rdata[31:0]
+addSignal -h 15 -holdScope s00_axi_rready
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_rresp[1:0]
+addSignal -h 15 -holdScope s00_axi_rvalid
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_wdata[31:0]
+addSignal -h 15 -holdScope s00_axi_wready
+addSignal -h 15 -UNSIGNED -HEX -holdScope s00_axi_wstrb[3:0]
+addSignal -h 15 -holdScope s00_axi_wvalid
+addSignal -h 15 -holdScope sclk
+addSignal -h 15 -holdScope start
+addGroup "G2"
+addSignal -h 15 -UNSIGNED -HEX /tb_AXI_SPI/SPI_MASTER/U_SPI/bit_cnt[2:0]
+addSignal -h 15 -holdScope busy
+addSignal -h 15 -holdScope clk
+addSignal -h 15 -UNSIGNED -HEX -holdScope clk_div[7:0]
+addSignal -h 15 -holdScope cpha
+addSignal -h 15 -holdScope cpol
+addSignal -h 15 -holdScope cs_n
+addSignal -h 15 -UNSIGNED -HEX -holdScope div_cnt[7:0]
+addSignal -h 15 -holdScope done
+addSignal -h 15 -holdScope half_tick
+addSignal -h 15 -holdScope miso
+addSignal -h 15 -holdScope mosi
+addSignal -h 15 -holdScope reset
+addSignal -h 15 -UNSIGNED -HEX -holdScope rx_data[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope rx_shift_reg[7:0]
+addSignal -h 15 -holdScope sclk
+addSignal -h 15 -holdScope sclk_r
+addSignal -h 15 -holdScope start
+addSignal -h 15 -UNSIGNED -HEX -holdScope state[1:0]
+addSignal -h 15 -holdScope step
+addSignal -h 15 -UNSIGNED -HEX -holdScope tx_data[7:0]
+addSignal -h 15 -UNSIGNED -HEX -holdScope tx_shift_reg[7:0]
+addGroup "G3"
+
+; getSignalForm Scope Hierarchy Status
+; active file of getSignalForm
+activeDirFile "" "/home/hedu22/PROJECT/Verilog_2026_Project/03_UVM/C11_AXI_SPI/novas.fsdb"
+
+GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
+getSignalForm close
+
+"/tb_AXI_SPI"
+"/tb_AXI_SPI/SPI_MASTER"
+"/tb_AXI_SPI/SPI_MASTER/SIP_master_v1_0_S00_AXI_inst"
+"/tb_AXI_SPI/SPI_MASTER/U_SPI"
+
+SCOPE_LIST_BEGIN
+"/tb_AXI_SPI"
+"/tb_AXI_SPI/SPI_MASTER"
+SCOPE_LIST_END
+
+GETSIGNALFORM_SCOPE_HIERARCHY_END
+
+
