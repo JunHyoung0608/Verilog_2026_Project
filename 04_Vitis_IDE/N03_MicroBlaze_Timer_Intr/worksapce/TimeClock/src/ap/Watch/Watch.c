@@ -25,7 +25,7 @@ void Watch_SetTime(uint8_t hh, uint8_t mm, uint8_t ss, uint8_t ms) {
 }
 
 void Watch_Excute() {
-    LED_StateDisp(1, TimeMode);
+    // LED_StateDisp(1, TimeMode);
 
     Watch_DispTime();
 }
@@ -78,13 +78,28 @@ void Watch_DispTime() {
     } else {
         FND_SetDP(FND_DIGIT_100, OFF);
     }
+    static uint32_t prevShiftTime = 0;
+    uint32_t curShiftTime;
+
+    curShiftTime = millis();
+
+    if (curShiftTime - prevShiftTime >= 499) {
+        prevShiftTime = curShiftTime;
+        Disp_shiftLed(DISP_TIME_CLOCK);
+    }
 }
 
 void Watch_DispHourMin() {
     uint16_t timeNum = Time.hour * 100 + Time.min;
-    FND_SetNum(timeNum);
+
+    // FND_SetNum(timeNum);
+    Disp_Watch(timeNum);
+    Disp_SetTimeMode(DISP_TIME_HHMM);
 }
 void Watch_DispSecMSec() {
     uint16_t timeNum = Time.sec * 100 + Time.msec;
-    FND_SetNum(timeNum);
+
+    // FND_SetNum(timeNum);
+    Disp_Watch(timeNum);
+    Disp_SetTimeMode(DISP_TIME_SSMS);
 }

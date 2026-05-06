@@ -9,6 +9,7 @@
 #define SRC_COMMON_INTERRUPT_H_
 
 #include "../common/common.h"
+#include "DispService/DispService.h"
 #include "UpCounter/UpCounter.h"
 #include "Watch/Watch.h"
 #include "Xintc.h"
@@ -22,5 +23,9 @@
 void TMR1_ISR(void* callbackRef);
 void TMR2_ISR(void* callbackRef);
 int SetupInterruptSystem();
+
+void TMR0_Init();
+void TMR1_Init();
+void TMR2_Init();
 
 #endif /* SRC_COMMON_INTERRUPT_H_ */

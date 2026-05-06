@@ -91,3 +91,31 @@ void LED_DispAllOn() {
 void LED_DispAllOff() {
     LED_SetComPort(LED_DIGIT_ALL, LED_OFF);
 }
+
+//--------------------------------------------------------------------
+
+void Led_Init(hLed* hled, GPIO_Typedef_t* GPIOx, uint32_t GPIO_Pin) {
+    hled->GPIOx = GPIOx;
+    hled->GPIO_Pin = GPIO_Pin;
+    GPIO_SetMode(hled->GPIOx, hled->GPIO_Pin, OUTPUT);
+}
+
+void Led_On(hLed* hled) {  // LED 1개 On
+    GPIO_WritePin(hled->GPIOx, hled->GPIO_Pin, SET);
+}
+
+void Led_off(hLed* hled) {  // LED 1개 Off
+    GPIO_WritePin(hled->GPIOx, hled->GPIO_Pin, RESET);
+}
+
+void Led_Toggle(hLed* hled) {  // LED 1개 Toggle
+    GPIO_TogglePin(hled->GPIOx, hled->GPIO_Pin);
+}
+
+void Led_WritePort(hLed* hled, uint8_t data) {  // LED 8개값 동시에 Write
+    GPIO_WritePort(hled->GPIOx, data);
+}
+
+void Led_ReadPort(hLed* hled) {  // LED 8개값 동시에 Read
+    return (uint8_t)GPIO_ReadPort(hled->GPIOx);
+}

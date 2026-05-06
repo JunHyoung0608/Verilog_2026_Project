@@ -14,13 +14,12 @@ void UpCounter_Init() {
     Button_Init(&hBtnRunStop, GPIOA, GPIO_PIN_4);
     Button_Init(&hBtnClear, GPIOA, GPIO_PIN_7);
 
-    FND_Init();
+    // FND_Init();
     counter = 0;
-    upCounterState = STOP;
 }
 
 void UpCounter_Excute() {
-    LED_StateDisp(0, 0);
+    // LED_StateDisp(0, 0);
     switch (upCounterState) {
         case STOP:
             UpCounter_Stop();
@@ -48,7 +47,7 @@ void UpCounter_Excute() {
 }
 
 void UpCounter_DispLoop() {
-    FND_DispDigit();
+    // FND_DispDigit();
 }
 
 void UpCounter_Run() {
@@ -59,14 +58,19 @@ void UpCounter_Run() {
 
     prevTimeCounter = millis();
 
-    FND_SetNum(counter++);
+    Disp_UpCounter(counter++);
+
+    Disp_shiftLed(DISP_UP_COUNTER);
+    // FND_SetNum(counter++);
 }
 
 void UpCounter_Stop() {
-    FND_SetNum(counter);
+    // FND_SetNum(counter);
+    Disp_UpCounter(counter);
 }
 
 void UpCounter_Clear() {
     counter = 0;
-    FND_SetNum(counter);
+    // FND_SetNum(counter);
+    Disp_UpCounter(counter);
 }

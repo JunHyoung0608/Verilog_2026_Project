@@ -13,6 +13,7 @@
 #include "../common/common.h"
 #include "../driver/Button/button.h"
 #include "../driver/LED/LED.h"
+#include "DispService/DispService.h"
 #include "Interrupt.h"
 #include "Upcounter/UpCounter.h"
 #include "Watch/Watch.h"

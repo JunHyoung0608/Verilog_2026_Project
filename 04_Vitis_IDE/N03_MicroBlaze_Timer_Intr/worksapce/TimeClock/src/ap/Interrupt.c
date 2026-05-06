@@ -16,12 +16,35 @@ void TMR0_ISR(void* callbackRef) {
 // 1msec intterupt service route
 void TMR1_ISR(void* callbackRef) {
     millis_inc();
-    UpCounter_DispLoop();
-    LED_IncLoopMove();
+    Disp_ISR_Excute();
+    // UpCounter_DispLoop();
+    // LED_IncLoopMove();
 }
 
 void TMR2_ISR(void* callbackRef) {
     Watch_IncTime();
+}
+
+void TMR0_Init() {
+    // 1Mhz -> 1us
+    TMR_SetPSC(TMR0, 100 - 1);
+    TMR_SetARR(TMR0, 0xffffffff);
+    TMR_StartIntr(TMR0);
+    TMR_StartTimer(TMR0);
+}
+void TMR1_Init() {
+    // 1Khz -> 1ms
+    TMR_SetPSC(TMR1, 100 - 1);
+    TMR_SetARR(TMR1, 1000 - 1);
+    TMR_StartIntr(TMR1);
+    TMR_StartTimer(TMR1);
+}
+void TMR2_Init() {
+    // 100hz -> 10ms
+    TMR_SetPSC(TMR2, 100 - 1);
+    TMR_SetARR(TMR2, 10000 - 1);
+    TMR_StartIntr(TMR2);
+    TMR_StartTimer(TMR2);
 }
 
 int SetupInterruptSystem() {

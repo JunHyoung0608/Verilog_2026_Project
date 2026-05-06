@@ -10,7 +10,7 @@
 # source D:\Verilog_2026_Project\04_Vitis_IDE\N03_MicroBlaze_Timer_Intr\worksapce\TimeClock_system\_ide\scripts\debugger_timeclock-default.tcl
 # 
 connect -url tcp:127.0.0.1:3121
-targets -set -filter {jtag_cable_name =~ "Digilent Basys3 210183B822AAA" && level==0 && jtag_device_ctx=="jsn-Basys3-210183B822AAA-0362d093-0"}
+targets -set -filter {jtag_cable_name =~ "Digilent Basys3 210183B820D6A" && level==0 && jtag_device_ctx=="jsn-Basys3-210183B820D6A-0362d093-0"}
 fpga -file D:/Verilog_2026_Project/04_Vitis_IDE/N03_MicroBlaze_Timer_Intr/worksapce/TimeClock/_ide/bitstream/design_1_wrapper.bit
 targets -set -nocase -filter {name =~ "*microblaze*#0" && bscan=="USER2" }
 loadhw -hw D:/Verilog_2026_Project/04_Vitis_IDE/N03_MicroBlaze_Timer_Intr/worksapce/design_1_wrapper/export/design_1_wrapper/hw/design_1_wrapper.xsa -regs

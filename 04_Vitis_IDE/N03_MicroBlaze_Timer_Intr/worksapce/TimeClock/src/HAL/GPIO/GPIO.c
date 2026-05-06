@@ -28,3 +28,7 @@ void GPIO_WritePort(GPIO_Typedef_t* GPIOx, int data) {
 uint32_t GPIO_ReadPort(GPIO_Typedef_t* GPIOx) {
     return GPIOx->IDR;
 }
+
+void GPIO_TogglePin(GPIO_Typedef_t* GPIOx, int data) {
+    GPIOx->ODR ^= data;
+}

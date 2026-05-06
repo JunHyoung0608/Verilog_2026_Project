@@ -12,6 +12,7 @@
 #include "../../driver/Button/button.h"
 #include "../../driver/FND/FND.h"
 #include "../../driver/LED/LED.h"
+#include "../DispService/DispService.h"
 #include "../ap_main.h"
 #include "xil_printf.h"
 

@@ -56,5 +56,6 @@ void GPIO_WritePin(GPIO_Typedef_t* GPIOx, int GPIO_Pin, int level);
 uint32_t GPIO_ReadPin(GPIO_Typedef_t* GPIOx, int GPIO_Pin);
 void GPIO_WritePort(GPIO_Typedef_t* GPIOx, int data);
 uint32_t GPIO_ReadPort(GPIO_Typedef_t* GPIOx);
+void GPIO_TogglePin(GPIO_Typedef_t* GPIOx, int data);
 
 #endif /* SRC_HAL_GPIO_GPIO_H_ */
