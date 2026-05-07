@@ -1,11 +1,127 @@
 <mxfile host="65bd71144e">
     <diagram id="hn-LXBFFnmJyqADH3e9j" name="Page-1">
-        <mxGraphModel dx="334" dy="507" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1228" dy="260" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
-                <mxCell id="61" value="Micro Blaze&lt;div&gt;(CPU)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-                    <mxGeometry x="67" y="509" width="120" height="74" as="geometry"/>
+                <mxCell id="92" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+                    <mxGeometry x="123" y="441" width="443" height="323" as="geometry"/>
+                </mxCell>
+                <mxCell id="63" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="61" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="324.57761928013394" y="607" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="61" value="Micro Blaze&lt;div&gt;(CPU)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
+                    <mxGeometry x="131" y="556" width="154" height="102" as="geometry"/>
+                </mxCell>
+                <mxCell id="62" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;width=31.03448275862069;endSize=7.289655172413793;fillColor=default;" parent="1" edge="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="343" y="753" as="sourcePoint"/>
+                        <mxPoint x="340" y="452" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="64" value="&lt;font style=&quot;font-size: 23px;&quot;&gt;AXI BUS&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];rotation=-90;" parent="62" vertex="1" connectable="0">
+                    <mxGeometry x="0.2637" y="-6" relative="1" as="geometry">
+                        <mxPoint x="-6" y="41" as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="75" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="67" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="357" y="554" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="84" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="67" target="82">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="67" value="FND Data&lt;br&gt;&lt;div&gt;(GPIO)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="397" y="531" width="154" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="74" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="68" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="357.296315160291" y="607.0000000000001" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="85" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="68" target="83">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="68" value="FND Digit&lt;br&gt;&lt;div&gt;(GPIO)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="397" y="584.5" width="154" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="76" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="69" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="353.84803929822203" y="500.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="69" value="BTN&lt;br&gt;&lt;div&gt;(GPIO)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+                    <mxGeometry x="397" y="478" width="154" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="73" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="70" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="358.4457334321121" y="661.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="70" value="SPI Master&lt;br&gt;&lt;div&gt;(SPI)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="397" y="639" width="154" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="72" style="edgeStyle=none;html=1;startArrow=classic;startFill=1;" parent="1" source="71" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="357.296315160291" y="713.5" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="71" value="I2C Master&lt;br&gt;&lt;div&gt;(I2C)&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" parent="1" vertex="1">
+                    <mxGeometry x="397" y="691" width="154" height="45" as="geometry"/>
+                </mxCell>
+                <mxCell id="86" value="" style="edgeStyle=none;html=1;" edge="1" parent="1" source="81" target="69">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="81" value="BTN" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="597" y="485.5" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="82" value="FND_Data" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="538" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="83" value="FND_Digit" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="609" y="594" width="60" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="79" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;width=18.653846153846153;endSize=6.601923076923076;strokeColor=default;fillColor=#FFFFFF;gradientColor=none;gradientDirection=north;" edge="1" parent="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="550" y="664.0799999999999" as="sourcePoint"/>
+                        <mxPoint x="642" y="664.0799999999999" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="90" value="" style="shape=flexArrow;endArrow=classic;startArrow=classic;html=1;width=18.653846153846153;endSize=6.601923076923076;strokeColor=default;fillColor=#FFFFFF;gradientColor=none;gradientDirection=north;" edge="1" parent="1">
+                    <mxGeometry width="100" height="100" relative="1" as="geometry">
+                        <mxPoint x="551" y="713.33" as="sourcePoint"/>
+                        <mxPoint x="643" y="713.33" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="87" value="SPI" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="584" y="659" width="25" height="10.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="91" value="I2C" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+                    <mxGeometry x="585" y="709" width="25" height="10.5" as="geometry"/>
+                </mxCell>
+                <mxCell id="96" value="SPI send" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="896" y="465" width="183" height="61" as="geometry"/>
+                </mxCell>
+                <mxCell id="97" value="I2C send" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="1093" y="465" width="183" height="61" as="geometry"/>
+                </mxCell>
+                <mxCell id="98" value="GPIO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="899" y="636" width="183" height="43" as="geometry"/>
+                </mxCell>
+                <mxCell id="99" value="FND Driver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="899" y="576" width="107" height="43" as="geometry"/>
+                </mxCell>
+                <mxCell id="100" value="BTN Driver" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="1017" y="576" width="116" height="43" as="geometry"/>
+                </mxCell>
+                <mxCell id="101" value="BTN" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="1150" y="576" width="84" height="43" as="geometry"/>
+                </mxCell>
+                <mxCell id="102" value="GPIO" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+                    <mxGeometry x="1093" y="636" width="118" height="43" as="geometry"/>
                 </mxCell>
             </root>
         </mxGraphModel>

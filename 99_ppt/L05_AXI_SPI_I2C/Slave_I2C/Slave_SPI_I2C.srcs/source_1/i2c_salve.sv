@@ -123,7 +123,7 @@ module i2c_salve #(
                         bit_cnt <= bit_cnt + 1;
                         if (bit_cnt == 7) begin
                             bit_cnt <= 0;
-                            rx_data <= {rx_shift_reg[6:0], sda};
+                            rx_data <= (is_m_read)? 8'b0 : {rx_shift_reg[6:0], sda};
                             state   <= DATA_ACK;
                         end
                     end

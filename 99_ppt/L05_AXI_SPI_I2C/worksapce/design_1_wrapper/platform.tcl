@@ -31,3 +31,5 @@ platform generate -domains
 platform active {design_1_wrapper}
 platform config -updatehw {D:/Verilog_2026_Project/99_ppt/L05_AXI_SPI_I2C/XSA/design_1_wrapper.xsa}
 platform generate -domains 
+platform active {design_1_wrapper}
+bsp reload

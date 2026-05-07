@@ -1,0 +1,73 @@
+{
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.695082",
+   "Default View_TopLeft":"-286,0",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.0r6  2020-01-29 bk=1.5227 VDI=41 GEI=36 GUI=JA:10.0 non-TLS-threadsafe
+#  -string -flagsOSRD
+preplace port usb_uart -pg 1 -lvl 7 -x 2100 -y 490 -defaultsOSRD
+preplace port sys_clock -pg 1 -lvl 0 -x -10 -y 1160 -defaultsOSRD
+preplace port reset -pg 1 -lvl 0 -x -10 -y 1080 -defaultsOSRD
+preplace port uart_rx -pg 1 -lvl 0 -x -10 -y 810 -defaultsOSRD
+preplace port uart_tx -pg 1 -lvl 7 -x 2100 -y 1110 -defaultsOSRD
+preplace portBus GPIOB -pg 1 -lvl 7 -x 2100 -y 220 -defaultsOSRD
+preplace portBus GPIOA -pg 1 -lvl 7 -x 2100 -y 80 -defaultsOSRD
+preplace portBus GPIOC -pg 1 -lvl 7 -x 2100 -y 360 -defaultsOSRD
+preplace inst microblaze_0 -pg 1 -lvl 4 -x 1150 -y 990 -defaultsOSRD
+preplace inst microblaze_0_local_memory -pg 1 -lvl 5 -x 1580 -y 1000 -defaultsOSRD
+preplace inst microblaze_0_axi_periph -pg 1 -lvl 5 -x 1580 -y 560 -defaultsOSRD
+preplace inst microblaze_0_axi_intc -pg 1 -lvl 3 -x 770 -y 750 -defaultsOSRD
+preplace inst microblaze_0_xlconcat -pg 1 -lvl 2 -x 410 -y 900 -defaultsOSRD
+preplace inst mdm_1 -pg 1 -lvl 3 -x 770 -y 990 -defaultsOSRD
+preplace inst clk_wiz_1 -pg 1 -lvl 1 -x 110 -y 1150 -defaultsOSRD
+preplace inst rst_clk_wiz_1_100M -pg 1 -lvl 2 -x 410 -y 1100 -defaultsOSRD
+preplace inst axi_uartlite_0 -pg 1 -lvl 6 -x 1940 -y 500 -defaultsOSRD
+preplace inst GPIO_1 -pg 1 -lvl 6 -x 1940 -y 220 -defaultsOSRD
+preplace inst GPIO_0 -pg 1 -lvl 6 -x 1940 -y 80 -defaultsOSRD
+preplace inst GPIO_2 -pg 1 -lvl 6 -x 1940 -y 360 -defaultsOSRD
+preplace inst TMR_0 -pg 1 -lvl 6 -x 1940 -y 940 -defaultsOSRD
+preplace inst TMR_1 -pg 1 -lvl 6 -x 1940 -y 780 -defaultsOSRD
+preplace inst TMR_2 -pg 1 -lvl 6 -x 1940 -y 640 -defaultsOSRD
+preplace inst uart_0 -pg 1 -lvl 6 -x 1940 -y 1120 -defaultsOSRD
+preplace netloc microblaze_0_intr 1 2 1 590 760n
+preplace netloc microblaze_0_Clk 1 1 5 200 1200 630 1060 910 1080 1410 260 1770
+preplace netloc clk_wiz_1_locked 1 1 1 210 1140n
+preplace netloc rst_clk_wiz_1_100M_mb_reset 1 2 2 620 910 900J
+preplace netloc rst_clk_wiz_1_100M_bus_struct_reset 1 2 3 580J 1090 NJ 1090 1430
+preplace netloc rst_clk_wiz_1_100M_peripheral_aresetn 1 2 4 600 640 NJ 640 1400 280 1780
+preplace netloc mdm_1_debug_sys_rst 1 1 3 230 1000 650J 920 890
+preplace netloc sys_clock_1 1 0 1 NJ 1160
+preplace netloc reset_1 1 0 2 10 1080 NJ
+preplace netloc Net 1 6 1 NJ 220
+preplace netloc Net1 1 6 1 NJ 80
+preplace netloc Net2 1 6 1 NJ 360
+preplace netloc TMR_0_intr 1 1 6 220 790 650J 870 NJ 870 NJ 870 1760J 1020 2070
+preplace netloc TMR_1_intr 1 1 6 230 810 640J 860 NJ 860 NJ 860 NJ 860 2070
+preplace netloc TMR_2_intr 1 1 6 230 990 590J 1100 NJ 1100 1420J 910 1740J 1030 2080
+preplace netloc rx_0_1 1 0 6 NJ 810 200J 800 610J 880 NJ 880 NJ 880 1730J
+preplace netloc uart_0_tx 1 6 1 NJ 1110
+preplace netloc uart_0_rx_intr 1 1 6 220 1210 NJ 1210 NJ 1210 NJ 1210 NJ 1210 2070
+preplace netloc microblaze_0_axi_periph_M07_AXI 1 5 1 N 620
+preplace netloc axi_uartlite_0_UART 1 6 1 NJ 490
+preplace netloc microblaze_0_axi_periph_M05_AXI 1 5 1 1740 60n
+preplace netloc microblaze_0_axi_dp 1 4 1 1390 340n
+preplace netloc microblaze_0_axi_periph_M03_AXI 1 5 1 1810 540n
+preplace netloc microblaze_0_axi_periph_M04_AXI 1 5 1 1800 560n
+preplace netloc microblaze_0_intc_axi 1 2 4 650 270 NJ 270 NJ 270 1730
+preplace netloc microblaze_0_dlmb_1 1 4 1 N 970
+preplace netloc microblaze_0_axi_periph_M06_AXI 1 5 1 1790 340n
+preplace netloc microblaze_0_ilmb_1 1 4 1 N 990
+preplace netloc microblaze_0_axi_periph_M02_AXI 1 5 1 1750 200n
+preplace netloc microblaze_0_debug 1 3 1 N 980
+preplace netloc microblaze_0_axi_periph_M01_AXI 1 5 1 1760 480n
+preplace netloc microblaze_0_axi_periph_M08_AXI 1 5 1 1750 640n
+preplace netloc microblaze_0_interrupt 1 3 1 910 750n
+levelinfo -pg 1 -10 110 410 770 1150 1580 1940 2100
+pagesize -pg 1 -db -bbox -sgen -130 0 2230 1220
+"
+}
+{
+   "da_axi4_cnt":"11",
+   "da_board_cnt":"8",
+   "da_mb_cnt":"2"
+}

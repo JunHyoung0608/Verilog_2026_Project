@@ -199,7 +199,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>POLARITY</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.S00_AXI_RST.POLARITY" spirit:choiceRef="choice_list_74b5137e">ACTIVE_LOW</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.S00_AXI_RST.POLARITY" spirit:choiceRef="choice_list_9d8b0d81">ACTIVE_LOW</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -247,7 +247,7 @@
       <spirit:parameters>
         <spirit:parameter>
           <spirit:name>SENSITIVITY</spirit:name>
-          <spirit:value spirit:id="BUSIFPARAM_VALUE.RX_INTR.SENSITIVITY" spirit:choiceRef="choice_list_9ca20931">LEVEL_HIGH</spirit:value>
+          <spirit:value spirit:id="BUSIFPARAM_VALUE.RX_INTR.SENSITIVITY" spirit:choiceRef="choice_list_99a1d2b9">LEVEL_HIGH</spirit:value>
         </spirit:parameter>
       </spirit:parameters>
     </spirit:busInterface>
@@ -288,7 +288,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>00f3f7b9</spirit:value>
+            <spirit:value>c48a7012</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -304,7 +304,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>00f3f7b9</spirit:value>
+            <spirit:value>c48a7012</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -318,7 +318,7 @@
         <spirit:parameters>
           <spirit:parameter>
             <spirit:name>viewChecksum</spirit:name>
-            <spirit:value>7a0d994e</spirit:value>
+            <spirit:value>97e35ce1</spirit:value>
           </spirit:parameter>
         </spirit:parameters>
       </spirit:view>
@@ -732,16 +732,16 @@
       <spirit:enumeration>32</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
-      <spirit:name>choice_list_74b5137e</spirit:name>
-      <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
-      <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
-    </spirit:choice>
-    <spirit:choice>
-      <spirit:name>choice_list_9ca20931</spirit:name>
+      <spirit:name>choice_list_99a1d2b9</spirit:name>
       <spirit:enumeration>LEVEL_HIGH</spirit:enumeration>
       <spirit:enumeration>LEVEL_LOW</spirit:enumeration>
       <spirit:enumeration>EDGE_RISING</spirit:enumeration>
       <spirit:enumeration>EDGE_FALLING</spirit:enumeration>
+    </spirit:choice>
+    <spirit:choice>
+      <spirit:name>choice_list_9d8b0d81</spirit:name>
+      <spirit:enumeration>ACTIVE_HIGH</spirit:enumeration>
+      <spirit:enumeration>ACTIVE_LOW</spirit:enumeration>
     </spirit:choice>
     <spirit:choice>
       <spirit:name>choice_pairs_ce1226b1</spirit:name>
@@ -753,13 +753,21 @@
     <spirit:fileSet>
       <spirit:name>xilinx_verilogsynthesis_view_fileset</spirit:name>
       <spirit:file>
+        <spirit:name>hdl/uart_v1_0_S00_AXI.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
+      <spirit:file>
         <spirit:name>hdl/uart_v1_0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
-        <spirit:userFileType>CHECKSUM_00f3f7b9</spirit:userFileType>
+        <spirit:userFileType>CHECKSUM_b74e4dc5</spirit:userFileType>
       </spirit:file>
     </spirit:fileSet>
     <spirit:fileSet>
       <spirit:name>xilinx_verilogbehavioralsimulation_view_fileset</spirit:name>
+      <spirit:file>
+        <spirit:name>hdl/uart_v1_0_S00_AXI.v</spirit:name>
+        <spirit:fileType>verilogSource</spirit:fileType>
+      </spirit:file>
       <spirit:file>
         <spirit:name>hdl/uart_v1_0.v</spirit:name>
         <spirit:fileType>verilogSource</spirit:fileType>
@@ -890,8 +898,8 @@
         <xilinx:taxonomy>AXI_Peripheral</xilinx:taxonomy>
       </xilinx:taxonomies>
       <xilinx:displayName>uart_v1.0</xilinx:displayName>
-      <xilinx:coreRevision>2</xilinx:coreRevision>
-      <xilinx:coreCreationDateTime>2026-05-06T07:34:45Z</xilinx:coreCreationDateTime>
+      <xilinx:coreRevision>6</xilinx:coreRevision>
+      <xilinx:coreCreationDateTime>2026-05-07T03:23:00Z</xilinx:coreCreationDateTime>
       <xilinx:tags>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4f2db84e_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/uart_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1a654cf9_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/uart_1.0</xilinx:tag>
@@ -912,13 +920,51 @@
         <xilinx:tag xilinx:name="ui.data.coregen.dd@4036bfba_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/uart_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@2f2a57f5_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/uart_1.0</xilinx:tag>
         <xilinx:tag xilinx:name="ui.data.coregen.dd@1d7d610a_ARCHIVE_LOCATION">d:/Verilog_2026_Project/04_Vitis_IDE/Z00_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@27bebbf4_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3ea5f2bd_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4a38f257_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@692547b0_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@72da3b1d_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5c4bbdb5_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@75e8d313_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6acf07bc_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@22418fa3_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@3b48ff06_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@ba9d1e_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4437ce86_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@74f94197_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@15c7e83b_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@28fc542c_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@5b1dcb9c_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f10302_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@8f07e65_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@731ce07a_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@b6cac87_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@58c5d4f4_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7ffa84af_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1f8a7019_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2f63e651_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6e5d2e0a_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@f7a74b6_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@16cc28e8_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@eab82f9_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@1b5c67a_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4026d003_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@2b6ad871_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@21efd32e_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@6b040628_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@4baad242_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@39ecdff0_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@cfdb596_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@68d79b2d_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
+        <xilinx:tag xilinx:name="ui.data.coregen.dd@7b464e66_ARCHIVE_LOCATION">d:/Verilog_2026_Project/Z_ip_repo/uart_1.0</xilinx:tag>
       </xilinx:tags>
     </xilinx:coreExtensions>
     <xilinx:packagingInfo>
       <xilinx:xilinxVersion>2020.2</xilinx:xilinxVersion>
-      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="08860b16"/>
+      <xilinx:checksum xilinx:scope="busInterfaces" xilinx:value="4d9c6761"/>
       <xilinx:checksum xilinx:scope="memoryMaps" xilinx:value="ed1368d5"/>
-      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="72538126"/>
+      <xilinx:checksum xilinx:scope="fileGroups" xilinx:value="035ea30f"/>
       <xilinx:checksum xilinx:scope="ports" xilinx:value="5d2835bf"/>
       <xilinx:checksum xilinx:scope="hdlParameters" xilinx:value="de461eeb"/>
       <xilinx:checksum xilinx:scope="parameters" xilinx:value="e8c4947b"/>

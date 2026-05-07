@@ -3,7 +3,7 @@
 <!--                                                         -->
 <!-- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.   -->
 
-<Project Version="7" Minor="54" Path="D:/Verilog_2026_Project/99_ppt/L05_AXI_SPI_I2C/Slave_I2C/Slave_SPI_I2C.xpr">
+<Project Version="7" Minor="54" Path="D:/Verilog_2026_Project/99_PPT/L05_AXI_SPI_I2C/Slave_I2C/Slave_SPI_I2C.xpr">
   <DefaultLaunch Dir="$PRUNDIR"/>
   <Configuration>
     <Option Name="Id" Val="9eacdd0c43a9450bb32d4be83ab5e32a"/>
@@ -90,14 +90,6 @@
       </File>
       <File Path="$PSRCDIR/source_1/slave_top.sv">
         <FileInfo>
-          <Attr Name="UsedIn" Val="synthesis"/>
-          <Attr Name="UsedIn" Val="implementation"/>
-          <Attr Name="UsedIn" Val="simulation"/>
-        </FileInfo>
-      </File>
-      <File Path="$PSRCDIR/source_1/i2c_slave2.sv">
-        <FileInfo>
-          <Attr Name="AutoDisabled" Val="1"/>
           <Attr Name="UsedIn" Val="synthesis"/>
           <Attr Name="UsedIn" Val="implementation"/>
           <Attr Name="UsedIn" Val="simulation"/>
